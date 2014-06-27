@@ -1,0 +1,337 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*
+Main Styles
+*/
+
+body {
+	width: 100%;
+	background-color: #FFF;
+	color: #000;
+}
+#container {
+	width: 1000px;
+	margin: auto;
+	background-color: #FFF;
+}
+#header {
+	background-image: url(../images/fondo-cabecera.png);
+	background-repeat: repeat-x;
+	width: 100%;
+	height: 180px;
+	color: #FFF;
+}
+#footer {
+	background-color: #0066cc;
+	width: 100%;
+	color: #FFF;
+	padding: 0.5em 2em;
+	font-size: medium;
+	clear: both;
+	margin: auto;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+#content {
+	width: 100%;
+	margin: auto;
+}
+#container #content #leftsecondary {
+	float: left;
+	width: 24%;
+	background-color: #FFF;
+	border-right: thin dotted #CCC;
+	margin: 0em 0.2em;
+	padding-right: 0.4em;
+}
+#container #content #main {
+	width: 100%;
+	background-color: #FFF;
+	margin: 0em 0.2em;
+}
+a.ampliar_info:link {
+	text-decoration: none;
+	color: #0066cc;
+	font-size: small;
+}
+a.ampliar_info:hover {
+	text-decoration: underline;
+}
+a.ampliar_info:visited {
+	text-decoration: underline;
+}
+/*
+Header Styles
+*/
+
+#container #header {
+	position: relative;
+	clear: both;
+}
+#container #header h1#headertitle {
+	top: 20%;
+	margin-left: 4%;
+	display: block;
+	position: relative;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+#container #header h1#headertitle span#title_strong {
+	font-size: larger;
+}
+#container #header #buscador_header {
+	float: right;
+	padding-top: 0.5em;
+	padding-right: 0.5em;
+}
+#container #header #buscador_header input#boton_buscar {
+	vertical-align: middle;
+}
+#container #header #menu {
+	position: absolute;
+	bottom: 0;
+}
+#header #menu ul li {
+	float: left;
+	list-style: none;
+	width: 128px;
+	height: 40px;
+	padding-top: 0.5em;
+	text-align: center;
+	margin-right: 0.3em;
+	background-color: #0066cc;
+	display: block;
+}
+#header #menu ul li:hover {
+	background-color: #333333;
+	cursor: pointer;
+}
+#header #menu ul li a {
+	text-decoration: none;
+	color: inherit;
+}
+#header #menu ul li.seleccionado {
+	text-decoration: none;
+	color: inherit;
+	color: #006;
+	background-color: #99ccff;
+}
+/*
+Estilos lateral Izquierdo
+*/
+#container #content #leftsecondary h3 {
+	background-color: #0066cc;
+	padding: 0.3em;
+	color: white;
+}
+#container #content #leftsecondary #acceso_asociados .element_above {
+	display: block;
+}
+#container #content #leftsecondary #asociados img {
+	display: block;
+	margin: auto;
+	margin-top: 1em;
+	max-height: 70px;
+}
+#container #content #leftsecondary #asociados .asociado {
+	clear: both;
+	margin-top: 2em;
+}
+#container #content #leftsecondary #encuestas legend {
+	font-size: 18px !important;
+}
+#container #content #leftsecondary #encuestas {
+	font-size: small;
+}
+#container #content #leftsecondary #encuestas .element_above {
+	display: block;
+}
+#container #content #leftsecondary table {
+	border-bottom: thin solid #999;
+	border-collapse: collapse;
+	width: 90%;
+	margin: auto;
+	margin-top: 2em;
+	font-size: small;
+}
+#container #content #leftsecondary table strong.twitter {
+	color: #3BBEE4;
+}
+#container #content #leftsecondary table th {
+	font-size: small;
+	border-bottom: medium solid #0066cc;
+	background-image: url(../images/icono_twitter.jpg);
+	background-repeat: no-repeat;
+	text-align: left;
+}
+#container #content #leftsecondary table th a {
+	text-decoration: none;
+	color: inherit;
+}
+#container #content #leftsecondary div#twitter img {
+	display: block;
+	margin: auto;
+}
+#container #content #leftsecondary div#twitter table th {
+	padding-left: 3em;
+	padding-top: 0.7em;
+	padding-bottom: 0.5em;
+	background-size: 32px;
+}
+#container #content #leftsecondary div#facebook table th {
+	padding-left: 4em;
+	background-size: 45px;
+	line-height: 1.5em;
+}
+#container #content #leftsecondary table td {
+	border-bottom: 1px solid #999;
+}
+#container #content #leftsecondary #buzon a {
+	text-decoration: none;
+	color: inherit;
+}
+#container #content #leftsecondary #buzon a span {
+	line-height: 50px;
+}
+#container #content #leftsecondary #buzon img {
+	height: 50px;
+	margin-right: 1em;
+	width: 50px;
+	float: left;
+}
+#container #content #leftsecondary #twitter a {
+	text-decoration: none;
+	text-align: center;
+}
+/*
+Estilos Contenido Central
+*/
+
+#container #content #main h2 {
+	color: #333333;
+	border-bottom: medium solid #0066cc;
+	width: 90%;
+}
+/**
+Main Header - Buscador y Visita comercio 
+*/
+
+#container #content #main #main_header {
+	float: left;
+	width: 74%;
+	margin-bottom: 1em;
+	padding-left: 0.3em;
+}
+#container #content #main #main_header #buscador {
+	float: left;
+	width: 36%;
+	margin-right: 0.2em;
+}
+#container #content #main #main_header #buscador fieldset {
+	width: 85%;
+}
+#container #content #main #main_header #buscador input {
+	max-width: 15em;
+}
+#container #content #main #main_header #buscador .form_item {
+	margin: 0.4em 0;
+}
+#container #content #main #main_header #buscador .form_item label {
+	float: left;
+	width: 30%;
+}
+#container #content #main #main_header #visita_comercio {
+	float: right;
+	width: 63%;
+}
+#container #content #main #main_header #visita_comercio img {
+	width: 30%;
+	float: left;
+	margin: 0 0.3em 0.3em 0;
+}
+#container #content #main #main_header #visita_comercio a {
+	text-decoration: none;
+	color: inherit;
+	font-size: larger;
+	font-weight: bold;
+}
+#container #content #main #main_header #visita_comercio #descripcion_comercio {
+	font-style: italic;
+}
+#container #content #main #main_header #visita_comercio #direccion_comercio {
+	font-size: small;
+}
+/*Contenido - Agenda Empleo*/
+
+#container #content #main #main_content {
+	width: 74%;
+	float: left;
+	padding-left: 0.3em;
+}
+#container #content #main #main_content div.titulo_seccion {
+	font-size: large;
+	color: #333;
+}
+#container #content #main #main_content #main_footer {
+	width: 100%;
+	float: left;
+}
+#container #content #main #main_content #main_footer #agenda {
+	width: 50%;
+	float: left;
+}
+#container #content #main #main_content #main_footer #empleo {
+	width: 50%;
+	float: left;
+}
+/*
+Galeria
+*/
+#container #content #main #main_content #galeria img {
+	margin: 1em;
+	vertical-align: middle;
+}
+#container #content #main #main_content #galeria img#galeria_imagen_izq {
+	width: 20%;
+}
+#container #content #main #main_content #galeria img#galeria_imagen_centro {
+	width: 35%;
+}
+#container #content #main #main_content #galeria img#galeria_imagen_der {
+	width: 20%;
+}
+/*
+Colaboradores
+*/
+#container #colaboradores {
+	width: 100%;
+	clear: both;
+	margin: auto;
+}
+#container #colaboradores .colaborador {
+	width: 25%;
+	float: left;
+}
+#container #colaboradores .colaborador img {
+	height: 4em;
+	margin: auto;
+	margin-bottom: 0.3em;
+	padding: 1em 0em;
+	display: block;
+}
+/*
+Footer
+*/
+#container #footer #footer_right {
+	float: right;
+}
+#container #footer #validation {
+	float: right;
+	clear: both;
+}
+#container #footer a.ampliar_info {
+	color: #FFF;
+}
+#container #footer #footer_contacto {
+	font-size: small;
+	font-style: italic;
+}
