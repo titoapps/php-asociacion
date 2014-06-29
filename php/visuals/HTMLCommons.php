@@ -1,5 +1,6 @@
 <?php
 
+require_once ('php/configuration/Configuration.php');
 
 /**
  * HTML functions to draw the main html content
@@ -34,14 +35,8 @@ function drawMenuHeader ($menuOption) {
     	<div id="menu">
         	<ul>';
 
-    //TODO:Separate into enumerate or something. define doesnt work
-    $menuOptions = array(0 => 'inicio',
-                         1 => 'noticias',
-                         2 => 'asociacion',
-                         3 => 'ofertas',
-                         4 => 'agenda',
-                         5 => 'asociate',
-                         6 => 'contacto');
+    $configuration = \Configuration\Configuration::sharedInstance();
+    $menuOptions = $configuration->getMenuOptions();
 
     $menuReferences = array('index.php','news.php','asociation.php','offers.php','agenda.php','asociate.php','contact.php');
 
@@ -59,16 +54,6 @@ function drawMenuHeader ($menuOption) {
 
         echo $lineText;
     }
-
-
-
-    /*<li id="menu_inicio" class="seleccionado"><a href="index.php" name="menu_inicio" id="menu_inicio">Inicio</a></li>
-                <li id="menu_noticias"><a href="news.php" name="menu_noticias" id="menu_noticias">Noticias</a></li>
-               	<li id="menu_asociacion"><a href="#" name="menu_asociacion" id="menu_asociacion">La Asociación</a></li>
-                <li id="menu_ofertas"><a href="#" name="menu_ofertas" id="menu_ofertas">Ofertas y Promociones</a></li>
-                <li id="menu_agenda"><a href="#" name="menu_agenda" id="menu_agenda">Agenda</a></li>
-                <li id="menu_asociate"><a href="#" name="menu_asociate" id="menu_asociate">Asóciate</a></li>
-                <li id="menu_contacto"><a href="#" name="menu_contacto" id="menu_contacto">Contacto</a></li>*/
 
     echo '</ul> </div> </div>';
 

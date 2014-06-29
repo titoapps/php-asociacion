@@ -13,7 +13,7 @@
     echo ' <div id="content">';
 
     //Left menu
-    //TODO: need to implement options acording to current user
+    //TODO: need to implement options according to current user
     drawLeftMenu();
 
     //Cabecera central Buscador y Sugerencia de Visita
