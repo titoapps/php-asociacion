@@ -1,63 +1,6 @@
 <?php
 
-require_once ('php/configuration/Configuration.php');
-
-/**
- * HTML functions to draw the main html content
- *
- * @author Alberto Pérez Pérez
- */
-
-function drawCommonHeaderAndDocType (){
-
-    echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Asociación de Comerciantes de las Calles Floranes y Alonso</title>
-    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
-</head>';
-}
-
-/**
- * Draws the site header
- */
-function drawMenuHeader ($menuOption) {
-
-    echo '
-	<div id="header">
-    	<div id="buscador_header">
-        	Buscar
-            <input id="texto_busqueda" value=""/>
-            <input id="boton_buscar" type="image" name="buscar" src="images/lupa.png" title="Buscar"/>
-        </div>
-        <h1 id="headertitle">Asociación de Comerciantes<br /><span id="title_strong">Alonso y Floranes</span></h1>
-    	<div id="menu">
-        	<ul>';
-
-    $configuration = \Configuration\Configuration::sharedInstance();
-    $menuOptions = $configuration->getMenuOptions();
-
-    $menuReferences = array('index.php','news.php','asociation.php','offers.php','agenda.php','asociate.php','contact.php');
-
-    foreach ($menuOptions as $option => $optiontext) {
-
-        $lineText =  '<li id="menu_"'.$optiontext;
-
-        if ($menuOption == $option) {
-
-            $lineText = $lineText . ' class="seleccionado"';
-
-        }
-
-        $lineText = $lineText . '><a href="'.$menuReferences[$option].'" name="menu_'.$optiontext.'" id="menu_'.$optiontext.'">'.ucfirst($optiontext).'</a></li>';
-
-        echo $lineText;
-    }
-
-    echo '</ul> </div> </div>';
-
-}
+require_once('php/configuration/Configuration.php');
 
 /**
  * Draws the site left menu
@@ -87,13 +30,13 @@ function drawLeftMenu () {
             <h3>Asociados</h3>
             <div id="asociados">
             		<a href="#" id="link_asociado1" title="Floranes 19 Fruteria">
-                    	<img src="images/members/fruteriafloranes.jpg" alt="Floranes 19 Fruteria"/><br />
+                    	<img src="images/members/fruteriafloraneslogo.jpg" alt="Floranes 19 Fruteria"/><br />
                     </a>
                  	<a href="#" id="link_asociado2" title="Carnicería Eño">
-            		<img src="images/members/Carniceria logo.jpg" alt="Carnicería Eño"/><br />
+            		<img src="images/members/carnicerialogo.jpg" alt="Carnicería Eño"/><br />
                     </a>
                     <a href="#" id="link_asociado3" title="Tasca de Pedro">
-                	<img src="images/members/Tasca-Logo_Black.jpg" alt="Tasca de Pedro"/><br />
+                	<img src="images/members/tascalogo.jpg" alt="Tasca de Pedro"/><br />
                 	</a>
                 <a href="#" class="ampliar_info">Ver Asociados</a>
             </div>
@@ -228,7 +171,7 @@ function drawMainHeader () {
                 <div id="visita_comercio">
                     <h2>Visita el comercio de..</h2>
                         <!-- Info sobre un comercio, con imagen, logo.. -->
-                        <a href="#"><img src="images/members/fruteriafloranes.jpg" alt="imagen del comercio" /></a>
+                        <a href="#"><img src="images/members/fruteriafloraneslogo.jpg" alt="imagen del comercio" /></a>
 
                         <a href="#" id>Floranes 19 Fruteria</a> <br/>
 
@@ -277,9 +220,9 @@ function drawMainContent (){
                 <div id="galeria">
                     <h2>Galería</h2>
                     <div id="galeria_contenedor">
-                        <img id="galeria_imagen_izq" src="images/galery/s2_Phto0045.jpg" alt="Galeria de imagenes"/>
-                        <img id="galeria_imagen_centro" src="images/galery/floranes--253x190.jpg" alt="Galeria de imagenes"/>
-                        <img id="galeria_imagen_der" src="images/galery/imagen.jpg" alt="Galeria de imagenes"/>
+                        <img id="galeria_imagen_izq" src="images/galery/escaparatefruteria.jpg" alt="Galeria de imagenes"/>
+                        <img id="galeria_imagen_centro" src="images/galery/callefloranes.jpg" alt="Galeria de imagenes"/>
+                        <img id="galeria_imagen_der" src="images/galery/escaparatemodels.jpg" alt="Galeria de imagenes"/>
                     </div>
                 </div>
 
@@ -333,64 +276,5 @@ function drawMainContent (){
                     </div>
                 </div>
             </div>';
-
-}
-
-/**
- * Draws the partners section
- */
-function drawPartners () {
-
-    echo '
-        <div id="colaboradores">
-            <div class="colaborador">
-                <a href="http://www.ayto-santander.es" title="Ayuntamiento de Santander" id="colaborador1" target="_blank">
-                    <img src="images/partners/ayuntamiento.jpg" alt="Ayuntamiento de Santander"/>
-                </a>
-            </div>
-            <div class="colaborador">
-                <a href="http://www.cantabria.es" title="Gobierno de Cantabria" id="colaborador2" target="_blank">
-                    <img src="images/partners/gobierno.jpg" alt="Gobierno de Cantabria"/>
-                </a>
-            </div>
-            <div class="colaborador">
-                <a href="http://www.mahou.es" title="Mahou" id="colaborador3" target="_blank">
-                    <img src="images/partners/mahou.jpg" alt="Mahou"/>
-                </a>
-            </div>
-            <div class="colaborador">
-                <a href="http://www.perasderincondesoto.com" title="Peras de Rincon de Soto" id="colaborador4" target="_blank">
-                    <img src="images/partners/rinconsoto.jpg" alt="Peras de Rincon de Soto"/>
-                </a>
-            </div>
-        </div>';
-
-}
-
-/**
- * Draws the site footer
- */
-function drawFooter () {
-
-    echo '<div id="footer">
-            <p id="footer_right">Diseño y Desarrollo :
-            <a class="ampliar_info" href="http://www.albertoperezperez.com" target="new">www.albertoperezperez.com</a></p>
-
-            <p id="validation">
-                <a href="http://validator.w3.org/check?uri=referer">
-                <img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
-                </a>
-
-                <a href="http://jigsaw.w3.org/css-validator/check/referer">
-                <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="¡CSS Válido!" />
-                </a>
-            </p>
-
-            <p>Copyright 2013. Asociación de Comerciantes de las calles Alonso y Floranes.</p>
-            <p id="footer_contacto">C/ Floranes 27 Bajo, 39010 Santander, Cantabria. CIF Z99999999<br/>Teléfono: 942909090 <br/>Email:
-            <a class="ampliar_info" href="#">webmaster@asocalofloranes.com</a>
-            </p>
-
-        </div>';
 
 }

@@ -109,7 +109,7 @@ Header Styles
 	text-decoration: none;
 	color: inherit;
 }
-#header #menu ul li.seleccionado {
+#header #menu ul li.selected {
 	text-decoration: none;
 	color: inherit;
 	color: #006;

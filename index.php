@@ -1,14 +1,15 @@
 <?php
-    require_once('php/visuals/HTMLCommons.php');
+    require_once('php/visuals/commonsHTML.php');
 
-    drawCommonHeaderAndDocType();
+    include_once('php/visuals/headHTML.php');
+
 
     echo ' <body> ';
     echo '<div id="container">';
 
     //header
     //TODO: need to insert the current displayed option
-    drawMenuHeader(0);
+    include_once('php/visuals/mainMenu.php');
 
     echo ' <div id="content">';
 
@@ -22,22 +23,25 @@
     //cabecera central
     drawMainHeader();
 
-    //contenerdor central
+    //contenedor central
     drawMainContent();
 
-    echo '</div>';
+    echo '</div>'; // main div
 
     //Colaboradores: Ayuntamiento, diputación
-    drawPartners();
+    include_once('php/visuals/partners.php');
     //<!-- Footer -->
-    drawFooter();
-	echo '</div>
+    include_once('php/visuals/footer.php');
 
-</div>
+	echo '</div><!--Content div-->
+
+</div><!--container div-->
 </body>
 </html>';
 
 ?>
+
+
 
 
     

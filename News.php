@@ -1,9 +1,5 @@
 
 
-<body>
-
-<!-- Contenedor Principal-->
-<div id="container">
 <?php
 /**
  * Created by PhpStorm.
@@ -11,15 +7,27 @@
  * Date: 27/06/14
  * Time: 18:11
  */
-require_once('php/visuals/HTMLCommons.php');
+require_once('php/model/News.class.php');
 
-drawCommonHeaderAndDocType();
-drawMenuHeader(1);
-drawPartners();
-drawFooter();
+$newsToShow =  News::getCurrentNews();
+
+echo '<h1>Noticias</h1> ';
+
+if ($newsToShow !=null) {
+
+    foreach ($newsToShow as $key => $new) {
+
+        $title = $new->getValueDecoded('title');
+        $subtitle = $new->getValueDecoded('subtitle');
+        $description = $new->getValueDecoded('description');
+        echo '<li>'.$title. '</li></br>';
+        echo '<li>'.$subtitle. '</li></br>';
+        echo '<li>'.$description. '</li></br>';
+
+
+    }
+
+}
+
+
 ?>
-
-
-</div>
-</body>
-</html>
