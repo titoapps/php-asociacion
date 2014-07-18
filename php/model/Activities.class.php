@@ -6,6 +6,8 @@
  * Time: 19:33
  */
 
+require_once "DataObject.class.php";
+
 class Activities  extends DataObject {
 
     protected $data = array(
@@ -15,24 +17,30 @@ class Activities  extends DataObject {
 
     );
 
-    public static function getActivities( $id ) {
+    public static function getActivities() {
+
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_ACTIVITIES. " WHERE idActivity = :idActivity";
+        $sql = "SELECT * FROM " . TBL_ACTIVITIES. ' order by name';
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idActivity", $id, PDO::PARAM_INT );
             $st->execute();
-            $row = $st->fetch();
 
-            parent::disconnect( $conn );
+            $result = array();
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new Activities( $row );
+            }
 
-            if ( $row )
-                return new News( $row );
+            if ($result)
+                return $result;
+
+            parent::disconnect($conn);
 
         } catch ( PDOException $e ) {
+
             parent::disconnect( $conn );
             die( "Query failed: " . $e->getMessage() );
+
         }
     }
 

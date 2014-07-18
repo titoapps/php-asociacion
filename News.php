@@ -1,8 +1,7 @@
 
-
 <?php
 /**
- * Created by PhpStorm.
+ * Retrieves the current news to show and builds an html
  * User: albertoperezperez
  * Date: 27/06/14
  * Time: 18:11
@@ -11,7 +10,7 @@ require_once('php/model/News.class.php');
 
 $newsToShow =  News::getCurrentNews();
 
-echo '<h1>Noticias</h1> ';
+echo '<h2>Noticias</h2> ';
 
 if ($newsToShow !=null) {
 
@@ -20,14 +19,22 @@ if ($newsToShow !=null) {
         $title = $new->getValueDecoded('title');
         $subtitle = $new->getValueDecoded('subtitle');
         $description = $new->getValueDecoded('description');
-        echo '<li>'.$title. '</li></br>';
-        echo '<li>'.$subtitle. '</li></br>';
-        echo '<li>'.$description. '</li></br>';
+        $startDate = $new->getValueDecoded("startDate");
 
+        echo '<h3 class="titulo_seccion">'.$title.'</h3>';
+
+        echo '<p class="fecha">'.$startDate.'</p>';
+
+        if ($subtitle != null) {
+
+           echo '<p>'.$subtitle.'</p>';
+
+        }
+
+        echo '<p class="detalle_noticia">'.$description.'</p>';
 
     }
 
 }
-
 
 ?>

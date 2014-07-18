@@ -52,7 +52,7 @@ class News extends DataObject {
         // Then call the date functions
         //'2014-09-18 00:00:00'
 
-       $currentDate = date('Y-m-d H:i:s');
+       //$currentDate = date('Y-m-d H:i:s');
         $dt = new DateTime();
 
         $currentDate = $dt->format ('Y-m-d');

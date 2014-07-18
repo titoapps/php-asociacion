@@ -14,6 +14,7 @@ define( "TBL_ADDRESS", "Address" );
 define( "TBL_ACTIVITIES", "Activities" );
 define( "TBL_USER_TYPE", "UserType" );
 define( "TBL_JOB_OFFER", "JobOffers" );
+define( "TBL_MEMBERS", "Members" );
 
 define( "TBL_ACCESS_LOG", "accessLog" );
 ?>

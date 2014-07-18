@@ -6,6 +6,8 @@
  * Time: 19:17
  */
 
+require_once "DataObject.class.php";
+
 class Street extends DataObject {
 
     protected $data = array(
@@ -36,7 +38,31 @@ class Street extends DataObject {
         }
     }
 
+    public static function getStreets() {
 
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_STREET . " order by name";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->execute();
+
+            $result = array();
+
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new Street($row);
+            }
+
+            if ($result)
+                return $result;
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
     public function insert() {
         $conn = parent::connect();

@@ -19,22 +19,22 @@ drop table if exists Streets cascade;
 create table Images (
 
   idImage INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name    VARCHAR(30),
-  path    VARCHAR(30) NOT NULL,
+  imageName    VARCHAR(100),
+  path    VARCHAR(100) NOT NULL,
 
   constraint PK_IMAGES PRIMARY KEY (idImage)
 
 );
 
 /*Galery images*/
-insert into Images (name, path) values ('callefloranes','images/galery/callefloranes.jpg');
-insert into Images (name, path) values ('escaparatefruteria','images/galery/escaparatefruteria.jgp');
-insert into Images (name, path) values ('escaparatemodels','images/galery/escaparatemodels.jgp');
+insert into Images (imageName, path) values ('callefloranes','images/galery/callefloranes.jpg');
+insert into Images (imageName, path) values ('escaparatefruteria','images/galery/escaparatefruteria.jpg');
+insert into Images (imageName, path) values ('escaparatemodels','images/galery/escaparatemodels.jpg');
 
 /*members*/
-insert into Images (name, path) values ('carnicerialogo','images/members/carnicerialogo.jgp');
-insert into Images (name, path) values ('fruteriafloraneslogo','images/members/fruteriafloraneslogo.jgp');
-insert into Images (name, path) values ('tascalogo','images/members/tascalogo.jgp');
+insert into Images (imageName, path) values ('carnicerialogo','images/members/carnicerialogo.jpg');
+insert into Images (imageName, path) values ('fruteriafloraneslogo','images/members/fruteriafloraneslogo.jpg');
+insert into Images (imageName, path) values ('tascalogo','images/members/tascalogo.jpg');
 
 CREATE TABLE News (
 
@@ -207,7 +207,7 @@ CREATE TABLE Members (
   constraint FK_MEMBERS_IMG FOREIGN KEY (idImage) REFERENCES Images(idImage)
 );
 
-insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',1,1,2,699999999,'floranes19fruteria@gmail.com');
+insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',5,1,2,699999999,'floranes19fruteria@gmail.com');
 insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',2,2,5,699999999,'carniceriaeno@gmail.com');
 insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',3,3,6,699999999,'fotosmarcelo@hotmail.com');
 insert into Members values (4,'electro','12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',4,4,8,699999999,'eletromaster@hotmail.com');

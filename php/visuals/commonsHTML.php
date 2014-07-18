@@ -117,13 +117,16 @@ function drawLeftMenu () {
 }
 
 /**
- * Draws the site main content header (center of the web page)
+ *
  */
-function drawMainHeader () {
+function drawSearchItem () {
 
-    echo '<div id="main_header">
+    require_once 'php/model/Activities.class.php';
+    require_once 'php/model/Street.class.php';
 
-                <div id="buscador">
+    $allActivities = Activities::getActivities();
+
+    echo'<div id="buscador">
                 <h2>¿Dónde comprar?</h2>
                 <form action="#">
                 <fieldset>
@@ -133,54 +136,80 @@ function drawMainHeader () {
                         <input type="text" id="nombre" name="nombre" value="" />
                     </div>
                     <div class="form_item">
-                        <label for="actividad">Actividad</label>
-                        <select id="actividad" name="actividad">
-                            <option value="" selected="selected">- seleccione -</option>
-                            <option value="Agenciasdeviajes">Agencias de Viajes</option>
-                            <option value="Alimentacion">Alimentación</option>
-                            <option value="Animales">Animales</option>
-                            <option value="Calzados">Calzados</option>
-                            <option value="Carnicerias">Carniceria</option>
-                            <option value="Complementos">Complementos</option>
-                            <option value="Deportes">Deportes</option>
-                            <option value="Electrodomesticos">Electrodomésticos</option>
-                            <option value="Electronica">Electrónica</option>
-                            <option value="Estanco">Estanco</option>
-                            <option value="Farmacia">Farmacia</option>
-                            <option value="Ferreteria">Ferreteria</option>
-                        </select>
-                     </div>
-                    <div class="form_item">
-                        <label for="calle">Calle</label>
-                        <select id="calle" name="calle">
-                            <option value="" selected="selected">- seleccione -</option>
-                            <option value="Alonso">Alonso</option>
-                            <option value="Floranes">Floranes</option>
-                            <option value="Cisneros">Cisneros</option>
-                            <option value="FranciscoCubria">Francisco Cubría</option>
-                            <option value="NarcisoCuevas">Narciso Cuevas</option>
-                            <option value="SanFernando">San Fernando</option>
-                            <option value="Vargas">Vargas</option>
-                        </select>
-                    </div>
-                     <input class="form_item" type="submit" value="Buscar" name="search"/>
-                </fieldset>
-                </form>
-                </div>
+                    <label for="actividad">Actividad</label>
+                    <select id="actividad" name="actividad">
+                    <option value="" selected="selected">- seleccione -</option>';
 
-                <div id="visita_comercio">
-                    <h2>Visita el comercio de..</h2>
-                        <!-- Info sobre un comercio, con imagen, logo.. -->
-                        <a href="#"><img src="images/members/fruteriafloraneslogo.jpg" alt="imagen del comercio" /></a>
+    foreach ($allActivities as $activity) {
 
-                        <a href="#" id>Floranes 19 Fruteria</a> <br/>
+        $activityName = $activity->getValueDecoded('name');
 
-                        <span id="descripcion_comercio">Frutas y Verduras de Cultivo Tradicional y Ecológico</span>
-                        <br /> <br />
-                        <span id="direccion_comercio"> C/ Floranes 19, 39010 Santander.</span>
+        echo '<option value="'.$activityName.'">'.$activityName.'</option>';
 
-                </div>
-        	</div> ';
+    }
+
+    echo'</select>
+            </div>
+            <div class="form_item">
+                <label for="calle">Calle</label>
+                <select id="calle" name="calle">
+                    <option value="" selected="selected">- seleccione -</option>';
+
+    $allStreets = Street::getStreets();
+
+    foreach ($allStreets as $street) {
+
+        $streetName = $street->getValueDecoded('name');
+
+        echo '<option value="'.$streetName.'">'.$streetName.'</option>';
+
+    }
+
+    echo '</select>
+            </div>
+            <input class="form_item" type="submit" value="Buscar" name="search"/>
+          </fieldset>
+          </form>
+          </div>';
+
+}
+
+function drawTodayMemberItem () {
+
+    require_once 'php/model/Member.class.php';
+
+    $memberInfo = Member::getTodayMember();
+
+    if ($memberInfo) {
+
+        $member = $memberInfo[0];
+        $image = $memberInfo[1];
+
+        echo ' <div id="visita_comercio">
+                <h2>Visita el comercio de..</h2>
+                    <!-- Info sobre un comercio, con imagen, logo.. -->
+                    <a href="#"><img src="'.$image->getValueDecoded("path").'" alt="'.$image->getValueDecoded("imageName").'" /></a>
+
+                    <a href="#" id>'.$member->getValueDecoded("name").'</a> <br/>
+
+                    <span id="descripcion_comercio">'.$member->getValueDecoded("description").'</span>
+                    <br /> <br />
+                    <span id="direccion_comercio">'.$member->getValueDecoded("idAddress").'</span>
+                </div>';
+    }
+}
+
+/**
+ * Draws the site main content header (center of the web page)
+ */
+function drawMainHeader () {
+
+    echo '<div id="main_header">';
+
+    drawSearchItem();
+    drawTodayMemberItem();
+
+    echo '</div>';
 
 }
 

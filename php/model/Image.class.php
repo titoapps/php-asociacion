@@ -12,7 +12,7 @@ class Image extends DataObject {
 
     protected $data = array(
         "idImage" => "",
-        "name" => "",
+        "imageName" => "",
         "path" => ""
 
     );
@@ -45,19 +45,19 @@ class Image extends DataObject {
 
         $sql = "INSERT INTO " . TBL_IMAGES . " (
                 idImage,
-                name,
+                imageName,
                 path
 
             ) VALUES (
                 :idImage,
-                :name,
+                :imageName,
                 :path
             )";
 
         try {
             $st = $conn->prepare( $sql );
             $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
+            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
             $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
 
             $st->execute();
@@ -76,14 +76,14 @@ class Image extends DataObject {
 
         $sql = "UPDATE " . TBL_IMAGES . " SET
                 idImage,
-                name,
+                imageName,
                 path
             WHERE idImage = :idImage";
 
         try {
             $st = $conn->prepare( $sql );
             $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
+            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
             $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
 
             $st->execute();
