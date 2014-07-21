@@ -117,7 +117,7 @@ function drawLeftMenu () {
 }
 
 /**
- *
+ * Shows the custom search of the site, looks for street, activity and name.
  */
 function drawSearchItem () {
 
@@ -159,7 +159,7 @@ function drawSearchItem () {
 
     foreach ($allStreets as $street) {
 
-        $streetName = $street->getValueDecoded('name');
+        $streetName = $street->getValueDecoded('streetName');
 
         echo '<option value="'.$streetName.'">'.$streetName.'</option>';
 
@@ -174,6 +174,10 @@ function drawSearchItem () {
 
 }
 
+/**
+ * Gets the information about the member to visit today.
+ * Shows the member info,image and address.
+ */
 function drawTodayMemberItem () {
 
     require_once 'php/model/Member.class.php';
@@ -184,6 +188,24 @@ function drawTodayMemberItem () {
 
         $member = $memberInfo[0];
         $image = $memberInfo[1];
+        $address = $memberInfo[2];
+        $street = $memberInfo[3];
+
+        $streetString = $street->getValueDecoded("streetName").' '.$address->getValueDecoded("number");
+
+        $floor = $address->getValueDecoded("floor");
+
+        if ($floor!= null && $floor >= 0 ) {
+
+            $floor = ($floor == 0) ? " Bajo":" Planta ".$floor;
+
+            $streetString = $streetString . $floor;
+
+        }
+
+        if ($address->getValueDecoded("door")!= null )
+            $streetString = $streetString. ' Puerta '.$address->getValueDecoded("door");
+
 
         echo ' <div id="visita_comercio">
                 <h2>Visita el comercio de..</h2>
@@ -194,7 +216,7 @@ function drawTodayMemberItem () {
 
                     <span id="descripcion_comercio">'.$member->getValueDecoded("description").'</span>
                     <br /> <br />
-                    <span id="direccion_comercio">'.$member->getValueDecoded("idAddress").'</span>
+                    <span id="direccion_comercio"> C/ ' .$streetString. '</span>
                 </div>';
     }
 }
@@ -214,96 +236,131 @@ function drawMainHeader () {
 }
 
 /**
+ * Retrieves the news preview to show on the main page
+ */
+function drawNewsPreview () {
+
+    require_once 'php/model/News.class.php';
+
+    $newsToShow =  News::getCurrentNews(3);
+
+    echo '<h2>Noticias</h2> ';
+
+    if ($newsToShow !=null) {
+
+        foreach ($newsToShow as $new) {
+
+            $title = $new->getValueDecoded('title');
+            $subtitle = $new->getValueDecoded('subtitle');
+            $description = $new->getValueDecoded('description');
+            $startDate = $new->getValueDecoded("startDate");
+
+            echo '<h3 class="titulo_seccion">'.$title.'</h3>';
+
+            echo '<p class="fecha">'.$startDate.'</p>';
+
+            if ($subtitle != null) {
+
+                echo '<p>'.$subtitle.'</p>';
+
+            }
+
+            echo '<p class="detalle_noticia">'.$description.'</p> <p><a href="#" class="ampliar_info">Leer más..</a></p>';
+
+        }
+
+    }
+
+}
+
+/**
+ * Draws the galery preview for the main content
+ */
+function drawGaleryPreview () {
+
+    echo ' <div id="galeria">
+                <h2>Galería</h2>
+                <div id="galeria_contenedor">
+                    <img id="galeria_imagen_izq" src="images/galery/escaparatefruteria.jpg" alt="Galeria de imagenes"/>
+                    <img id="galeria_imagen_centro" src="images/galery/callefloranes.jpg" alt="Galeria de imagenes"/>
+                    <img id="galeria_imagen_der" src="images/galery/escaparatemodels.jpg" alt="Galeria de imagenes"/>
+                </div>
+            </div>';
+
+}
+
+/**
+ * Draws the Agenda preview for the main page
+ */
+function drawAgendaPreview () {
+
+    require_once 'php/model/Agenda.class.php';
+
+    $agendaItems = Agenda::getAgendaItems(3);
+
+    echo '<div id="agenda">
+            <h2>Agenda</h2>';
+
+    foreach ($agendaItems as $agendaItem) {
+
+        echo '<div class="evento">';
+                echo'<div class="fecha">'.$agendaItem->getValueDecoded("date").'</div>';
+                echo'<h3 class="titulo_seccion">'.$agendaItem->getValueDecoded("title").'</h3>';
+                echo'<p>'.$agendaItem->getValueDecoded("subtitle").'</p>';
+                echo'<p><a href="#" class="ampliar_info">Leer más..</a></p>';
+                echo' </div>';
+
+    }
+
+    echo '</div>';
+
+}
+
+/**
+ * Draws the Job Offers preview for the main page
+ */
+function drawJobOffersPreview () {
+
+    require_once 'php/model/JobOffers.class.php';
+
+    echo '<div id="empleo">
+            <h2>Empleo</h2>';
+
+    $jobOffers = JobOffers::getJobOffers(3);
+
+    foreach ($jobOffers as $jobOffers) {
+
+        echo '<div class="oferta_empleo" id="oferta_empleo_1">';
+        echo '<h3 class="titulo_seccion" id="puesto_oferta1">'.$jobOffers->getValueDecoded("title").'</h3>';
+        echo '<div class="fecha">Publicada el:'. $jobOffers.getValueDecoded('date').'</div>';
+        echo '<p><span class="nombre_comercio_oferta">'. $jobOffers.getValueDecoded('description').'</span>
+                    <span class="descripcion_oferta">'. $jobOffers.getValueDecoded('description').'</span>
+                    </p>
+                    <p><a href="#" class="ampliar_info" title="Ir a detalle de oferta" id="enlace_detalle_oferta_1">Ver oferta..</a></p>
+                </div>';
+
+    }
+
+    echo '</div>';
+
+}
+
+/**
  * Draws the site main content (the center of the web page)
  */
 function drawMainContent (){
 
-    echo '   <div id="main_content">
-                <div id="noticias">
-                    <h2>Noticias</h2>
-                    <div class="noticia">
-                        <h3 class="titulo_seccion">Comienzan las fiestas del Patrón ¡No te las pierdas!</h3>
-                        <p class="fecha">Sabado, 18 de Mayo de 2013</p>
-                        <p class="detalle_noticia">Llega el fin de semana y con él nuestro ansiado aniversario, en el que todos podreis participar
-                        para hacerlo mas divertido que nunca. Con multitud de eventos, conciertos, concursos y actividades para todos. Elige tus<br />
-                        preferidos y diviértete con..</p>
-                        <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                    </div>
-                    <div class="noticia">
-                        <h3 class="titulo_seccion">Se ultiman los preparativos para este fin de semana</h3>
-                        <p class="fecha">Viernes, 17 de Mayo de 2013</p>
-                        <p class="detalle_noticia">Ya tenemos los horarios de todos los eventos programados para la celebracion
-                        del fin de semana, en que se conmemorará el 15º aniversario de la asociación...</p>
-                        <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                    </div>
-                    <div class="noticia">
-                        <h3 class="titulo_seccion">Ya está en marcha la campaña de promiciones y descuentos</h3>
-                        <p class="fecha">Lunes, 6 de Mayo de 2013</p>
-                        <p class="detalle_noticia">Como todos los años sobre estas fechas los comercios de la asociación ya empiezan la campaña de
-                        promociones por las fiestas del patrón. Además de los descuentos, por cada compra superior a 15€ podrás participar en el sorteo
-                        de regalos..</p>
-                        <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                    </div>
-                </div>
+    echo '<div id="main_content">';
 
-                <div id="galeria">
-                    <h2>Galería</h2>
-                    <div id="galeria_contenedor">
-                        <img id="galeria_imagen_izq" src="images/galery/escaparatefruteria.jpg" alt="Galeria de imagenes"/>
-                        <img id="galeria_imagen_centro" src="images/galery/callefloranes.jpg" alt="Galeria de imagenes"/>
-                        <img id="galeria_imagen_der" src="images/galery/escaparatemodels.jpg" alt="Galeria de imagenes"/>
-                    </div>
-                </div>
+    drawNewsPreview();
+    drawGaleryPreview();
 
-                <!-- Pie Central Agenda y Empleo -->
+    echo '<div id="main_footer">';
 
-                <div id="main_footer">
-                    <div id="agenda">
-                        <h2>Agenda</h2>
-                        <div class="evento">
-                            <div class="fecha">21-05-2013</div>
-                            <h3 class="titulo_seccion">Fiestas del Patrón</h3>
-                            <p>Ven a celebrar con nosotros las fiestas del patron de la asociación y disfruta de los conciertos, concursos..</p>
-                            <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                        </div>
-                        <div class="evento">
-                            <div class="fecha">10-06-2013</div>
-                            <h3 class="titulo_seccion">Talleres de manualidades</h3>
-                            <p>¡Nuestro divertidos e interesantes talleres! Busca las actividades que mas te gusten y participa ¡reserva ya tu plaza!</p>
-                            <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                        </div>
-                        <div class="evento">
-                            <div class="fecha">01-08-2013</div>
-                            <h3 class="titulo_seccion">Pasacalles</h3>
-                            <p>Los compañeros de la Escuela de Musica &quot;Solfa&quot; realizarán pequeñas actuaciones por nuestras calles ..</p>
-                            <p><a href="#" class="ampliar_info">Leer más..</a></p>
-                        </div>
-                    </div>
+    drawAgendaPreview();
+    drawJobOffersPreview();
 
-                    <div id="empleo">
-                    <h2>Empleo</h2>
-                        <div class="oferta_empleo" id="oferta_empleo_1">
-                            <h3 class="titulo_seccion" id="puesto_oferta1">Comercial con experiencia</h3>
-                            <div class="fecha">Publicada el: 21-05-2013</div>
-                            <p>
-                            <span class="nombre_comercio_oferta">Electrodomésticos Master</span>
-                            <span class="descripcion_oferta"> precisa la incorporación a su plantilla de comerciales de una persona con experiencia en..
-                            </span>
-                            </p>
-                            <p><a href="#" class="ampliar_info" title="Ir a detalle de oferta" id="enlace_detalle_oferta_1">Ver oferta..</a></p>
-                        </div>
-                        <div class="oferta_empleo" id="oferta_empleo_2">
-                            <h3 class="titulo_seccion" id="puesto_oferta2">Camarero para noches</h3>
-                            <div class="fecha">Publicada el: 10-05-2013</div>
-                            <p>
-                            <span class="nombre_comercio_oferta">Cafetería Saylors</span>
-                            <span class="descripcion_oferta"> busca camarero con experiencia en elaboración de...
-                            </span>
-                            </p>
-                            <p><a href="#" class="ampliar_info" title="Ir a detalle de oferta" id="enlace_detalle_oferta_2">Ver oferta..</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>';
+    echo '</div>
+          </div>';
 
 }

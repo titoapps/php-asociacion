@@ -21,7 +21,7 @@ class JobOffers extends DataObject {
 
     );
 
-    public static function getJobOffers( $id ) {
+    public static function getJobOffersById( $id ) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_JOB_OFFER . " WHERE idOffer = :idOffer";
 
@@ -42,6 +42,36 @@ class JobOffers extends DataObject {
         }
     }
 
+    public static function getJobOffers( $limit = -1 ) {
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_JOB_OFFER;
+
+        if ($limit != -1)
+            $sql = $sql." LIMIT :limit";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+
+            if ($limit != -1)
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+
+            $st->execute();
+
+            $result = array();
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new JobOffers( $row );
+            }
+
+            if ($result)
+                return $result;
+
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
 
     public function insert() {

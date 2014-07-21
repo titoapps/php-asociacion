@@ -69,9 +69,9 @@ asociación ya empiezan la campaña de promociones por las fiestas del patrón. 
 CREATE TABLE Agenda (
 
   idAgenda        INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  title           VARCHAR(30) NOT NULL,
-  subtitle        VARCHAR(30) NOT NULL,
-  description     VARCHAR(50) NOT NULL,
+  title           VARCHAR(50) NOT NULL,
+  subtitle        VARCHAR(50) NOT NULL,
+  description     VARCHAR(100) NOT NULL,
   date            DATE NOT NULL,
   idImage         INT UNSIGNED,
 
@@ -80,9 +80,9 @@ CREATE TABLE Agenda (
 
 );
 
-insert into agenda (title, subtitle, description, date, idImage) values ('Fiestas del Patrón','Ven a celebrar con nosotros las fiestas del patron de la asociación y disfruta de los conciertos, concursos..','',DATE('2013-05-21 00:00:00'),null);
-insert into agenda (title, subtitle, description, date, idImage) values ('Talleres de manualidades','¡Nuestro divertidos e interesantes talleres! Busca las actividades que mas te gusten y participa ¡reserva ya tu plaza!','',DATE('2013-04-1 00:00:00'),null);
-insert into agenda (title, subtitle, description, date, idImage) values ('Pasacalles','Los compañeros de la Escuela de Musica "Solfa" realizarán pequeñas actuaciones por nuestras calles ..','',DATE('2013-03-14 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Fiestas del Patrón','Ven a celebrar con nosotros las fiestas del patron de la asociación y disfruta de los conciertos, concursos..','',DATE('2013-05-21 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Talleres de manualidades','¡Nuestro divertidos e interesantes talleres! Busca las actividades que mas te gusten y participa ¡reserva ya tu plaza!','',DATE('2013-04-1 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Pasacalles','Los compañeros de la Escuela de Musica "Solfa" realizarán pequeñas actuaciones por nuestras calles ..','',DATE('2013-03-14 00:00:00'),null);
 
 CREATE TABLE Answer (
 
@@ -127,7 +127,7 @@ insert into AnswerToSurveys values (3,1);
 CREATE TABLE Streets (
 
   idStreet  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name      VARCHAR (30) NOT NULL,
+  streetName      VARCHAR (30) NOT NULL,
 
   constraint PK_STREET PRIMARY KEY (idStreet)
 );
@@ -155,7 +155,7 @@ CREATE TABLE Address (
 
 );
 
-insert into Address values (1,2,19,0,'A',39010);
+insert into Address values (1,2,19,-1,'A',39010);
 insert into Address values (2,1,23,4,'E',39010);
 insert into Address values (3,3,1,0,'B',39015);
 insert into Address values (4,3,5,0,'A',39015);
@@ -193,13 +193,13 @@ CREATE TABLE Members (
   -- TODO:password encryption?? SSL transmision
   password    VARCHAR (30) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
-  name        VARCHAR (30),
-  description VARCHAR (30),
+  name        VARCHAR (80),
+  description VARCHAR (100),
   idImage     INT UNSIGNED,
   idAddress   INT UNSIGNED NOT NULL,
   idActivity  INT UNSIGNED NOT NULL,
   phoneNumber SMALLINT,
-  email       VARCHAR (30),
+  email       VARCHAR (50),
 
   constraint PK_MEMBERS PRIMARY KEY (idMember),
   constraint FK_MEMBERS_ID_ADDRESS FOREIGN KEY (idAddress) references Address(idAddress),

@@ -48,7 +48,7 @@ class News extends DataObject {
      * @param $count
      * @return News
      */
-    public static function getCurrentNews( ) {
+    public static function getCurrentNews($limit = -1) {
         // Then call the date functions
         //'2014-09-18 00:00:00'
 
@@ -60,11 +60,18 @@ class News extends DataObject {
 
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= :currentDate && endDate >= :currentDate2";
-        //$sql = "SELECT * FROM " . TBL_NEWS;
+
+        if ($limit != -1) {
+
+            $sql = $sql . " LIMIT :limit";
+        }
+
         try {
             $st = $conn->prepare( $sql );
             $st->bindValue( ":currentDate", $currentDate, PDO::PARAM_STR);
             $st->bindValue( ":currentDate2", $currentDate, PDO::PARAM_STR);
+            $st->bindValue( ":limit", $limit, PDO::PARAM_INT);
+
             $st->execute();
 
             $result = array();

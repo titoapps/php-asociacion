@@ -13,7 +13,7 @@ class Street extends DataObject {
     protected $data = array(
 
         "idStreet" => "",
-        "name" => ""
+        "streetName" => ""
 
     );
 
@@ -41,7 +41,7 @@ class Street extends DataObject {
     public static function getStreets() {
 
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_STREET . " order by name";
+        $sql = "SELECT * FROM " . TBL_STREET . " order by streetName";
 
         try {
             $st = $conn->prepare( $sql );
@@ -69,18 +69,18 @@ class Street extends DataObject {
 
         $sql = "INSERT INTO " . TBL_STREET . " (
 
-                name
+                streetName
 
             ) VALUES (
 
-                :name
+                :streetName
 
             )";
 
         try {
             $st = $conn->prepare( $sql );
 
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
+            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR );
 
             $st->execute();
             parent::disconnect( $conn );
@@ -97,14 +97,14 @@ class Street extends DataObject {
         $conn = parent::connect();
 
         $sql = "UPDATE " . TBL_STREET . " SET
-                name,
+                streetName,
 
             WHERE idStreet = :idStreet";
 
         try {
             $st = $conn->prepare( $sql );
 
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
+            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR );
 
             $st->execute();
 

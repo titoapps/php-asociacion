@@ -19,7 +19,7 @@ class Agenda extends DataObject {
 
     );
 
-    public static function getAgenda( $id ) {
+    public static function getAgendaFromId( $id ) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_AGENDA. " WHERE idAgenda = :idAgenda";
 
@@ -40,6 +40,37 @@ class Agenda extends DataObject {
         }
     }
 
+    public static function getAgendaItems( $limit = -1 ) {
+
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_AGENDA. ' order by date';
+
+        if ($limit != -1)
+            $sql = $sql . " LIMIT :limit";
+
+        try {
+            $st = $conn->prepare( $sql );
+
+            if ($limit != -1)
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+
+            $st->execute();
+
+            $result = array();
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new Agenda( $row );
+            }
+
+            if ($result)
+                return $result;
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
 
     public function insert() {

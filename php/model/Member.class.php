@@ -66,12 +66,14 @@ class Member extends DataObject {
   public static function getTodayMember () {
 
       require_once ('Image.class.php');
-      require_once ('A.class.php');
-
+      require_once ('Street.class.php');
+      require_once ('Address.class.php');
 
       $conn = parent::connect();
-      $sql = "SELECT idMember,password,NIF,Mem.name,description,idAddress,idActivity,phoneNumber,email,Im.imageName,Im.path
-      FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im WHERE Mem.idImage = Im.idImage";
+
+      $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
+      FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str
+      WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet";
 
       try {
           $st = $conn->prepare( $sql );
@@ -85,19 +87,20 @@ class Member extends DataObject {
 
           foreach ( $st->fetchAll() as $currentRow ) {
 
-              $member = array_slice($currentRow,0,9,true);
-              $image = array_slice($currentRow,9);
               $members[] = new Member($currentRow);
               $images [] = new Image ($currentRow);
+              $address [] = new Address($currentRow);
+              $streets [] = new Street($currentRow);
+
               $totalRows = $totalRows + 1;
 
           }
 
           $index = rand(0,$totalRows-1);
 
-          if ($members && $images) {
+          if ($members && $images ) {
 
-              return array( $members[$index],$images[$index]);
+              return array( $members[$index],$images[$index],$address[$index],$streets[$index]);
 
           }
 
