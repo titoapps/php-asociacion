@@ -40,7 +40,7 @@
  * Performs the AJAX retrieve and sets the response as the content of the web
  * @param link
  */
-function loadMainContentFromLink(link) {
+function  loadMainContentFromLink(link) {
 
     var instance = false;
 

@@ -44,7 +44,10 @@ class JobOffers extends DataObject {
 
     public static function getJobOffers( $limit = -1 ) {
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_JOB_OFFER;
+
+        $sql = "SELECT title,Jobs.description,salaryMin,salaryMax,date,Jobs.idImage,name
+        FROM " . TBL_JOB_OFFER ." as Jobs, ".TBL_MEMBERS." as Mem
+        where Jobs.idMember = Mem.idMember";
 
         if ($limit != -1)
             $sql = $sql." LIMIT :limit";
@@ -60,7 +63,12 @@ class JobOffers extends DataObject {
 
             $result = array();
             foreach ( $st->fetchAll() as $row ) {
-                $result[] = new JobOffers( $row );
+
+                $item = array();
+                $item [] = new JobOffers( $row );
+                $item [] = new Member($row);
+                $result[] = $item;
+
             }
 
             if ($result)

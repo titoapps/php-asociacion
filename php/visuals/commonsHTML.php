@@ -1,6 +1,109 @@
 <?php
 
-require_once('php/configuration/Configuration.php');
+require_once('php/Configuration/Configuration.php');
+
+
+/**
+ * Draws the login form
+ */
+function drawLogin () {
+
+   echo '<h3>Área Privada</h3>
+   			<div id="acceso_asociados">
+            	<form action="#">
+                	<fieldset>
+                    	<legend>Acceso Asociados</legend>
+                    	<label class="element_above" for="user">Usuario</label>
+                    	<input type="text" value="" id="user" required="required"/>
+                    	<label class="element_above" for="password">Clave</label>
+                    	<input type="password" value="" id="password" required="required"/>
+                    	<p><label for="recordarme">Recordarme </label>
+                    	<input type="checkbox" value="recordarme" id="recordarme" checked="checked"/></p>
+                    	<input class="element_above" type="submit" name="login" value="Acceder"/><br />
+                    	<a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
+                    </fieldset>
+                </form>
+            </div>';
+
+}
+
+/**
+ * Draws the members images on the left side menu
+ */
+function drawMembersPreview() {
+
+    require_once 'php/model/Member.class.php';
+
+    $membersAndImages = Member::getMembersPreview(3);
+
+    $members = $membersAndImages [0];
+    $images = $membersAndImages [1];
+
+    echo '<h3>Asociados</h3>
+            <div id="asociados">';
+
+    $index = 0;
+
+    foreach ($members as $member) {
+
+        $name = $member->getValueDecoded("name");
+        $path = $images[$index]->getValueDecoded("path");
+        $image = $images[$index]->getValueDecoded("imageName");
+        echo '<a href="#" id="link_asociado1" alt="'.$name.'">
+                    	<img src="'.$path.'" alt="'.$image.'"/><br />
+                    </a>';
+        $index++;
+    }
+
+    echo '<a href="#" class="ampliar_info">Ver Asociados</a></div>';
+}
+
+/**
+ * Draws the current survey for the left side menu
+ */
+function drawSurvey () {
+
+    require_once 'php/model/Survey.class.php';
+
+    $surveyInfo = Survey::getCurrentSurvey();
+    $survey = $surveyInfo [0];
+    $answers = $surveyInfo [1];
+
+    echo '<h3>Participe</h3>
+            <div id="encuestas">
+                <form action="#">
+                    <fieldset>
+                        <legend>Encuesta</legend>';
+
+    echo '<label>'.$survey->getValueDecoded("surveyTitle").'</label><br/><br/>';
+
+    $checked = false;
+
+    foreach ($answers as $answer) {
+
+        if ($checked) {
+
+            echo '<input type="radio" name="survey" value="a_favor"/>'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
+
+        } else {
+
+            echo '<input type="radio" name="survey" value="a_favor" checked="checked" />'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
+
+            $checked = true;
+
+        }
+
+    }
+
+
+    echo'<br/>
+         <input type="submit" value="Votar" />
+         <input type="button" value="Resultados" />
+         </fieldset>
+         </form>
+         </div>';
+
+}
 
 /**
  * Draws the site left menu
@@ -8,60 +111,20 @@ require_once('php/configuration/Configuration.php');
 function drawLeftMenu () {
 
     echo '
-        <div id="leftsecondary">
+        <div id="leftsecondary">';
 
-        	<h3>Área Privada</h3>
-   			<div id="acceso_asociados">
-            	<form action="#">
-                	<fieldset>
-                    	<legend>Acceso Asociados</legend>
-                    	<label class="element_above" for="user">Usuario</label>
-                    	<input type="text" value="" id="user"/>
-                    	<label class="element_above" for="password">Clave</label>
-                    	<input type="password" value="" id="password"/>
-                    	<p><label for="recordarme">Recordarme </label>
-                    	<input type="checkbox" value="recordarme" id="recordarme" checked="checked"/></p>
-                    	<input class="element_above" type="submit" name="login" value="Acceder"/><br />
-                    	<a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
-                    </fieldset>
-                </form>
-            </div>
+            drawLogin();
 
-            <h3>Asociados</h3>
-            <div id="asociados">
-            		<a href="#" id="link_asociado1" title="Floranes 19 Fruteria">
-                    	<img src="images/members/fruteriafloraneslogo.jpg" alt="Floranes 19 Fruteria"/><br />
-                    </a>
-                 	<a href="#" id="link_asociado2" title="Carnicería Eño">
-            		<img src="images/members/carnicerialogo.jpg" alt="Carnicería Eño"/><br />
-                    </a>
-                    <a href="#" id="link_asociado3" title="Tasca de Pedro">
-                	<img src="images/members/tascalogo.jpg" alt="Tasca de Pedro"/><br />
-                	</a>
-                <a href="#" class="ampliar_info">Ver Asociados</a>
-            </div>
+            drawMembersPreview();
 
-        	<h3>Participe</h3>
-            <div id="encuestas">
-                <form action="#">
-                    <fieldset>
-                        <legend>Encuesta</legend>
-                        <label>¿Qué le parece la renovación de las aceras de la calle?</label><br/>
-                        <input type="radio" name="aceras_calle" value="a_favor" checked="checked" /> Es bueno para la calle.<br/>
-                        <input type="radio" name="aceras_calle" value="en_contra" /> Es un engorro, imposible para circular y aparcar.<br/>
-                        <input type="radio" name="aceras_calle" value="ns_nc" /> NS/NC<br /><br/>
-                        <input type="submit" value="Votar" />
-                        <input type="button" value="Resultados" />
-                    </fieldset>
-                </form>
-            </div>
+            drawSurvey();
 
-            <h3>Buzón de Sugerencias</h3>
+        	echo '<h3>Buzón de Sugerencias</h3>
             <div id="buzon">
                 <a href="#"><img alt="buzon" src="images/buzon.gif"/><span>Ayúdenos a mejorar</span></a>
             </div>
 
-            <h3>Twitter</h3>
+            <!--h3>Twitter</h3>
             <div id="twitter">
                 <a href="#" title="Seguir en Twitter"><img src="images/twitter_boton1.png" alt="twitter" id="imagen_seguir_twitter"/></a>
                 <table id="table_twitter" summary="tweets">
@@ -111,7 +174,7 @@ function drawLeftMenu () {
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div-->
         </div> ';
 
 }
@@ -328,13 +391,13 @@ function drawJobOffersPreview () {
 
     $jobOffers = JobOffers::getJobOffers(3);
 
-    foreach ($jobOffers as $jobOffers) {
+    foreach ($jobOffers as $jobOffer) {
 
         echo '<div class="oferta_empleo" id="oferta_empleo_1">';
-        echo '<h3 class="titulo_seccion" id="puesto_oferta1">'.$jobOffers->getValueDecoded("title").'</h3>';
-        echo '<div class="fecha">Publicada el:'. $jobOffers.getValueDecoded('date').'</div>';
-        echo '<p><span class="nombre_comercio_oferta">'. $jobOffers.getValueDecoded('description').'</span>
-                    <span class="descripcion_oferta">'. $jobOffers.getValueDecoded('description').'</span>
+        echo '<h3 class="titulo_seccion" id="puesto_oferta1">'.$jobOffer[0]->getValueDecoded("title").'</h3>';
+        echo '<div class="fecha">Publicada el:'. $jobOffer[0]->getValueDecoded('date').'</div>';
+        echo '<p><span class="nombre_comercio_oferta">'. $jobOffer[1]->getValueDecoded('name').'</span>
+                    <span class="descripcion_oferta">'. $jobOffer[0]->getValueDecoded('description').'</span>
                     </p>
                     <p><a href="#" class="ampliar_info" title="Ir a detalle de oferta" id="enlace_detalle_oferta_1">Ver oferta..</a></p>
                 </div>';

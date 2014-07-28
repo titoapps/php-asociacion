@@ -11,7 +11,7 @@ class Answer extends DataObject {
     protected $data = array(
 
         "idAnswer" => "",
-        "title" => "",
+        "answerTitle" => "",
 
     );
 

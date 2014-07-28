@@ -63,7 +63,7 @@ class Member extends DataObject {
     }
   }
 
-  public static function getTodayMember () {
+  public static function getFullMembersInfo () {
 
       require_once ('Image.class.php');
       require_once ('Street.class.php');
@@ -96,11 +96,9 @@ class Member extends DataObject {
 
           }
 
-          $index = rand(0,$totalRows-1);
-
           if ($members && $images ) {
 
-              return array( $members[$index],$images[$index],$address[$index],$streets[$index]);
+              return array( $members,$images,$address,$streets,$totalRows);
 
           }
 
@@ -112,6 +110,80 @@ class Member extends DataObject {
       }
 
   }
+
+  public static function getTodayMember () {
+
+      $todayMember = Member::getFullMembersInfo();
+      $totalRows = $todayMember[4];
+
+      $index = rand(0,$totalRows-1);
+
+      $members = $todayMember[0];
+      $images = $todayMember[1];
+      $address = $todayMember[2];
+      $streets = $todayMember [3];
+
+      if ($members && $images ) {
+
+          return array( $members[$index],$images[$index],$address[$index],$streets[$index]);
+
+      }
+
+  }
+
+  public static function getMembersPreview($limit = -1) {
+
+      require_once ('Image.class.php');
+
+      $conn = parent::connect();
+
+      $sql = "SELECT idMember,Mem.name,Im.imageName,Im.path
+      FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im
+      WHERE Mem.idImage = Im.idImage";
+
+      if($limit != -1) {
+
+          $sql = $sql . " LIMIT :limit";
+
+      }
+
+      try {
+          $st = $conn->prepare( $sql );
+
+          if ($limit != -1) {
+
+            $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+
+          }
+          $st->execute();
+
+          parent::disconnect( $conn );
+
+          $row = null;
+
+          foreach ( $st->fetchAll() as $currentRow ) {
+
+              $members[] = new Member($currentRow);
+              $images [] = new Image ($currentRow);
+
+          }
+
+          if ($members && $images ) {
+
+              return array( $members,$images);
+
+          }
+
+      } catch ( PDOException $e ) {
+
+          parent::disconnect( $conn );
+          die( "Query failed: " . $e->getMessage() );
+
+      }
+
+
+  }
+
 
   public static function getByNickName( $nickName ) {
     $conn = parent::connect();

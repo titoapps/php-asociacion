@@ -87,7 +87,7 @@ insert into Agenda (title, subtitle, description, date, idImage) values ('Pasaca
 CREATE TABLE Answer (
 
   idAnswer       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  title          VARCHAR(30) NOT NULL,
+  answerTitle    VARCHAR(100) NOT NULL,
 
   constraint PK_ANSWER PRIMARY KEY (idAnswer)
 
@@ -100,7 +100,7 @@ insert Answer values (3,'NS/NC.');
 CREATE TABLE Surveys (
 
   idSurvey       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  title          VARCHAR(30) NOT NULL,
+  surveyTitle          VARCHAR(150) NOT NULL,
 
   constraint PK_SURVEYS PRIMARY KEY (idSurvey)
 
@@ -214,7 +214,7 @@ insert into Members values (4,'electro','12947461W','Electrodomesticos Master','
 insert into Members values (5,'deport','22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',5,5,7,699999999,'sapporodeportes@hotmail.com');
 insert into Members values (6,'ferro','19550494B','Ferreteria montañesa','Desde 1945',6,6,12,699999999,'ferreteriamontanesa@yahoo.com');
 insert into Members values (7,'calza','98584290B','La Defensa Calzado','Expertos en ',6,6,12,699999999,'ladefensa@yahoo.com');
-
+insert into Members values (8,'cafe','98584290Z','Sailors','Cafeteria ',6,6,12,699999999,'cafeteriaSailors@yahoo.com');
 
 
 CREATE TABLE UserType (
@@ -267,7 +267,6 @@ CREATE TABLE JobOffers (
   idMember        INT UNSIGNED NOT NULL,
   title           VARCHAR(30) NOT NULL,
   description     VARCHAR(50) NOT NULL,
-  -- duration or something more
   salaryMin       numeric,
   salaryMax       numeric,
   date            DATE NOT NULL,
@@ -281,6 +280,12 @@ CREATE TABLE JobOffers (
   constraint CHK_SALARY_ check(salaryMin < salaryMax)
 
 );
+
+insert into JobOffers (idMember,title,description,salaryMin,salaryMax,date,idimage)
+VALUES ('4','Comercial con experiencia','precisa la incorporación a su plantilla de comerciales de una persona con experiencia en..','18000','24000',DATE('2013-05-21 00:00:00'),null );
+
+insert into JobOffers (idMember,title,description,salaryMin,salaryMax,date,idimage)
+VALUES ('8','Camarero para noches','busca camarero con experiencia en elaboración de..','19000','23000',DATE('2013-05-21 00:00:00'),null);
 
 -- TODO:on delete cascade?
 /*

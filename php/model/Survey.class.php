@@ -11,7 +11,7 @@ class Survey extends DataObject {
     protected $data = array(
 
         "idSurvey" => "",
-        "title" => ""
+        "surveyTitle" => ""
 
     );
 
@@ -36,6 +36,41 @@ class Survey extends DataObject {
         }
     }
 
+    public static function getCurrentSurvey() {
+
+        require_once ('php/model/Answer.class.php');
+
+        $conn = parent::connect();
+        $sql = "SELECT surveyTitle,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
+                WHERE Sur.idSurvey = ATS.idSurvey and ATS.idAnswer = Ans.idAnswer and Sur.idSurvey =
+                                    (select idSurvey from ".TBL_SURVEYS." order by idSurvey LIMIT 1)";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->execute();
+
+            parent::disconnect( $conn );
+
+            $answers = array();
+
+            foreach ($st->fetchAll() as $currentRow ) {
+
+                $survey = new Survey($currentRow);
+                $answers [] = new Answer($currentRow);
+
+            }
+
+            if ($survey!= null && $answers!=null) {
+
+                return array($survey,$answers);
+
+            }
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
 
     public function insert() {
