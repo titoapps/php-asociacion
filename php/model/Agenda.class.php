@@ -6,6 +6,8 @@
  * Time: 18:21
  */
 
+require_once "DataObject.class.php";
+
 class Agenda extends DataObject {
 
     protected $data = array(

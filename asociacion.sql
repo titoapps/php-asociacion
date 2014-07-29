@@ -69,9 +69,9 @@ asociación ya empiezan la campaña de promociones por las fiestas del patrón. 
 CREATE TABLE Agenda (
 
   idAgenda        INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  title           VARCHAR(50) NOT NULL,
-  subtitle        VARCHAR(50) NOT NULL,
-  description     VARCHAR(100) NOT NULL,
+  title           VARCHAR(100) NOT NULL,
+  subtitle        VARCHAR(100) NOT NULL,
+  description     VARCHAR(300) NOT NULL,
   date            DATE NOT NULL,
   idImage         INT UNSIGNED,
 

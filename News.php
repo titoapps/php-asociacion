@@ -8,7 +8,7 @@
  */
 require_once('php/model/News.class.php');
 
-$newsToShow =  News::getCurrentNews();
+$newsToShow =  News::getCurrentNews(-1);
 
 echo '<h2>Noticias</h2> ';
 

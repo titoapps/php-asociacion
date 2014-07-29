@@ -1,5 +1,4 @@
 <?php
-    require_once('php/visuals/commonsHTML.php');
 
     include_once('php/visuals/headHTML.php');
 
@@ -19,12 +18,6 @@
 
     //Cabecera central Buscador y Sugerencia de Visita
     echo'<div id="main">';
-
-    //cabecera central
-    drawMainHeader();
-
-    //contenedor central
-    drawMainContent();
 
     echo '</div>'; // main div
 

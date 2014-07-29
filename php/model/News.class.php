@@ -62,27 +62,31 @@ class News extends DataObject {
         $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= :currentDate && endDate >= :currentDate2";
 
         if ($limit != -1) {
-
             $sql = $sql . " LIMIT :limit";
         }
 
         try {
+
             $st = $conn->prepare( $sql );
             $st->bindValue( ":currentDate", $currentDate, PDO::PARAM_STR);
             $st->bindValue( ":currentDate2", $currentDate, PDO::PARAM_STR);
-            $st->bindValue( ":limit", $limit, PDO::PARAM_INT);
+
+            if ($limit != -1) {
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT);
+            }
 
             $st->execute();
 
             $result = array();
+
             foreach ( $st->fetchAll() as $row ) {
                 $result[] = new News( $row );
             }
 
+            parent::disconnect( $conn );
+
             if ($result)
                 return $result;
-
-            parent::disconnect( $conn );
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );

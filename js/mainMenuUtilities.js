@@ -12,10 +12,13 @@
 
         var tab = $("li[rel=\'tab\']");
 
+        loadMainContentFromLink('main.php');
+
         tab.click(function(e) {
 
             if(this.id =='menu_inicio') {
 
+                loadMainContentFromLink('main.php');
 
             } else if(this.id =='menu_noticias') {
 
@@ -27,6 +30,8 @@
 
             } else if(this.id =='menu_agenda') {
 
+                loadMainContentFromLink('agenda.php');
+
             } else if(this.id =='menu_asociate') {
 
             } else if(this.id =='menu_contacto') {
@@ -35,6 +40,8 @@
         });
 
     })
+
+
 
 /**
  * Performs the AJAX retrieve and sets the response as the content of the web
