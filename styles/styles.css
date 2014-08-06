@@ -335,3 +335,31 @@ Footer
 	font-size: small;
 	font-style: italic;
 }
+
+
+/**
+* Extended styles
+*/
+
+/** Members list */
+#container #content #main #members {
+
+}
+
+#container #content #main #members img {
+    width: 15%;
+    float: left;
+    margin: 0 0.3em 0.3em 0;
+}
+#container #content #main #members #nombre_comercio {
+    text-decoration: none;
+    color: inherit;
+    font-size: larger;
+    font-weight: bold;
+}
+#container #content #main #members #descripcion_comercio {
+    font-style: italic;
+}
+#container #content #main #members #direccion_comercio {
+    font-size: small;
+}

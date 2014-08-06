@@ -3,34 +3,34 @@
  * Created by PhpStorm.
  * User: albertoperezperez
  * Date: 13/07/14
- * Time: 17:56
+ * Time: 19:17
  */
 
-require_once "DataObject.class.php";
+require_once "home/DataObject.class.php";
 
-class Image extends DataObject {
+class Street extends DataObject {
 
     protected $data = array(
-        "idImage" => "",
-        "imageName" => "",
-        "path" => ""
+
+        "idStreet" => "",
+        "streetName" => ""
 
     );
 
-    public static function getImage( $id ) {
+    public static function getStreet( $id ) {
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
+        $sql = "SELECT * FROM " . TBL_STREET . " WHERE idStreet = :idStreet";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $id, PDO::PARAM_INT );
+            $st->bindValue( ":idStreet", $id, PDO::PARAM_INT );
             $st->execute();
             $row = $st->fetch();
 
             parent::disconnect( $conn );
 
             if ( $row )
-                return new Image( $row );
+                return new News( $row );
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
@@ -38,27 +38,49 @@ class Image extends DataObject {
         }
     }
 
+    public static function getStreets() {
 
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_STREET . " order by streetName";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->execute();
+
+            $result = array();
+
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new Street($row);
+            }
+
+            if ($result)
+                return $result;
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
     public function insert() {
         $conn = parent::connect();
 
-        $sql = "INSERT INTO " . TBL_IMAGES . " (
-                idImage,
-                imageName,
-                path
+        $sql = "INSERT INTO " . TBL_STREET . " (
+
+                streetName
 
             ) VALUES (
-                :idImage,
-                :imageName,
-                :path
+
+                :streetName
+
             )";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
-            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
+
+            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR );
 
             $st->execute();
             parent::disconnect( $conn );
@@ -74,17 +96,15 @@ class Image extends DataObject {
     public function update() {
         $conn = parent::connect();
 
-        $sql = "UPDATE " . TBL_IMAGES . " SET
-                idImage,
-                imageName,
-                path
-            WHERE idImage = :idImage";
+        $sql = "UPDATE " . TBL_STREET . " SET
+                streetName,
+
+            WHERE idStreet = :idStreet";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
-            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
+
+            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR );
 
             $st->execute();
 
@@ -100,12 +120,14 @@ class Image extends DataObject {
 
     public function delete() {
         $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
+        $sql = "DELETE FROM " . TBL_STREET . " WHERE idStreet = :idStreet";
 
         try {
+
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT );
+            $st->bindValue( ":idStreet", $this->data["idStreet"], PDO::PARAM_INT );
             $st->execute();
+
             parent::disconnect( $conn );
 
         } catch ( PDOException $e ) {

@@ -3,31 +3,32 @@
  * Created by PhpStorm.
  * User: albertoperezperez
  * Date: 13/07/14
- * Time: 18:21
+ * Time: 18:05
  */
 
-require_once "DataObject.class.php";
+require_once "modules/home/DataObject.class.php";
 
-class Agenda extends DataObject {
+class News extends DataObject {
 
     protected $data = array(
 
-        "idAgenda" => "",
+        "idNew" => "",
         "title" => "",
         "subtitle" => "",
         "description" => "",
-        "date" => "",
+        "startDate" => "",
+        "endDate" => "",
         "idImage" => ""
 
     );
 
-    public static function getAgendaFromId( $id ) {
+    public static function getNew( $id ) {
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_AGENDA. " WHERE idAgenda = :idAgenda";
+        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE idNew = :idNew";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idAgenda", $id, PDO::PARAM_INT );
+            $st->bindValue( ":idNew", $id, PDO::PARAM_INT );
             $st->execute();
             $row = $st->fetch();
 
@@ -42,31 +43,50 @@ class Agenda extends DataObject {
         }
     }
 
-    public static function getAgendaItems( $limit = -1 ) {
+    /**
+     * Gets the current news to show on the web page
+     * @param $count
+     * @return News
+     */
+    public static function getCurrentNews($limit = -1) {
+        // Then call the date functions
+        //'2014-09-18 00:00:00'
+
+        //$currentDate = date('Y-m-d H:i:s');
+        $dt = new DateTime();
+
+        $currentDate = $dt->format ('Y-m-d');
+
 
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_AGENDA. ' order by date';
+        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= :currentDate && endDate >= :currentDate2";
 
-        if ($limit != -1)
+        if ($limit != -1) {
             $sql = $sql . " LIMIT :limit";
+        }
 
         try {
-            $st = $conn->prepare( $sql );
 
-            if ($limit != -1)
-                $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":currentDate", $currentDate, PDO::PARAM_STR);
+            $st->bindValue( ":currentDate2", $currentDate, PDO::PARAM_STR);
+
+            if ($limit != -1) {
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT);
+            }
 
             $st->execute();
 
             $result = array();
+
             foreach ( $st->fetchAll() as $row ) {
-                $result[] = new Agenda( $row );
+                $result[] = new News( $row );
             }
+
+            parent::disconnect( $conn );
 
             if ($result)
                 return $result;
-
-            parent::disconnect( $conn );
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
@@ -74,36 +94,38 @@ class Agenda extends DataObject {
         }
     }
 
-
     public function insert() {
         $conn = parent::connect();
 
-        $sql = "INSERT INTO " . TBL_AGENDA . " (
-                idAgenda,
+        $sql = "INSERT INTO " . TBL_NEWS. " (
+                idNew,
                 title,
                 subtitle,
                 description,
-                date,
+                startDate,
+                endDate,
                 idImage
 
             ) VALUES (
 
-                :idAgenda,
+                :idNew,
                 :title,
                 :subtitle,
                 :description,
-                :date,
+                :startDate,
+                :endDate,
                 :idImage
 
             )";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idAgenda", $this->data["idAgenda"], PDO::PARAM_INT);
+            $st->bindValue( ":idNew", $this->data["idNew"], PDO::PARAM_INT);
             $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
             $st->bindValue( ":subtitle", $this->data["subtitle"], PDO::PARAM_STR );
             $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-            $st->bindValue( ":date", $this->data["date"], PDO::PARAM_STR);
+            $st->bindValue( ":startDate", $this->data["startDate"], PDO::PARAM_STR);
+            $st->bindValue( ":endDate", $this->data["endDate"], PDO::PARAM_STR);
             $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
 
 
@@ -121,13 +143,14 @@ class Agenda extends DataObject {
     public function update() {
         $conn = parent::connect();
 
-        $sql = "UPDATE " . TBL_AGENDA . " SET
+        $sql = "UPDATE " . TBL_NEWS. " SET
                 title,
                 subtitle,
                 description,
-                date,
+                startDate,
+                endDate,
                 idImage
-            WHERE idAgenda = :idAgenda";
+            WHERE idNew = :idNew";
 
         try {
             $st = $conn->prepare( $sql );
@@ -135,7 +158,8 @@ class Agenda extends DataObject {
             $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
             $st->bindValue( ":subtitle", $this->data["subtitle"], PDO::PARAM_STR );
             $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-            $st->bindValue( ":date", $this->data["date"], PDO::PARAM_STR);
+            $st->bindValue( ":startDate", $this->data["startDate"], PDO::PARAM_STR);
+            $st->bindValue( ":endDate", $this->data["endDate"], PDO::PARAM_STR);
             $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
 
             $st->execute();
@@ -152,11 +176,11 @@ class Agenda extends DataObject {
 
     public function delete() {
         $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_AGENDA . " WHERE idAgenda = :idAgenda";
+        $sql = "DELETE FROM " . TBL_NEWS . " WHERE idNew = :idNew";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idAgenda", $this->data["idAgenda"], PDO::PARAM_INT );
+            $st->bindValue( ":idNew", $this->data["idNew"], PDO::PARAM_INT );
             $st->execute();
             parent::disconnect( $conn );
 

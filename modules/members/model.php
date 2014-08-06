@@ -1,6 +1,10 @@
 <?php
 
-require_once "DataObject.class.php";
+require_once "home/DataObject.class.php";
+require_once "galery/model.php";
+require_once "search/Street.class.php";
+require_once "search/Address.class.php";
+require_once "search/Activities.class.php";
 
 class Member extends DataObject {
 
@@ -63,20 +67,93 @@ class Member extends DataObject {
     }
   }
 
-  public static function getFullMembersInfo () {
+    public static function getFullMembersInfo () {
 
-      require_once ('Image.class.php');
-      require_once ('Street.class.php');
-      require_once ('Address.class.php');
+        $conn = parent::connect();
 
-      $conn = parent::connect();
-
-      $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
+        $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str
       WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet";
 
+        try {
+            $st = $conn->prepare( $sql );
+            $st->execute();
+
+            parent::disconnect( $conn );
+
+            $row = null;
+
+            $totalRows = 0;
+
+            foreach ( $st->fetchAll() as $currentRow ) {
+
+                $members[] = new Member($currentRow);
+                $images [] = new Image ($currentRow);
+                $address [] = new Address($currentRow);
+                $streets [] = new Street($currentRow);
+
+                $totalRows = $totalRows + 1;
+
+            }
+
+            if ($members && $images ) {
+
+                return array( $members,$images,$address,$streets,$totalRows);
+
+            }
+
+        } catch ( PDOException $e ) {
+
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+
+        }
+
+    }
+  public static function searchMembers ($name = null, $activity=null, $street=null) {
+
+      $conn = parent::connect();
+
+      $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,Mem.idActivity,Act.activityName,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
+      FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str,".TBL_ACTIVITIES." as Act
+      WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet and Act.idActivity = Mem.idActivity";
+
+      if ($name != null) {
+
+          $sql = $sql . " and Mem.name = :name";
+      }
+
+      if ($activity != null) {
+
+          $sql = $sql . " and Act.activityName = :activityName";
+      }
+
+      if ($street != null) {
+          //change query
+          $sql = $sql . " and Str.streetName = :street";
+      }
+
       try {
           $st = $conn->prepare( $sql );
+
+          if ($name != null) {
+
+             $st->bindValue(":name",$name,PDO::PARAM_STR);
+
+          }
+
+          if ($activity != null) {
+
+              $st->bindValue(":activityName",$activity,PDO::PARAM_STR);
+
+          }
+
+          if ($street != null) {
+
+              $st->bindValue(":street",$street,PDO::PARAM_STR);
+
+          }
+
           $st->execute();
 
           parent::disconnect( $conn );
@@ -91,14 +168,15 @@ class Member extends DataObject {
               $images [] = new Image ($currentRow);
               $address [] = new Address($currentRow);
               $streets [] = new Street($currentRow);
+              $activities [] = new Activities($currentRow);
 
               $totalRows = $totalRows + 1;
 
           }
 
-          if ($members && $images ) {
+          if ($totalRows > 0) {
 
-              return array( $members,$images,$address,$streets,$totalRows);
+              return array( $members,$images,$address,$streets,$activities,$totalRows);
 
           }
 
@@ -110,6 +188,8 @@ class Member extends DataObject {
       }
 
   }
+
+
 
   public static function getTodayMember () {
 
@@ -132,8 +212,6 @@ class Member extends DataObject {
   }
 
   public static function getMembersPreview($limit = -1) {
-
-      require_once ('Image.class.php');
 
       $conn = parent::connect();
 

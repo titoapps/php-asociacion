@@ -167,7 +167,7 @@ insert into Address values (7,5,40,2,'E',39011);
 CREATE TABLE Activities (
 
   idActivity  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name        VARCHAR (30),
+  activityName        VARCHAR (30),
 
   constraint PK_ACTIVITIES PRIMARY KEY (idActivity)
 

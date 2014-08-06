@@ -39,6 +39,17 @@ class Configuration {
                                    5 => 'asociate',
                                    6 => 'contacto');
 
+        $this->menuModules = array(0 => 'home',
+                                   1 => 'news',
+                                   2 => 'asociation',
+                                   3 => 'offers',
+                                   4 => 'agenda',
+                                   5 => 'asociate',
+                                   6 => 'contact',
+                                   7 => 'search');
+
+        //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
+
     }
 
     /**
@@ -68,6 +79,18 @@ class Configuration {
         return $this->menuOptions;
 
     }
+
+    /**
+     * Returns the menu modules array
+     *
+     * @return array with the modules for the menu options
+     */
+    public function getMenuModules() {
+
+        return $this->menuModules;
+
+    }
+
 
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once "DataObject.class.php";
+require_once "modules/home/DataObject.class.php";
 
 class User extends DataObject {
 

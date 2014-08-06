@@ -1,6 +1,6 @@
 <?php
 
-require_once('php/configuration/DBconfig.php');
+require_once('DBconfig.php');
 
 abstract class DataObject {
 

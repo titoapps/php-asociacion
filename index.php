@@ -1,14 +1,15 @@
 <?php
 
-    include_once('php/visuals/headHTML.php');
+    include 'framework.php';
 
+    include_once('php/visuals/headHTML.php');
 
     echo ' <body> ';
     echo '<div id="container">';
 
     //header
     //TODO: need to insert the current displayed option
-    include_once('php/visuals/mainMenu.php');
+    include('modules/mainMenu/controller.php');
 
     echo ' <div id="content">';
 
@@ -18,6 +19,8 @@
 
     //Cabecera central Buscador y Sugerencia de Visita
     echo'<div id="main">';
+
+    echo cargador::contenido($componente);
 
     echo '</div>'; // main div
 

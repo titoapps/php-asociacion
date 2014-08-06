@@ -3,44 +3,37 @@
  * Created by PhpStorm.
  * User: albertoperezperez
  * Date: 13/07/14
- * Time: 19:33
+ * Time: 17:56
  */
 
-require_once "DataObject.class.php";
 
-class Activities  extends DataObject {
+class Image extends DataObject {
 
     protected $data = array(
-
-        "idActivity" => "",
-        "name"       => ""
+        "idImage" => "",
+        "imageName" => "",
+        "path" => ""
 
     );
 
-    public static function getActivities() {
-
+    public static function getImage( $id ) {
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_ACTIVITIES. ' order by name';
+        $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
 
         try {
             $st = $conn->prepare( $sql );
+            $st->bindValue( ":idImage", $id, PDO::PARAM_INT );
             $st->execute();
-
-            $result = array();
-            foreach ( $st->fetchAll() as $row ) {
-                $result[] = new Activities( $row );
-            }
-
-            if ($result)
-                return $result;
-
-            parent::disconnect($conn);
-
-        } catch ( PDOException $e ) {
+            $row = $st->fetch();
 
             parent::disconnect( $conn );
-            die( "Query failed: " . $e->getMessage() );
 
+            if ( $row )
+                return new Image( $row );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
         }
     }
 
@@ -49,20 +42,22 @@ class Activities  extends DataObject {
     public function insert() {
         $conn = parent::connect();
 
-        $sql = "INSERT INTO " . TBL_ACTIVITIES . " (
-
-                name
+        $sql = "INSERT INTO " . TBL_IMAGES . " (
+                idImage,
+                imageName,
+                path
 
             ) VALUES (
-
-                :name
-
+                :idImage,
+                :imageName,
+                :path
             )";
 
         try {
             $st = $conn->prepare( $sql );
-
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR);
+            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
+            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
+            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
 
             $st->execute();
             parent::disconnect( $conn );
@@ -78,15 +73,17 @@ class Activities  extends DataObject {
     public function update() {
         $conn = parent::connect();
 
-        $sql = "UPDATE " . TBL_ACTIVITIES . " SET
-                name
-
-            WHERE idActivity = :idActivity";
+        $sql = "UPDATE " . TBL_IMAGES . " SET
+                idImage,
+                imageName,
+                path
+            WHERE idImage = :idImage";
 
         try {
             $st = $conn->prepare( $sql );
-
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
+            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
+            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
+            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
 
             $st->execute();
 
@@ -102,11 +99,11 @@ class Activities  extends DataObject {
 
     public function delete() {
         $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_ACTIVITIES . " WHERE idActivity = :idActivity";
+        $sql = "DELETE FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idActivity", $this->data["idActivity"], PDO::PARAM_INT );
+            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT );
             $st->execute();
             parent::disconnect( $conn );
 

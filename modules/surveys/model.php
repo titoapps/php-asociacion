@@ -6,6 +6,8 @@
  * Time: 19:08
  */
 
+require_once ('Answer.class.php');
+
 class Survey extends DataObject {
 
     protected $data = array(
@@ -37,8 +39,6 @@ class Survey extends DataObject {
     }
 
     public static function getCurrentSurvey() {
-
-        require_once ('php/model/Answer.class.php');
 
         $conn = parent::connect();
         $sql = "SELECT surveyTitle,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
