@@ -1,22 +1,16 @@
 <?php
 /**
-* Draws the members images on the left side menu
-*/
+ * Created by PhpStorm.
+ * User: albertoperezperez
+ * Date: 06/08/14
+ * Time: 22:22
+ */
+echo '<div id="member">';
+echo '<p><img src="'.$image->getValueDecoded("path").'" alt="'.$image->getValueDecoded("imageName").'" />';
+echo '<span id="nombre_comercio">'.$member->getValueDecoded("name").'</span><br/>
+      <span id="descripcion_comercio">'.$member->getValueDecoded("description").'</span>
+      <br/> <br/>
+      <span id="direccion_comercio"> C/ ' .$streetString. '</br>
+      Telefono : '.$member->getValueDecoded("phoneNumber").'</br> Email:'.$member->getValueDecoded("email").'</span>';
 
-echo '<h3>Asociados</h3>
-<div id="asociados">';
-
-    $index = 0;
-
-    foreach ($members as $member) {
-
-    $name = $member->getValueDecoded("name");
-    $path = $images[$index]->getValueDecoded("path");
-    $image = $images[$index]->getValueDecoded("imageName");
-    echo '<a href="#" id="link_asociado1" alt="'.$name.'">
-        <img src="'.$path.'" alt="'.$image.'"/><br />
-    </a>';
-    $index++;
-    }
-
-    echo '<a href="#" class="ampliar_info">Ver Asociados</a></div>';
+echo '</br></br></br></p></div>';

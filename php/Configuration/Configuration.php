@@ -42,7 +42,7 @@ class Configuration {
         $this->menuModules = array(0 => 'home',
                                    1 => 'news',
                                    2 => 'asociation',
-                                   3 => 'offers',
+                                   3 => 'jobOffers',
                                    4 => 'agenda',
                                    5 => 'asociate',
                                    6 => 'contact',

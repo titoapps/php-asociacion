@@ -10,13 +10,13 @@ function drawLeftMenu () {
     echo '
         <div id="leftsecondary">';
 
-    include_once 'modules/user/controller.php';
+    include_once 'user/controller.php';
 
-    include_once 'modules/members/controller.php';
+    include_once 'membersPreview/controller.php';
 
-    include_once 'modules/surveys/controller.php';
+    include_once 'surveys/controller.php';
 
-    include_once 'modules/contact/controller.php';
+    include_once 'contact/controller.php';
 
         	echo '
             <!--h3>Twitter</h3>

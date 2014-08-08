@@ -96,7 +96,7 @@ class Member extends DataObject {
 
             }
 
-            if ($members && $images ) {
+            if ($members && $images && $address && $streets) {
 
                 return array( $members,$images,$address,$streets,$totalRows);
 
@@ -110,6 +110,7 @@ class Member extends DataObject {
         }
 
     }
+
   public static function searchMembers ($name = null, $activity=null, $street=null) {
 
       $conn = parent::connect();

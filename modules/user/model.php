@@ -1,6 +1,6 @@
 <?php
 
-require_once "modules/home/DataObject.class.php";
+require_once "home/DataObject.class.php";
 
 class User extends DataObject {
 
@@ -215,18 +215,22 @@ class User extends DataObject {
     }
   }
 
-  public function authenticate() {
+  public static function authenticate($nickname,$password) {
     $conn = parent::connect();
+      //TODO:Decrypt password field on database. Cannot authenticate this way
     $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName AND password = password(:password)";
 
     try {
       $st = $conn->prepare( $sql );
-      $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
-      $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
+      $st->bindValue(":nickName", $nickname, PDO::PARAM_STR);
+      $st->bindValue(":password", $password, PDO::PARAM_STR);
       $st->execute();
       $row = $st->fetch();
-      parent::disconnect( $conn );
-      if ( $row ) return new User( $row );
+        if ( $row )
+          return new User( $row );
+
+        parent::disconnect( $conn );
+
     } catch ( PDOException $e ) {
       parent::disconnect( $conn );
       die( "Query failed: " . $e->getMessage() );

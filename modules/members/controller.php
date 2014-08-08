@@ -2,9 +2,46 @@
 
 require_once 'model.php';
 
-$membersAndImages = Member::getMembersPreview(3);
+$membersInfo = Member::getFullMembersInfo();
 
-$members = $membersAndImages [0];
-$images = $membersAndImages [1];
+/*$members,$images,$address,$streets,$totalRows);*/
 
-include 'tmpl.php';
+$members = $membersInfo[0];
+$images = $membersInfo[1];
+$addresses = $membersInfo[2];
+$streets = $membersInfo[3];
+
+$index = 0;
+
+echo '<div id="members">
+                <h2>Asociados</h2>';
+
+foreach ($members as $member) {
+
+    $image = $images [$index];
+    $address = $addresses [$index];
+    $street = $streets [$index];
+
+    $streetString = $street->getValueDecoded("streetName").' '.$address->getValueDecoded("number");
+
+    $floor = $address->getValueDecoded("floor");
+
+    if ($floor!= null && $floor >= 0 ) {
+
+        $floor = ($floor == 0) ? " Bajo":" Planta ".$floor;
+
+        $streetString = $streetString . $floor;
+
+    }
+
+    if ($address->getValueDecoded("door")!= null )
+        $streetString = $streetString. ' Puerta '.$address->getValueDecoded("door");
+
+
+    include 'tmpl.php';
+
+    $index ++;
+
+}
+
+echo '</div>';

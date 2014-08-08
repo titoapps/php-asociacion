@@ -239,25 +239,25 @@ Main Header - Buscador y Visita comercio
 	float: left;
 	width: 30%;
 }
-#container #content #main #main_header #visita_comercio {
+#visita_comercio {
 	float: right;
 	width: 63%;
 }
-#container #content #main #main_header #visita_comercio img {
+#visita_comercio img {
 	width: 30%;
 	float: left;
 	margin: 0 0.3em 0.3em 0;
 }
-#container #content #main #main_header #visita_comercio a {
+#visita_comercio a {
 	text-decoration: none;
 	color: inherit;
 	font-size: larger;
 	font-weight: bold;
 }
-#container #content #main #main_header #visita_comercio #descripcion_comercio {
+#visita_comercio #descripcion_comercio {
 	font-style: italic;
 }
-#container #content #main #main_header #visita_comercio #direccion_comercio {
+#visita_comercio #direccion_comercio {
 	font-size: small;
 }
 /*Contenido - Agenda Empleo*/
@@ -342,24 +342,25 @@ Footer
 */
 
 /** Members list */
-#container #content #main #members {
-
+#container #content #main #members #member{
+    width: 35%;
+    float: left;
 }
 
-#container #content #main #members img {
-    width: 15%;
-    float: left;
+#container #content #main #members #member img {
+    width: 30%;
+    float: right;
     margin: 0 0.3em 0.3em 0;
 }
-#container #content #main #members #nombre_comercio {
+#container #content #main #members #member #nombre_comercio {
     text-decoration: none;
     color: inherit;
     font-size: larger;
     font-weight: bold;
 }
-#container #content #main #members #descripcion_comercio {
+#container #content #main #members #member #descripcion_comercio {
     font-style: italic;
 }
-#container #content #main #members #direccion_comercio {
+#container #content #main #members #member #direccion_comercio {
     font-size: small;
 }

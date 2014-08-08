@@ -145,7 +145,7 @@ function showAllMembers () {
 
 }
 
-function doLogin() {
+function º() {
 
     var name = document.getElementById("user").value;
     var password = document.getElementById("password").value;

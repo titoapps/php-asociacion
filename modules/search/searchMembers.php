@@ -35,7 +35,7 @@ if ($totalRows > 0 ) {
         if ($address->getValueDecoded("door")!= null )
             $streetString = $streetString. ' Puerta '.$address->getValueDecoded("door");
 
-
+        echo '<div id="member">';
         echo '<p><img src="'.$image->getValueDecoded("path").'" alt="'.$image->getValueDecoded("imageName").'" />';
         echo '<span id="nombre_comercio">'.$member->getValueDecoded("name").'</span><br/>
 
@@ -45,7 +45,7 @@ if ($totalRows > 0 ) {
                         Telefono : '.$member->getValueDecoded("phoneNumber").'</br> Email:'.$member->getValueDecoded("email").
                         '</span>';
 
-        echo '</br></br></p>';
+        echo '</br></br></p></div>';
 
     }
 
