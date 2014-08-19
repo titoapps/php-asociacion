@@ -142,9 +142,11 @@ Estilos lateral Izquierdo
 #container #content #leftsecondary #encuestas {
 	font-size: small;
 }
-#container #content #leftsecondary #encuestas .element_above {
+.element_above {
 	display: block;
+    width: 80%;
 }
+
 #container #content #leftsecondary table {
 	border-bottom: thin solid #999;
 	border-collapse: collapse;
@@ -340,6 +342,26 @@ Footer
 /**
 * Extended styles
 */
+
+input[type=text].wrongTextField {
+    /* Awesome styling */
+    border: 3px solid red;
+
+}
+
+.center_container {
+
+    width:80%;
+    margin:auto;
+
+}
+
+input
+.element_above_centered {
+    display: block;
+    width: 80%;
+    margin: auto;
+}
 
 /** Members list */
 #container #content #main #members #member{

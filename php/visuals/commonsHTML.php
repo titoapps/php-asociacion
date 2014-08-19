@@ -16,7 +16,7 @@ function drawLeftMenu () {
 
     include_once 'surveys/controller.php';
 
-    include_once 'contact/controller.php';
+    include_once 'contactLogo/controller.php';
 
         	echo '
             <!--h3>Twitter</h3>

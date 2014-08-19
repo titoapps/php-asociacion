@@ -15,6 +15,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
     <link href="styles/styles.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.9.0.js"></script>
     <script type="text/javascript" src="js/mainMenuUtilities.js"></script>
+    <script type="text/javascript" src="js/utilities.js"></script>
 
 </head>';
 
