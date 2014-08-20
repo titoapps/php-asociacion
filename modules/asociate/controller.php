@@ -8,7 +8,7 @@
 
 if(isset($_POST['send'])) {
 
-    include_once 'contactForm.php';
+    include_once 'asociateForm.php';
 
 } else {
 
