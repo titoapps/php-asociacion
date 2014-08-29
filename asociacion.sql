@@ -3,6 +3,7 @@ USE asociacion;
 
 drop table if exists Agenda cascade;
 drop table if exists AnswerToSurveys cascade;
+drop table if exists SurveyResponses cascade;
 drop table if exists JobOffers cascade;
 drop table if exists Members cascade;
 drop table if exists News cascade;
@@ -100,7 +101,7 @@ insert Answer values (3,'NS/NC.');
 CREATE TABLE Surveys (
 
   idSurvey       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  surveyTitle          VARCHAR(150) NOT NULL,
+  surveyTitle    VARCHAR(150) NOT NULL,
 
   constraint PK_SURVEYS PRIMARY KEY (idSurvey)
 
@@ -123,6 +124,18 @@ insert into AnswerToSurveys values (1,1);
 insert into AnswerToSurveys values (2,1);
 insert into AnswerToSurveys values (3,1);
 
+
+CREATE TABLE SurveyResponses (
+
+  idSurveyResponse INT UNSIGNED AUTO_INCREMENT,
+  idSurvey        INT UNSIGNED NOT NULL,
+  idAnswer        INT UNSIGNED NOT NULL,
+
+  Constraint PK_SURVEYS_RESPONSES PRIMARY KEY (idSurveyResponse),
+  constraint FK_SURVEYS_RESPONSES_SURVEY FOREIGN KEY (idSurvey) REFERENCES Surveys(idSurvey),
+  constraint FK_SURVEYS_RESPONSES_ANSWER FOREIGN KEY (idAnswer) REFERENCES Answer(idAnswer)
+
+);
 
 CREATE TABLE Streets (
 
@@ -232,7 +245,7 @@ insert into UserType values (1,'administrator','web administrator');
 CREATE TABLE Users (
 
   idUser      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  password    VARCHAR (30) NOT NULL,
+  password    VARCHAR (100) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (30),
   nickName    VARCHAR (30),

@@ -9,13 +9,13 @@
 require_once 'modules/agenda/model.php';
 
 
-if(isset($_POST['buscar'])) {
+if(isset($_GET['option'])) {
 
-    echo '<h2>Agenda</h2> ';
+    echo '<div id="main_content"><h2>Agenda</h2> ';
 
-    $agendaItems = Agenda::getAgendaItems(-1);
+    $agendaItems = Agenda::getAgendaItems(2);
 
-    if ($agendaItems !=null) {
+    if ($agendaItems != null) {
 
         foreach ($agendaItems as $key => $agendaItem) {
 
@@ -28,6 +28,8 @@ if(isset($_POST['buscar'])) {
         }
 
     }
+
+    echo '</div>';
 
 } else {
 

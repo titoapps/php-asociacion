@@ -8,7 +8,7 @@
 
 echo '<h3>Participe</h3>
             <div id="encuestas">
-                <form action="#">
+                <form action="index.php" method="POST">
                     <fieldset>
                         <legend>Encuesta</legend>';
 
@@ -20,11 +20,11 @@ foreach ($answers as $answer) {
 
     if ($checked) {
 
-        echo '<input type="radio" name="survey" value="a_favor"/>'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
+        echo '<input type="radio" name="survey" value='.$answer->getValueDecoded("idAnswer").'/>'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
 
     } else {
 
-        echo '<input type="radio" name="survey" value="a_favor" checked="checked" />'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
+        echo '<input type="radio" name="survey" value='.$answer->getValueDecoded("idAnswer").' />'.$answer->getValueDecoded("answerTitle").'<br/><br/>';
 
         $checked = true;
 
@@ -34,8 +34,8 @@ foreach ($answers as $answer) {
 
 
 echo'<br/>
-         <input type="submit" value="Votar" />
-         <input type="button" value="Resultados" />
+         <input type="submit" value="Votar" name="Votar" />
+         <input type="button" value="Resultados" name="Resultados" />
          </fieldset>
          </form>
          </div>';

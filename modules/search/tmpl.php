@@ -30,15 +30,15 @@ echo'<div id="buscador">
                     <option value="" selected="selected">- seleccione -</option>';
 
 
-foreach ($allStreets as $street) {
+                    foreach ($allStreets as $street) {
 
-    $streetName = $street->getValueDecoded('streetName');
+                        $streetName = $street->getValueDecoded('streetName');
 
-    echo '<option value="'.$streetName.'">'.$streetName.'</option>';
+                        echo '<option value="'.$streetName.'">'.$streetName.'</option>';
 
-}
+                    }
 
-echo '</select>
+                echo '</select>
             </div>
             <input class="form_item" type="button" value="Buscar" name="search" onclick="searchShop()"/>
           </fieldset>

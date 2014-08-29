@@ -2,6 +2,16 @@
 
 require_once 'model.php';
 
-$jobOffers = JobOffers::getJobOffers(3);
+if (isset($_GET['option'])){
 
-include_once 'tmpl.php';
+    $jobOffers = JobOffers::getJobOffers(-1);
+
+    include_once 'tmpl.php';
+
+} else {
+
+    $jobOffers = JobOffers::getJobOffers(3);
+
+    include_once 'tmplPreview.php';
+
+}

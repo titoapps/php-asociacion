@@ -225,6 +225,7 @@ class User extends DataObject {
       $st->bindValue(":nickName", $nickname, PDO::PARAM_STR);
       $st->bindValue(":password", $password, PDO::PARAM_STR);
       $st->execute();
+
       $row = $st->fetch();
         if ( $row )
           return new User( $row );

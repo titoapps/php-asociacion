@@ -2,20 +2,49 @@
 
 require_once 'model.php';
 
-$newsToShow =  News::getCurrentNews(3);
+if(isset($_GET['option'])) {
 
-echo '<h2>Noticias</h2> ';
+    echo '<div id="main_content">';
 
-if ($newsToShow !=null) {
+    $newsToShow =  News::getCurrentNews(-1);
 
-    foreach ($newsToShow as $new) {
+    echo '<h2>Noticias</h2> ';
 
-        $title = $new->getValueDecoded('title');
-        $subtitle = $new->getValueDecoded('subtitle');
-        $description = $new->getValueDecoded('description');
-        $startDate = $new->getValueDecoded("startDate");
+    if ($newsToShow !=null) {
 
-        include 'tmpl.php';
+        foreach ($newsToShow as $new) {
+
+            $title = $new->getValueDecoded('title');
+            $subtitle = $new->getValueDecoded('subtitle');
+            $description = $new->getValueDecoded('description');
+            $startDate = $new->getValueDecoded("startDate");
+
+            include 'tmpl.php';
+
+        }
+
+    }
+
+    echo '</div>';
+
+} else {
+
+    $newsToShow =  News::getCurrentNews(3);
+
+    echo '<h2>Noticias</h2> ';
+
+    if ($newsToShow !=null) {
+
+        foreach ($newsToShow as $new) {
+
+            $title = $new->getValueDecoded('title');
+            $subtitle = $new->getValueDecoded('subtitle');
+            $description = $new->getValueDecoded('description');
+            $startDate = $new->getValueDecoded("startDate");
+
+            include 'tmpl.php';
+
+        }
 
     }
 

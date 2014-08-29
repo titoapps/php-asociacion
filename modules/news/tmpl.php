@@ -2,6 +2,7 @@
 /**
 * Draws the members images on the left side menu
 */
+
 echo '<h3 class="titulo_seccion">'.$title.'</h3>';
 
 echo '<p class="fecha">'.$startDate.'</p>';

@@ -7,7 +7,7 @@
  */
 
 
-echo '<div id="members">
+echo '<div id="main_content"><div id="members">
                 <h2>Hemos encontrado..</h2>';
 
 if ($totalRows > 0 ) {
@@ -49,10 +49,10 @@ if ($totalRows > 0 ) {
 
     }
 
-    echo'</div>';
+    echo'</div></div>';
 
 } else {
 
-    echo '</br><h3>Vaya! Parece que no existen comercios asociados con esos datos..</h3>';
+    echo '<div id="main_content"></br><h3>Vaya! Parece que no existen comercios asociados con esos datos..</h3></div>';
 
 }

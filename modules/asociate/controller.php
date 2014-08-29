@@ -12,6 +12,12 @@ if(isset($_POST['send'])) {
 
 } else {
 
+    require_once 'search/Activities.class.php';
+    require_once "members/model.php";
+
+    $allActivities = Activities::getActivities();
+    $allStreets = Street::getStreets();
+
     include_once 'tmpl.php';
 
 }

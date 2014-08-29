@@ -41,7 +41,7 @@ class Survey extends DataObject {
     public static function getCurrentSurvey() {
 
         $conn = parent::connect();
-        $sql = "SELECT surveyTitle,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
+        $sql = "SELECT surveyTitle,Ans.idAnswer,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
                 WHERE Sur.idSurvey = ATS.idSurvey and ATS.idAnswer = Ans.idAnswer and Sur.idSurvey =
                                     (select idSurvey from ".TBL_SURVEYS." order by idSurvey LIMIT 1)";
 
@@ -73,24 +73,24 @@ class Survey extends DataObject {
     }
 
 
-    public function insert() {
+    public function insertSurveyResponse($surveyId,$surveyAnswerId) {
         $conn = parent::connect();
 
-        $sql = "INSERT INTO " . TBL_SURVEYS . " (
+        $sql = "INSERT INTO " . TBL_SURVEY_RESPONSES . " (
                 idSurvey,
-                title
+                idAnswer
 
             ) VALUES (
 
                 :idSurvey,
-                :title
+                :idAnswer
 
             )";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idSurvey", $this->data["idSurvey"], PDO::PARAM_INT);
-            $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
+            $st->bindValue( ":idSurvey", $surveyId, PDO::PARAM_STR);
+            $st->bindValue( ":idAnswer", $surveyAnswerId, PDO::PARAM_STR );
 
             $st->execute();
             parent::disconnect( $conn );

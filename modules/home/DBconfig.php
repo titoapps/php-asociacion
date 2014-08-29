@@ -10,6 +10,7 @@ define( "TBL_AGENDA", "Agenda" );
 define( "TBL_ANSWER", "Answer" );
 define( "TBL_SURVEYS", "Surveys" );
 define( "TBL_ANSWERTOSURVEYS","AnswerToSurveys");
+define( "TBL_SURVEY_RESPONSES", "SurveyResponses" );
 define( "TBL_STREET", "Streets" );
 define( "TBL_ADDRESS", "Address" );
 define( "TBL_ACTIVITIES", "Activities" );

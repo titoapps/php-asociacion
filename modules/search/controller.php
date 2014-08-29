@@ -44,7 +44,6 @@ if(isset($_GET['search'])) {
 
 } else {
 
-    $allActivities = Activities::getActivities();
     $allStreets = Street::getStreets();
 
     include 'tmpl.php';

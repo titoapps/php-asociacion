@@ -7,7 +7,7 @@
  */
 
 
-echo '<div id="main_content">
+echo '<div id="empleo">
             <h2>Empleo</h2>';
 
 foreach ($jobOffers as $jobOffer) {

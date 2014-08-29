@@ -13,7 +13,7 @@ $streets = $membersInfo[3];
 
 $index = 0;
 
-echo '<div id="members">
+echo '<div id="main_content"><div id="members">
                 <h2>Asociados</h2>';
 
 foreach ($members as $member) {
@@ -44,4 +44,4 @@ foreach ($members as $member) {
 
 }
 
-echo '</div>';
+echo '</div></div>';

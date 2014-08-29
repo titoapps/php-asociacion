@@ -8,26 +8,41 @@
 
 if (isset($_POST['send'])) {
 
-    $to = "alberto.perez.perez@hotmail.com";
-    $headers = "From: ".$_POST['email'];
-    $headers = "From: alberto.perez.perez.g@gmail.com";
-    $subject = $_POST['subject'];
-    $body = $_POST['text'];
-
     echo '<div class="center_container" >
-      <h2>Contacto</h2>
+        <h2>Contacto</h2>
 
-      </div>
-     ';
+        </div>';
 
-    if (mail($to, $subject, $body,$headers)) {
+    if(strtoupper($_REQUEST["captcha"]) == $_SESSION["captcha"]){
+        // REMPLAZO EL CAPTCHA USADO POR UN TEXTO LARGO PARA EVITAR QUE SE VUELVA A INTENTAR
+        $_SESSION["captcha"] = md5(rand()*time());
 
-        echo("<p>Ya hemos recibido tu mensaje! Gracias, le atenderemos lo antes posible.</p>");
+        $to = "alberto.perez.perez.g@gmail.com";
+        $headers = "From: ".$_POST['email'];
+        $subject = $_POST['subject'];
+        $body = $_POST['text'];
+
+
+
+        if (mail($to, $subject, $body,$headers)) {
+
+            echo("<p>Ya hemos recibido tu mensaje! Gracias, le atenderemos lo antes posible.</p>");
+
+        } else {
+
+            echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos/p>");
+
+        }
+
 
     } else {
 
-        echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos/p>");
+        // REMPLAZO EL CAPTCHA USADO POR UN TEXTO LARGO PARA EVITAR QUE SE VUELVA A INTENTAR
+        $_SESSION["captcha"] = md5(rand()*time());
+
+        echo("<p>Vaya..! El captcha no es correcto</p>");
 
     }
+
 
 }

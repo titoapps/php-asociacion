@@ -6,10 +6,19 @@
  * Time: 20:47
  */
 
-require_once 'model.php';
+if (isset($_POST['Votar']) || isset($_SESSION['alreadyAnswered'])) {
 
-$surveyInfo = Survey::getCurrentSurvey();
-$survey = $surveyInfo [0];
-$answers = $surveyInfo [1];
+    $valor = $_POST['survey'];
+    include_once 'surveyAnswer.php';
 
-include_once 'tmpl.php';
+} else {
+
+    require_once 'model.php';
+
+    $surveyInfo = Survey::getCurrentSurvey();
+    $survey = $surveyInfo [0];
+    $answers = $surveyInfo [1];
+
+    include_once 'tmpl.php';
+
+}

@@ -14,7 +14,7 @@ if (isset($_POST["login"])) {
 
     $userName = $_POST['user'];
     $password = $_POST['password'];
-
+    echo '<h1>'.$password.'</h1>';
     if ($userName == null) {
 
         echo '<h1>error usuario</h1>';
