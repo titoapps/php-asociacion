@@ -34,8 +34,9 @@ foreach ($answers as $answer) {
 
 
 echo'<br/>
+         <input type="hidden" value='.$survey->getValueDecoded("idSurvey").' name="idSurvey" id="idSurvey">
          <input type="submit" value="Votar" name="Votar" />
-         <input type="button" value="Resultados" name="Resultados" />
+         <input type="submit" value="Resultados" name="Resultados" />
          </fieldset>
          </form>
          </div>';

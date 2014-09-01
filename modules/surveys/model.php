@@ -8,6 +8,19 @@
 
 require_once ('Answer.class.php');
 
+class SurveyResults extends DataObject {
+
+    protected $data = array(
+
+        "idSurvey" => "",
+        "idAnswer" => "",
+        "answerTitle" => "",
+        "count" =>""
+
+    );
+
+}
+
 class Survey extends DataObject {
 
     protected $data = array(
@@ -41,7 +54,7 @@ class Survey extends DataObject {
     public static function getCurrentSurvey() {
 
         $conn = parent::connect();
-        $sql = "SELECT surveyTitle,Ans.idAnswer,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
+        $sql = "SELECT Sur.idSurvey,surveyTitle,Ans.idAnswer,answerTitle FROM " . TBL_SURVEYS . " as Sur, ". TBL_ANSWER." as Ans, ".TBL_ANSWERTOSURVEYS." as ATS
                 WHERE Sur.idSurvey = ATS.idSurvey and ATS.idAnswer = Ans.idAnswer and Sur.idSurvey =
                                     (select idSurvey from ".TBL_SURVEYS." order by idSurvey LIMIT 1)";
 
@@ -72,8 +85,62 @@ class Survey extends DataObject {
         }
     }
 
+    /**
+     * Returns results for the survey provided
+     * @param $idSurvey
+     */
+    public static function getSurveyResults($idSurvey) {
 
-    public function insertSurveyResponse($surveyId,$surveyAnswerId) {
+        $conn = parent::connect();
+
+        //
+        /*$sql = "(SELECT Sur.idSurvey,Ans.idAnswer,Ans.answerTitle, count(*) as count
+        from ".TBL_SURVEY_RESPONSES." as Sur,".TBL_ANSWER." as Ans
+        where idSurvey = :idSurvey and Ans.idAnswer = Sur.idAnswer
+        group by idSurvey,idAnswer)";*/
+
+        $sql = "(SELECT Sur.idSurvey,Ans.idAnswer,Ans.answerTitle, count(*) as count
+        from ".TBL_SURVEY_RESPONSES." as Sur,".TBL_ANSWER." as Ans
+        where idSurvey = :idSurvey and Ans.idAnswer = Sur.idAnswer
+        group by idSurvey,idAnswer)
+
+        union
+
+        (select AnsToSur.idSurvey,Ans2.idAnswer,Ans2.answerTitle, 0 as count
+        from ".TBL_ANSWERTOSURVEYS." as AnsToSur,".TBL_ANSWER." as Ans2
+        where idSurvey = :idSurvey and Ans2.idAnswer not in
+                (select STR.idAnswer from ".TBL_SURVEY_RESPONSES." as STR where STR.idSurvey = :idSurvey)
+        )";
+
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue(":idSurvey", $idSurvey, PDO::PARAM_INT);
+            $st->execute();
+
+            parent::disconnect( $conn );
+
+            $results = array();
+
+            foreach ($st->fetchAll() as $currentRow ) {
+
+                $results [] = new SurveyResults($currentRow);
+
+            }
+
+            if ($results != null) {
+
+                return $results;
+
+            }
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
+
+    public static function insertSurveyResponse($surveyId,$surveyAnswerId) {
         $conn = parent::connect();
 
         $sql = "INSERT INTO " . TBL_SURVEY_RESPONSES . " (

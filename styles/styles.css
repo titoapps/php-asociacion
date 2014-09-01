@@ -370,8 +370,8 @@ input
 
 /** Members list */
 #container #content #main #members #member{
-    width: 35%;
-    float: left;
+    width: 65%;
+    margin: auto;
 }
 
 #container #content #main #members #member img {
