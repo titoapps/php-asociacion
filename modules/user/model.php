@@ -12,12 +12,17 @@ class User extends DataObject {
     "nickName" => "",
     "surname" => "",
     "idImage" => "",
-    "idAddress" => "",
     "phoneNumber" => "",
     "email"       => "",
     "idUserType"  => "",
     "joinDate" => "",
-    "gender" => ""
+    "gender" => "",
+    "age" => "",
+    "streetName" => "",
+    "number" => "",
+    "floor" => "",
+    "door" => "",
+    "postalCode" => ""
 
   );
 
@@ -109,12 +114,17 @@ class User extends DataObject {
                 nickName,
                 surname,
                 idImage,
-                idAddress,
                 phoneNumber,
                 email,
                 idUserType,
                 joinDate,
-                gender
+                gender,
+                age,
+                streetName,
+                number,
+                floor,
+                door,
+                postalCode
             ) VALUES (
                 :NIF,
                 password(:password),
@@ -122,12 +132,17 @@ class User extends DataObject {
                 :nickName,
                 :surname,
                 :idImage,
-                :idAddress,
                 :phoneNumber,
                 :email,
                 :idUserType,
                 :joinDate,
-                :gender
+                :gender,
+                :age,
+                :streetName,
+                :number,
+                :floor,
+                :door,
+                :postalCode
             )";
 
     try {
@@ -138,13 +153,19 @@ class User extends DataObject {
         $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
         $st->bindValue( ":surname", $this->data["surname"], PDO::PARAM_STR );
         $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-        $st->bindValue( ":idAddress", $this->data["idAddress"], PDO::PARAM_INT);
         $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
         $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
         $st->bindValue( ":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
         $st->bindValue( ":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
         $st->bindValue( ":gender", $this->data["gender"], PDO::PARAM_STR);
+        $st->bindValue( ":age",$this->data["age"], PDO::PARAM_STR );
+        $st->bindValue( ":streetName",$this->data["streetName"], PDO::PARAM_INT);
+        $st->bindValue( ":number",$this->data["number"], PDO::PARAM_INT);
+        $st->bindValue( ":floor",$this->data["floor"], PDO::PARAM_INT);
+        $st->bindValue( ":door",$this->data["door"], PDO::PARAM_STR);
+        $st->bindValue( ":postalCode",$this->data["postalCode"], PDO::PARAM_INT);
         $st->execute();
+
       parent::disconnect( $conn );
     } catch ( PDOException $e ) {
       parent::disconnect( $conn );
@@ -162,12 +183,17 @@ class User extends DataObject {
                 nickName,
                 surname,
                 idImage,
-                idAddress,
                 phoneNumber,
                 email,
                 idUserType,
                 joinDate,
                 gender,
+                age,
+                streetName,
+                number,
+                floor,
+                door,
+                postalCode
 
             WHERE userId = :userId";
 
@@ -177,17 +203,22 @@ class User extends DataObject {
 
         if ( $this->data["password"] )
             $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
+
             $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
             $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
             $st->bindValue( ":surname", $this->data["surname"], PDO::PARAM_STR );
             $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":idAddress", $this->data["idAddress"], PDO::PARAM_INT);
             $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
             $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
             $st->bindValue( ":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
             $st->bindValue( ":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
             $st->bindValue( ":gender", $this->data["gender"], PDO::PARAM_STR);
-
+            $st->bindValue( ":age", $this->data["age"], PDO::PARAM_STR);
+            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR);
+            $st->bindValue( ":number", $this->data["number"], PDO::PARAM_STR);
+            $st->bindValue( ":floor", $this->data["floor"], PDO::PARAM_STR);
+            $st->bindValue( ":door", $this->data["door"], PDO::PARAM_STR);
+            $st->bindValue( ":postalCode", $this->data["postalCode"], PDO::PARAM_INT);
       $st->execute();
 
       parent::disconnect( $conn );

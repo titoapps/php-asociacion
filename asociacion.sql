@@ -251,28 +251,32 @@ CREATE TABLE Users (
   nickName    VARCHAR (30),
   surname     VARCHAR (30),
   idImage     INT UNSIGNED,
-  idAddress   INT UNSIGNED NOT NULL,
   phoneNumber SMALLINT,
   email       VARCHAR (30),
   idUserType  INT UNSIGNED NOT NULL,
   joinDate    DATE ,
   gender      char,
+  age         INT UNSIGNED,
+  streetName  VARCHAR (30) NOT NULL,
+  number      SMALLINT,
+  floor       SMALLINT,
+  door        varchar (10),
+  postalCode  SMALLINT,
 
   constraint PK_USERS PRIMARY KEY (idUser),
-  constraint FK_USERS_ADDRESS FOREIGN KEY (idAddress) references Address(idAddress),
   constraint FK_USERS_TYPE FOREIGN KEY (idUserType) references UserType(idUserType),
   constraint FK_USERS_IMG FOREIGN KEY (idImage) REFERENCES Images(idImage),
   constraint CHK_USERS_GENDER check(gender = 'M'|| gender ='F')
 
 );
 
-insert into Users (password, NIF, name, nickName, surname, idImage, idAddress, phoneNumber, email, idUserType,joinDate,gender)
-values (password('root'),'123456789r','administrator','admin','',null,1,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M');
+insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
+values (password('root'),'123456789r','administrator','admin','',null,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020);
 
-insert into Users (password, NIF, name, nickName, surname, idImage, idAddress, phoneNumber, email, idUserType,joinDate,gender)
-values (password('user1'),'1r','user1','user1','',null,3,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F');
-insert into Users (password, NIF, name, nickName, surname, idImage, idAddress, phoneNumber, email, idUserType,joinDate,gender)
-values (password('user2'),'2w','user2','user2','',null,2,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F');
+insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
+values (password('user1'),'1r','user1','user1','',null,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',45,'Avenida de los castros',233,4,'B',39010);
+insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
+values (password('user2'),'2w','user2','user2','',null,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
 
 CREATE TABLE JobOffers (
 
