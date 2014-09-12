@@ -39,7 +39,16 @@ if (isset($_POST['addUser'])) {
         'gender' => $gender);
 
     $user = new User($data);
-    $user->insert();
+    $result = $user->insert();
+
+    if ($result == null) {
+
+        $result = "Ya hemos recibido tu solicitud, en unos minutos recibirás un email de confirmación y una clave
+                   para acceder a la web. ¡Gracias por unirte!";
+
+    }
+
+    include 'tmplUserAdded.php';
 
 } else {
 

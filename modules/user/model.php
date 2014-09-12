@@ -107,6 +107,8 @@ class User extends DataObject {
   public function insert() {
     $conn = parent::connect();
 
+    $result = null;
+
     $sql = "INSERT INTO " . TBL_USERS . " (
                 NIF,
                 password,
@@ -146,31 +148,43 @@ class User extends DataObject {
             )";
 
     try {
+
+        if (User::userExists($this->data["nickName"],$this->data["email"])) {
+
+            return "Lo sentimos, el usuario ya existe.";
+
+        }
+
         $st = $conn->prepare( $sql );
-        $st->bindValue( ":NIF", $this->data["NIF"], PDO::PARAM_STR );
-        $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
-        $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
-        $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
-        $st->bindValue( ":surname", $this->data["surname"], PDO::PARAM_STR );
-        $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-        $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
-        $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
-        $st->bindValue( ":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
-        $st->bindValue( ":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
-        $st->bindValue( ":gender", $this->data["gender"], PDO::PARAM_STR);
-        $st->bindValue( ":age",$this->data["age"], PDO::PARAM_STR );
-        $st->bindValue( ":streetName",$this->data["streetName"], PDO::PARAM_INT);
-        $st->bindValue( ":number",$this->data["number"], PDO::PARAM_INT);
-        $st->bindValue( ":floor",$this->data["floor"], PDO::PARAM_INT);
-        $st->bindValue( ":door",$this->data["door"], PDO::PARAM_STR);
-        $st->bindValue( ":postalCode",$this->data["postalCode"], PDO::PARAM_INT);
+        $st->bindValue(":NIF", $this->data["NIF"], PDO::PARAM_STR );
+        $st->bindValue(":password", $this->data["password"], PDO::PARAM_STR );
+        $st->bindValue(":name", $this->data["name"], PDO::PARAM_STR );
+        $st->bindValue(":nickName", $this->data["nickName"], PDO::PARAM_STR );
+        $st->bindValue(":surname", $this->data["surname"], PDO::PARAM_STR );
+        $st->bindValue(":idImage", $this->data["idImage"], PDO::PARAM_INT);
+        $st->bindValue(":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
+        $st->bindValue(":email", $this->data["email"], PDO::PARAM_STR );
+        $st->bindValue(":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
+        $st->bindValue(":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
+        $st->bindValue(":gender", $this->data["gender"], PDO::PARAM_STR);
+        $st->bindValue(":age",$this->data["age"], PDO::PARAM_STR );
+        $st->bindValue(":streetName",$this->data["streetName"], PDO::PARAM_INT);
+        $st->bindValue(":number",$this->data["number"], PDO::PARAM_INT);
+        $st->bindValue(":floor",$this->data["floor"], PDO::PARAM_INT);
+        $st->bindValue(":door",$this->data["door"], PDO::PARAM_STR);
+        $st->bindValue(":postalCode",$this->data["postalCode"], PDO::PARAM_INT);
         $st->execute();
 
       parent::disconnect( $conn );
     } catch ( PDOException $e ) {
+
+      $result = "error";
       parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
+
+
     }
+      return $result;
+
   }
 
   public function update() {
@@ -268,6 +282,29 @@ class User extends DataObject {
       die( "Query failed: " . $e->getMessage() );
     }
   }
+
+    public static function userExists($nickname,$email) {
+        $conn = parent::connect();
+        //TODO:Decrypt password field on database. Cannot authenticate this way
+        $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName OR email = :email";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue(":nickName", $nickname, PDO::PARAM_STR);
+            $st->bindValue(":email", $email, PDO::PARAM_STR);
+            $st->execute();
+
+            $row = $st->fetch();
+            if ( $row )
+                return new User( $row );
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
 }
 

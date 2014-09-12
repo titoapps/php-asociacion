@@ -212,7 +212,7 @@ CREATE TABLE Members (
   idAddress   INT UNSIGNED NOT NULL,
   idActivity  INT UNSIGNED NOT NULL,
   phoneNumber SMALLINT,
-  email       VARCHAR (50),
+  email       VARCHAR (50) UNIQUE ,
 
   constraint PK_MEMBERS PRIMARY KEY (idMember),
   constraint FK_MEMBERS_ID_ADDRESS FOREIGN KEY (idAddress) references Address(idAddress),
@@ -252,7 +252,7 @@ CREATE TABLE Users (
   surname     VARCHAR (30),
   idImage     INT UNSIGNED,
   phoneNumber SMALLINT,
-  email       VARCHAR (30),
+  email       VARCHAR (30) UNIQUE,
   idUserType  INT UNSIGNED NOT NULL,
   joinDate    DATE ,
   gender      char,

@@ -86,14 +86,9 @@ echo'</select>
             <label for="door">Puerta</label>
             <input type="text" id="door" name="door" value = "B"/>
 
-            <br/>
-
-            <br/>
-            <label for="text">Comentarios</label>
-            <textarea class="element_above" id="text" name="text" rows="5"  ></textarea>
 
         </fieldset>
-
+        </br>
 
        <input type="submit" id="addUser" name="addUser">
       </form>
