@@ -2,29 +2,41 @@
 
 require_once 'modules/user/model.php';
 
-if (isset($_POST['addUser'])) {
+include 'tmpl.php';
 
-    $NIF = $_POST['nif'];
-    $age = $_POST['age'];
-    $password = $_POST['password'];
-    $name = $_POST['name'];
-    $nickName = $_POST['nickName'];
-    $surname = $_POST['surname'];
-    //$idImage = $_POST['nif'];
-    $street = $_POST['streetInputName'];
-    $CP = $_POST['CP'];
+/**
+ * Process the user registration form
+ * @param $values
+ */
+function processForm( $values ) {
 
-    $streetNumber = $_POST['streetNumber'];
-    $floor = $_POST['floor'];
-    $door = $_POST['door'];
+    $nickName = $values["nickName"];
 
-    $phoneNumber = $_POST['phone'];
-    $email = $_POST['email'];
+    $DNI = $values['dni'];
+    $age = $values['age'];
+
+    if ($age == "-")
+        $age = -1;
+
+    $password = $values['password'];
+    $name = $values['name'];
+    $nickName = $values['nickName'];
+    $surname = $values['surname'];
+    //$idImage = $values['nif'];
+    $street = $values['streetInputName'];
+    $CP = $values['CP'];
+
+    $streetNumber = $values['streetNumber'];
+    $floor = $values['floor'];
+    $door = $values['door'];
+
+    $phoneNumber = $values['phone'];
+    $email = $values['email'];
     $idUserType = 2;
     $joinDate = date("Y-m-d");
-    $gender = $_POST['gender'];
+    $gender = $values['gender'];
 
-    $data = array ('NIF' => $NIF,
+    $data = array ('NIF' => $DNI,
         'age' => $age,
         'password' => $password,
         'name' => $name,
@@ -50,8 +62,66 @@ if (isset($_POST['addUser'])) {
 
     include 'tmplUserAdded.php';
 
-} else {
+}
 
-    include 'tmpl.php';
+/**
+ * Checks if the user nick name already exists
+ *
+ * @param $nickName the user nickName
+ * @return bool returns if the user nickName already exists
+ */
+function checkNick ($nickName) {
+
+    $user = User::getByNickName($nickName);
+
+    if ($user == null)
+
+        return true;
+
+    else
+
+        return false;
+
+}
+
+/**
+ * Checks if the user email already exists
+ *
+ * @param $email the user email
+ * @return bool returns if the user email already exists
+ */
+function checkEmail ($email) {
+
+    $user = User::getByEmailAddress($email);
+
+    if ($user == null)
+
+        return true;
+
+    else
+
+        return false;
+
+}
+
+/**
+ * Checks if the user DNI
+ *
+ * @param $dni user dni
+ * @return bool returns if the user $dni already exists and its correct or not
+ */
+function checkDNI ($dni) {
+
+    $user = User::getByDNI($dni);
+
+    if ($user == null) {
+
+        //TODO:check DNI with algorithm
+        return true;
+
+
+    } else
+
+        return false;
 
 }

@@ -245,10 +245,10 @@ insert into UserType values (1,'administrator','web administrator');
 CREATE TABLE Users (
 
   idUser      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  password    VARCHAR (100) NOT NULL,
+  password    VARCHAR (30) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (30),
-  nickName    VARCHAR (30),
+  nickName    VARCHAR (20),
   surname     VARCHAR (30),
   idImage     INT UNSIGNED,
   phoneNumber SMALLINT,

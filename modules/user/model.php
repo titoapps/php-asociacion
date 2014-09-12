@@ -100,6 +100,26 @@ class User extends DataObject {
     }
   }
 
+
+    public static function getByDNI($dni) {
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_USERS . " WHERE NIF = :dni";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":dni", $dni, PDO::PARAM_STR );
+            $st->execute();
+            $row = $st->fetch();
+            parent::disconnect( $conn );
+            if ( $row ) return new User( $row );
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
+
+
+
   public function getGenderString() {
     return ( $this->data["gender"] == "F" ) ? "Female" : "Male";
   }
@@ -167,7 +187,7 @@ class User extends DataObject {
         $st->bindValue(":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
         $st->bindValue(":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
         $st->bindValue(":gender", $this->data["gender"], PDO::PARAM_STR);
-        $st->bindValue(":age",$this->data["age"], PDO::PARAM_STR );
+        $st->bindValue(":age",$this->data["age"], PDO::PARAM_INT );
         $st->bindValue(":streetName",$this->data["streetName"], PDO::PARAM_INT);
         $st->bindValue(":number",$this->data["number"], PDO::PARAM_INT);
         $st->bindValue(":floor",$this->data["floor"], PDO::PARAM_INT);
