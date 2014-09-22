@@ -21,15 +21,28 @@ if (isset($_POST['Votar']) || isset($_SESSION['alreadyAnswered'])) {
 
         $_SESSION['alreadyAnswered'] = 'YES';
 
+        include_once 'surveyAnswer.php';
+
+    } else {
+
+        $surveyInfo = Survey::getCurrentSurvey();
+        $survey = $surveyInfo [0];
+
+        $idSurvey = $survey->getValueDecoded('idSurvey');
+        $surveyResults = Survey::getSurveyResults($idSurvey);
+
+        $showBackButton = false;
+        include_once 'surveyResults.php';
+
     }
 
-    include_once 'surveyAnswer.php';
+
 
 } else if (isset($_POST['Resultados'])) {
 
     $idSurvey = $_POST['idSurvey'];
     $surveyResults = Survey::getSurveyResults($idSurvey);
-
+    $showBackButton = true;
     include_once 'surveyResults.php';
 
 } else {

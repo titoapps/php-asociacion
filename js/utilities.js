@@ -23,6 +23,7 @@ function validateEmail(inputText) {
 
 }
 
+
 /**
  * Validates the contact form
  * @param form

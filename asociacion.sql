@@ -40,9 +40,9 @@ insert into Images (imageName, path) values ('tascalogo','images/members/tascalo
 CREATE TABLE News (
 
   idNew           INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  title           VARCHAR(100) NOT NULL,
-  subtitle        VARCHAR(100) NOT NULL,
-  description     VARCHAR(300) NOT NULL,
+  title           VARCHAR(200) NOT NULL,
+  subtitle        VARCHAR(300) NOT NULL,
+  description     TEXT NOT NULL,
   startDate       DATE NOT NULL,
   endDate         DATE,
   idImage         INT UNSIGNED,
@@ -53,18 +53,52 @@ CREATE TABLE News (
 );
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
-values ('Comienzan las fiestas del Patrón ¡No te las pierdas!','','Llega el fin de semana y con él nuestro ansiado aniversario,
+values ('Comienzan las fiestas del Patrón ¡No te las pierdas!','Llega el fin de semana y con él nuestro ansiado aniversario,
  en el que todos podreis participar para hacerlo mas divertido que nunca. Con multitud de eventos, conciertos, concursos y actividades para todos. Elige tus preferidos y diviértete con..',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere ex sed placerat tincidunt.
+        Proin tincidunt pellentesque orci, ac feugiat lacus ultricies sit amet. Etiam at posuere nisl, id venenatis turpis.
+        Fusce ac quam odio. Mauris rutrum nulla eu odio consequat condimentum. Aenean blandit arcu nec arcu placerat, non
+        interdum tortor luctus. Maecenas ac egestas velit. Nunc vel dolor cursus, pretium nisi ac, egestas magna. Nulla ut
+        convallis nisl. In a massa vel augue bibendum posuere gravida nec magna. Vestibulum ac magna vel ipsum pretium
+        molestie. Proin a dolor diam. Suspendisse non tincidunt purus.
+
+Maecenas commodo, leo in luctus commodo, purus sapien commodo orci, et blandit enim ipsum ac tellus. Aliquam erat volutpat.
+Nunc in odio sollicitudin, interdum ex eu, condimentum erat. Integer viverra dolor ut quam ornare dignissim. Duis sed congue
+odio. Fusce malesuada, nibh nec consectetur porttitor, nunc est tempor tellus, vel mollis risus est id turpis. Maecenas eu
+scelerisque dui. Vivamus quis dignissim justo, vitae pretium dui. Sed lacinia ipsum et justo consequat, ac consequat sem
+facilisis. Nunc dolor lectus, tempus id euismod sit amet, lobortis at tellus. Cras posuere neque euismod nunc finibus iaculis.
+ Mauris ornare imperdiet varius. In fermentum vulputate elit, in commodo lectus porta viverra. Proin magna magna, rutrum vitae
+  leo eu, imperdiet semper ligula. Ut vel vehicula orci, nec iaculis urna.',
         DATE('2013-05-18 00:00:00'),DATE('2014-09-18 00:00:00'),null);
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
-values ('Se ultiman los preparativos para este fin de semana','','Ya tenemos los horarios de todos
+values ('Se ultiman los preparativos para este fin de semana','Ya tenemos los horarios de todos
 los eventos programados para la celebracion del fin de semana, en que se conmemorará el 15º aniversario de la asociación...',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod semper efficitur. Praesent vulputate diam
+        ex, sed vestibulum odio egestas sed. Aenean ullamcorper nulla eros, vel tincidunt augue laoreet eget. Sed quis nibh
+        bibendum, congue enim ac, accumsan nisl. Integer porttitor mollis euismod. Aliquam mattis felis magna, eu egestas ante
+         placerat sed. Praesent tincidunt venenatis dolor, malesuada efficitur lacus mollis a. Nam vitae dictum eros. Donec
+         placerat tempus tellus.',
         DATE('2013-05-17 00:00:00'),DATE('2014-10-20 00:00:00'),null );
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
-values ('Ya está en marcha la campaña de promiciones y descuentos','','Como todos los años sobre estas fechas los comercios de la
+values ('Ya está en marcha la campaña de promiciones y descuentos','Como todos los años sobre estas fechas los comercios de la
 asociación ya empiezan la campaña de promociones por las fiestas del patrón. Además de los descuentos, por cada compra superior a 15€ podrás participar en el sorteo de regalos..',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec nibh id magna venenatis pharetra. Nullam feugiat
+    mauris et sem commodo lobortis. Suspendisse faucibus ornare euismod. Nulla in sapien lobortis, consectetur est quis, imperdiet nunc.
+    Integer non risus bibendum, efficitur libero et, congue leo. Sed eget tellus dui. Sed sodales quam non eleifend suscipit.
+    Aliquam gravida molestie risus in consectetur. Integer rhoncus accumsan ex, ultricies faucibus arcu hendrerit et.
+    Nulla iaculis turpis in eros blandit, at mollis est aliquam. In sed diam quis massa egestas hendrerit at in orci.
+    Donec malesuada elementum enim non posuere. Mauris et accumsan risus. Donec ac tortor eros. Maecenas consectetur,
+    purus sed ornare mattis, leo nisi convallis diam, vitae commodo eros nibh in augue. Sed et mattis nulla.
+Mauris aliquet ante et finibus semper. Aliquam lacus justo, commodo ut auctor vel, ultricies nec libero. Nulla eget malesuada
+erat, at interdum ante. Suspendisse potenti. Nunc vel mauris nunc. Nullam ullamcorper odio at ligula euismod faucibus. Fusce
+id ultrices ipsum. Morbi consectetur elit magna, porta volutpat felis pulvinar eget. Vivamus euismod orci nibh, a mollis ipsum fermentum eu.
+Etiam porttitor suscipit urna eget egestas. Cras faucibus ultrices dui vel faucibus. Phasellus vestibulum dapibus ipsum,
+sodales scelerisque tellus laoreet eget. Phasellus imperdiet lacinia convallis. Proin purus felis, rutrum eu vehicula vel, luctus sit amet nulla.
+Morbi sodales justo id finibus feugiat. Pellentesque vitae urna dictum, dictum diam vitae, aliquet ipsum. Mauris gravida
+vulputate est, vitae consectetur est pretium ut. Etiam sit amet lorem vel tellus placerat tincidunt vel fringilla tortor.
+Integer ut orci ex. Nunc tincidunt molestie lorem. Duis pharetra lectus et nulla finibus, sed egestas neque varius. Fusce eu dui ut risus tincidunt iaculis et nec urna.',
         DATE('2013-05-6 00:00:00'),DATE('2013-09-18 00:00:00'),null );
 
 CREATE TABLE Agenda (

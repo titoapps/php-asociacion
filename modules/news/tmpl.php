@@ -13,4 +13,7 @@ if ($subtitle != null) {
 
 }
 
-echo '<p class="detalle_noticia">'.$description.'</p> <p><a href="#" class="ampliar_info">Leer más..</a></p>';
+$title = $new->getValueDecoded('title');
+$idNew = $new->getValueDecoded('idNew');
+
+echo '<p class="detalle_noticia">'.$subtitle.'</p> <p><a href="index.php?option=news&idNew='.$idNew.'" class="ampliar_info">Leer más..</a></p>';

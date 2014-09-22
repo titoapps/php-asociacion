@@ -10,8 +10,6 @@ include 'tmpl.php';
  */
 function processForm( $values ) {
 
-    $nickName = $values["nickName"];
-
     $DNI = $values['dni'];
     $age = $values['age'];
 
@@ -36,7 +34,8 @@ function processForm( $values ) {
     $joinDate = date("Y-m-d");
     $gender = $values['gender'];
 
-    $data = array ('NIF' => $DNI,
+    $data = array (
+        'NIF' => $DNI,
         'age' => $age,
         'password' => $password,
         'name' => $name,
@@ -48,7 +47,12 @@ function processForm( $values ) {
         'email' => $email,
         'idUserType' => $idUserType,
         'joinDate' => $joinDate,
-        'gender' => $gender);
+        'gender' => $gender,
+        'street' => $street,
+        'CP' => $CP,
+        'streetNumber' => $streetNumber,
+        'floor' => $floor,
+        'door' => $door);
 
     $user = new User($data);
     $result = $user->insert();

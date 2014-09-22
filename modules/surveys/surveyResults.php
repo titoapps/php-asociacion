@@ -47,9 +47,13 @@ foreach ($surveyResults as $key =>  $result) {
 
 }
 
+echo'<br/>';
 
-echo'<br/>
-         <input type="submit" value="Volver" name="Volver" />
-         </fieldset>
-         </form>
-         </div>';
+if($showBackButton) {
+
+   echo '<input type="submit" value="Volver" name="Volver" />';
+
+}
+echo'</fieldset>
+     </form>
+     </div>';
