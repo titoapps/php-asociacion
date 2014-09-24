@@ -6,6 +6,7 @@ define( "PAGE_SIZE", 5 );
 define( "TBL_USERS", "Users" );
 define( "TBL_IMAGES", "Images" );
 define( "TBL_NEWS", "News" );
+define( "TBL_NEW_COMMENTS", "NewComment" );
 define( "TBL_AGENDA", "Agenda" );
 define( "TBL_ANSWER", "Answer" );
 define( "TBL_SURVEYS", "Surveys" );

@@ -305,7 +305,7 @@ class User extends DataObject {
 
     public static function userExists($nickname,$email) {
         $conn = parent::connect();
-        //TODO:Decrypt password field on database. Cannot authenticate this way
+
         $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName OR email = :email";
 
         try {

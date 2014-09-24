@@ -28,8 +28,14 @@ foreach ($surveyResults as $key => $result) {
 foreach ($surveyResults as $key =>  $result) {
 
     $count = $result->getValueDecoded("count");
-    $width = $count / $sum * 100;
 
+    $width = 0;
+
+    if ($sum != 0) {
+
+        $width = $count / $sum * 100;
+
+    }
     echo '<label>'.$result->getValueDecoded("answerTitle").'</label><br/><br/>';
 
     if ($width == 0) {

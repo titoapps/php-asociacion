@@ -20,15 +20,26 @@ if(isset($_GET['option'])) {
             $description = $new->getValueDecoded('description');
             $startDate = $new->getValueDecoded("startDate");
 
-            include 'tmplDetail.php';
+            if (isset($_GET['comment'])) {
+                //TODO:continue inserting comments
+                //NewComment::getNewComments
+                include 'tmplDetail.php';
+
+            } else if (isset($_GET['edit'])) {
+
+                include 'tmplEdition.php';
+
+            } else {
+
+                include 'tmplDetail.php';
+
+            }
 
         }
 
     } else {
 
         $newsToShow = News::getCurrentNews(-1);
-
-
 
         if ($newsToShow != null) {
 

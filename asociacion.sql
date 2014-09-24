@@ -101,6 +101,21 @@ vulputate est, vitae consectetur est pretium ut. Etiam sit amet lorem vel tellus
 Integer ut orci ex. Nunc tincidunt molestie lorem. Duis pharetra lectus et nulla finibus, sed egestas neque varius. Fusce eu dui ut risus tincidunt iaculis et nec urna.',
         DATE('2013-05-6 00:00:00'),DATE('2013-09-18 00:00:00'),null );
 
+CREATE TABLE NewComment (
+
+  idNew        INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idUser       INT UNSIGNED NOT NULL,
+  text         VARCHAR(100) NOT NULL,
+  date         DATE NOT NULL,
+
+  CONSTRAINT PK_NEW_COMMENT PRIMARY KEY (idNew,idUser),
+  constraint FK_NEW_COMMENT_ID_NEW FOREIGN KEY (idNew) REFERENCES News(idNew),
+  constraint FK_NEW_COMMENT_ID_USER FOREIGN KEY (idUser) REFERENCES Users(idUser)
+
+);
+
+INSERT INTO NewComment values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+
 CREATE TABLE Agenda (
 
   idAgenda        INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -279,7 +294,7 @@ insert into UserType values (1,'administrator','web administrator');
 CREATE TABLE Users (
 
   idUser      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  password    VARCHAR (30) NOT NULL,
+  password    VARCHAR (200) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (30),
   nickName    VARCHAR (20),

@@ -6,9 +6,6 @@
  * Time: 20:59
  */
 
-/**
- * Draws the members images on the left side menu
- */
 
 echo '<h3 class="titulo_seccion">'.$title.'</h3>';
 
@@ -24,5 +21,17 @@ $title = $new->getValueDecoded('title');
 $idNew = $new->getValueDecoded('idNew');
 
 echo '<p class="detalle_noticia">'.$description.'</p> ';
+
+$uri = $_SERVER['REQUEST_URI'];
+
+if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 2) {
+
+    echo'<p><a href="'.$uri.'&comment=comment" class="ampliar_info">Añadir Comentario</a></p>';
+
+} else if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 1) {
+
+    echo'<p><a href="'.$uri.'&edit=edit" class="ampliar_info">Editar</a></p>';
+
+}
 
 

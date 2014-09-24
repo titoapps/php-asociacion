@@ -24,10 +24,13 @@ if (isset($_POST["logout"])) {
     $userNick = $_POST['user'];
     $password = $_POST['password'];
 
+    $loginError = false;
+
     $user = User::authenticate($userNick,$password);
 
     if ($user == null) {
         //TODO: redirigir a index, error usuario a $session
+        $loginError = true;
         echo '<h1>ERROR de autenticacion</h1>';
 
     } else {
