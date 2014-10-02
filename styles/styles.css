@@ -391,3 +391,8 @@ input
 #container #content #main #members #member #direccion_comercio {
     font-size: small;
 }
+
+.error {
+    font-size: small;
+    color: red;
+}

@@ -6,6 +6,7 @@ drop table if exists AnswerToSurveys cascade;
 drop table if exists SurveyResponses cascade;
 drop table if exists JobOffers cascade;
 drop table if exists Members cascade;
+drop table if exists NewComment cascade;
 drop table if exists News cascade;
 drop table if exists Surveys cascade;
 drop table if exists Users cascade;
@@ -55,7 +56,7 @@ CREATE TABLE News (
 insert into news (title, subtitle, description, startDate,endDate, idImage)
 values ('Comienzan las fiestas del Patrón ¡No te las pierdas!','Llega el fin de semana y con él nuestro ansiado aniversario,
  en el que todos podreis participar para hacerlo mas divertido que nunca. Con multitud de eventos, conciertos, concursos y actividades para todos. Elige tus preferidos y diviértete con..',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere ex sed placerat tincidunt.
+        'Lñpórem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere ex sed placerat tincidunt.
         Proin tincidunt pellentesque orci, ac feugiat lacus ultricies sit amet. Etiam at posuere nisl, id venenatis turpis.
         Fusce ac quam odio. Mauris rutrum nulla eu odio consequat condimentum. Aenean blandit arcu nec arcu placerat, non
         interdum tortor luctus. Maecenas ac egestas velit. Nunc vel dolor cursus, pretium nisi ac, egestas magna. Nulla ut
@@ -69,7 +70,7 @@ scelerisque dui. Vivamus quis dignissim justo, vitae pretium dui. Sed lacinia ip
 facilisis. Nunc dolor lectus, tempus id euismod sit amet, lobortis at tellus. Cras posuere neque euismod nunc finibus iaculis.
  Mauris ornare imperdiet varius. In fermentum vulputate elit, in commodo lectus porta viverra. Proin magna magna, rutrum vitae
   leo eu, imperdiet semper ligula. Ut vel vehicula orci, nec iaculis urna.',
-        DATE('2013-05-18 00:00:00'),DATE('2014-09-18 00:00:00'),null);
+        DATE('2013-05-18 00:00:00'),DATE('2014-10-18 00:00:00'),null);
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
 values ('Se ultiman los preparativos para este fin de semana','Ya tenemos los horarios de todos
@@ -101,20 +102,6 @@ vulputate est, vitae consectetur est pretium ut. Etiam sit amet lorem vel tellus
 Integer ut orci ex. Nunc tincidunt molestie lorem. Duis pharetra lectus et nulla finibus, sed egestas neque varius. Fusce eu dui ut risus tincidunt iaculis et nec urna.',
         DATE('2013-05-6 00:00:00'),DATE('2013-09-18 00:00:00'),null );
 
-CREATE TABLE NewComment (
-
-  idNew        INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  idUser       INT UNSIGNED NOT NULL,
-  text         VARCHAR(100) NOT NULL,
-  date         DATE NOT NULL,
-
-  CONSTRAINT PK_NEW_COMMENT PRIMARY KEY (idNew,idUser),
-  constraint FK_NEW_COMMENT_ID_NEW FOREIGN KEY (idNew) REFERENCES News(idNew),
-  constraint FK_NEW_COMMENT_ID_USER FOREIGN KEY (idUser) REFERENCES Users(idUser)
-
-);
-
-INSERT INTO NewComment values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 
 CREATE TABLE Agenda (
 
@@ -352,6 +339,21 @@ VALUES ('4','Comercial con experiencia','precisa la incorporación a su plantill
 
 insert into JobOffers (idMember,title,description,salaryMin,salaryMax,date,idimage)
 VALUES ('8','Camarero para noches','busca camarero con experiencia en elaboración de..','19000','23000',DATE('2013-05-21 00:00:00'),null);
+
+CREATE TABLE NewComment (
+
+  idNew        INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idUser       INT UNSIGNED NOT NULL,
+  text         VARCHAR(100) NOT NULL,
+  date         DATE NOT NULL,
+
+  CONSTRAINT PK_NEW_COMMENT PRIMARY KEY (idNew,idUser),
+  constraint FK_NEW_COMMENT_ID_NEW FOREIGN KEY (idNew) REFERENCES News(idNew),
+  constraint FK_NEW_COMMENT_ID_USER FOREIGN KEY (idUser) REFERENCES Users(idUser)
+
+);
+
+INSERT INTO NewComment values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 
 -- TODO:on delete cascade?
 /*

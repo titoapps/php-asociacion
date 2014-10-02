@@ -36,6 +36,9 @@ abstract class DataObject {
   protected function connect() {
     try {
       $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
+
+      mysql_query("SET NAMES 'utf8'; COLLATE='utf8_general_ci';");
+        
       $conn->setAttribute( PDO::ATTR_PERSISTENT, true );
       $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     } catch ( PDOException $e ) {

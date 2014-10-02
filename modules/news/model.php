@@ -59,7 +59,7 @@ class News extends DataObject {
 
 
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= :currentDate && endDate >= :currentDate2";
+        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= DATE(:currentDate) && endDate >= DATE(:currentDate2)";
 
         if ($limit != -1) {
             $sql = $sql . " LIMIT :limit";
@@ -140,27 +140,26 @@ class News extends DataObject {
         }
     }
 
-    public function update() {
+    public static function update($new) {
         $conn = parent::connect();
 
         $sql = "UPDATE " . TBL_NEWS. " SET
-                title,
-                subtitle,
-                description,
-                startDate,
-                endDate,
-                idImage
+                title = :title,
+                subtitle = :subtitle,
+                description = :description,
+                startDate =  STR_TO_DATE(:startDate, '%d/%m/%Y'),
+                endDate = STR_TO_DATE(:endDate, '%d/%m/%Y')
             WHERE idNew = :idNew";
 
         try {
             $st = $conn->prepare( $sql );
-
-            $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
-            $st->bindValue( ":subtitle", $this->data["subtitle"], PDO::PARAM_STR );
-            $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-            $st->bindValue( ":startDate", $this->data["startDate"], PDO::PARAM_STR);
-            $st->bindValue( ":endDate", $this->data["endDate"], PDO::PARAM_STR);
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
+            $st->bindValue( ":idNew", $new["idNew"], PDO::PARAM_STR );
+            $st->bindValue( ":title", $new["title"], PDO::PARAM_STR );
+            $st->bindValue( ":subtitle", $new["subtitle"], PDO::PARAM_STR );
+            $st->bindValue( ":description", $new["description"], PDO::PARAM_STR);
+            $st->bindValue( ":startDate", $new["startDate"], PDO::PARAM_STR);
+            $st->bindValue( ":endDate", $new["endDate"], PDO::PARAM_STR);
+            //$st->bindValue( ":idImage", $new->data["idImage"], PDO::PARAM_INT);
 
             $st->execute();
 

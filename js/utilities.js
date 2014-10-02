@@ -51,3 +51,30 @@ function validateContactForm(form) {
     return valid;
 
 }
+
+/**
+ * Validates a date formatted as dd/mm/yyyy
+ *
+ * @param dateString
+ * @returns {boolean}
+ */
+function validateDateFormatted (dateString){
+
+    var check = false;
+    var re = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    if( re.test(dateString)){
+        var adata = dateString.split('/');
+        var dd = parseInt(adata[0],10); // was dd (day)
+        var mm = parseInt(adata[1],10); // was mm (month)
+        var yyyy = parseInt(adata[2],10); // was aaaa (year)
+        var xdata = new Date(yyyy,mm-1,dd);
+        if ( ( xdata.getFullYear() == yyyy ) && ( xdata.getMonth () == mm - 1 ) && ( xdata.getDate() == dd ) )
+            check = true;
+        else
+            check = false;
+    } else
+        check = false;
+
+    return check;
+
+}

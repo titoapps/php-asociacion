@@ -6,21 +6,31 @@
  * Time: 20:59
  */
 
+require_once "librerias/Utils.php";
 
-echo '<h3 class="titulo_seccion">'.$title.'</h3>';
+echo '<script type="text/javascript" src="js/newsUtilities.js"></script>';
 
-echo '<p class="fecha">'.$startDate.'</p>';
+echo '<div id="newContainer">
+        <h3 class="titulo_seccion" id="title_static" title="'.$title.'">'.$title.'</h3>';
+
+$dateFormatted = Utils::formatDateString($startDate);
+$endDateFormatted = Utils::formatDateString($endDate);
+
+echo '<p class="fecha" id="startDate_static" title="'.$dateFormatted.'">'.$dateFormatted.'</p>';
+
+
 
 if ($subtitle != null) {
 
-    echo '<p>'.$subtitle.'</p>';
+    echo '<p id="subtitle_static" title="'.$subtitle.'" >'.$subtitle.'</p>';
+
 
 }
 
-$title = $new->getValueDecoded('title');
-$idNew = $new->getValueDecoded('idNew');
+echo '<p class="detalle_noticia" id="description_static" title="'.$description.'">'.$description.'</p> ';
 
-echo '<p class="detalle_noticia">'.$description.'</p> ';
+echo '<input type="hidden" id="idNew" value = "'.$idNew.'" title="'.$idNew.'">';
+echo '<input type="hidden" id="endDate_static" value = "'.$endDateFormatted.'" title="'.$endDateFormatted.'">';
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -30,8 +40,9 @@ if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] 
 
 } else if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 1) {
 
-    echo'<p><a href="'.$uri.'&edit=edit" class="ampliar_info">Editar</a></p>';
+    /*echo'<p><a href="'.$uri.'&edit=edit" class="ampliar_info" onclick="startEdition()">Editar</a></p>';*/
+    echo'<p><a href="#" class="ampliar_info" onclick="startEdition()">Editar</a></p>';
 
 }
 
-
+echo'</div>';

@@ -12,27 +12,34 @@ echo '<h3>Área Privada</h3>
 
 if ($userName == null) {
 
-            echo'<legend>Acceso Asociados</legend>
-                <label class="element_above" for="user">Usuario</label>
-                <input type="text" value="" id="user" name="user" required="required"/>
+        echo'<legend>Acceso Asociados</legend>
+            <label class="element_above" for="user">Usuario</label>
+            <input type="text" value="" id="user" name="user" required="required"/>
 
-                <label class="element_above" for="password">Clave</label>
-                <input type="password" value="" id="password" name="password" required="required"/>
+            <label class="element_above" for="password">Clave</label>
+            <input type="password" value="" id="password" name="password" required="required"/>
 
-                <input type="submit" name="login" value="Acceder"/>
+            <input type="submit" name="login" value="Acceder"/>
 
-                <br/>
-                <a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
-                <br/>
+            <br/>';
 
-                <p><label for="recordarme">Recordarme </label>
-                <input type="checkbox" value="recordarme" id="recordarme" checked="checked"/></p>
-                </form>
+        if ($loginError) {
 
-                <form action="index.php?option=newuser" method="POST" ><!-- we set this here to avoid the text inputs validation-->
-                <input type="submit" name="newuser" value="Nuevo Usuario"/></fieldset>
-                </form>
-                </div>';
+            echo '<p class="error">Error de autenticación, el usuario o contraseña no son correctos</p>';
+
+        }
+
+        echo'<a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
+        <br/>
+
+        <p><label for="recordarme">Recordarme </label>
+        <input type="checkbox" value="recordarme" id="recordarme" checked="checked"/></p>
+        </form>
+
+        <form action="index.php?option=newuser" method="POST" ><!-- we set this here to avoid the text inputs validation-->
+        <input type="submit" name="newuser" value="Nuevo Usuario"/></fieldset>
+        </form>
+        </div>';
 
 } else {
 
