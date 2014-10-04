@@ -6,15 +6,10 @@
  * Time: 20:59
  */
 
-require_once "librerias/Utils.php";
-
 echo '<script type="text/javascript" src="js/newsUtilities.js"></script>';
 
 echo '<div id="newContainer">
         <h3 class="titulo_seccion" id="title_static" title="'.$title.'">'.$title.'</h3>';
-
-$dateFormatted = Utils::formatDateString($startDate);
-$endDateFormatted = Utils::formatDateString($endDate);
 
 echo '<p class="fecha" id="startDate_static" title="'.$dateFormatted.'">'.$dateFormatted.'</p>';
 

@@ -1,7 +1,7 @@
 <?php
 
 require_once 'model.php';
-
+require_once "librerias/Utils.php";
 
 if(isset($_GET['option'])) {
 
@@ -12,10 +12,7 @@ if(isset($_GET['option'])) {
     if (isset($_POST['Terminar'])) {
 
         $startDateString = utf8_decode($_POST['startDate']);
-        $endDateString = utf8_decode($_POST['startDate']);
-
-        echo $startDateString.'</br>';
-        echo $endDateString.'</br>';
+        $endDateString = utf8_decode($_POST['endDate']);
 
         $data = array(
 
@@ -31,6 +28,15 @@ if(isset($_GET['option'])) {
 
         News::update($data);
 
+        $idNew =$_POST['idNew'];
+        $title = $_POST['title'];
+        $subtitle = $_POST['subtitle'];
+        $description = $_POST['description'];
+        $dateFormatted = $_POST['startDate'];
+        $endDateFormatted = $_POST['endDate'];
+
+        include 'tmplDetail.php';
+
     } else if (isset($_GET['idNew'])) {
 
         $idNew = $_GET['idNew'];
@@ -43,6 +49,9 @@ if(isset($_GET['option'])) {
             $description = $new->getValueDecoded('description');
             $startDate = $new->getValueDecoded("startDate");
             $endDate = $new->getValueDecoded("endDate");
+
+            $dateFormatted = Utils::formatDateString($startDate);
+            $endDateFormatted = Utils::formatDateString($endDate);
 
             if (isset($_GET['comment'])) {
                 //TODO:continue inserting comments on news
@@ -60,6 +69,8 @@ if(isset($_GET['option'])) {
 
     } else {
 
+
+
         $newsToShow = News::getCurrentNews(-1);
 
         if ($newsToShow != null) {
@@ -70,6 +81,7 @@ if(isset($_GET['option'])) {
                 $subtitle = $new->getValueDecoded('subtitle');
                 $description = $new->getValueDecoded('description');
                 $startDate = $new->getValueDecoded("startDate");
+                $startDate = Utils::formatDateString($startDate);
 
                 include 'tmpl.php';
 
@@ -96,6 +108,7 @@ if(isset($_GET['option'])) {
             $subtitle = $new->getValueDecoded('subtitle');
             $description = $new->getValueDecoded('description');
             $startDate = $new->getValueDecoded("startDate");
+            $startDate = Utils::formatDateString($startDate);
 
             include 'tmpl.php';
 

@@ -28,7 +28,7 @@ function startEdition () {
     var description = descriptionItem.title;
 
 
-    container.innerHTML = '<form id="myform" action="" method="POST" onsubmit="return validateForm()" accept-charset="utf-8">>' +
+    container.innerHTML = '<form id="myform" action="" method="POST" onsubmit="return validateForm()" accept-charset="utf-8">' +
     '<label for="title_edition">Título</label><input class="element_above" type="text" id="title_edition" name="title" required="required" value = "'+title+'"/>' +
     '</br><label for="startDate">Fecha de Inicio (dd/mm/yyyy)</label></br><input type="text" class="datepicker" id="startDate" name="startDate" required="required" value = "'+date+'"/><label id="dateMessage" class="error" style="visibility: hidden"> Compruebe la fecha, por favor.</label>' +
     '</br></br><label for="endDate">Fecha de Fin (dd/mm/yyyy)</label></br><input type="text" class="datepicker" id="endDate" name="endDate" required="required" value = "'+endDate+'"/><label id="endDateMessage" class="error" style="visibility: hidden"> Compruebe la fecha, por favor.</label>' +

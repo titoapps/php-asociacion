@@ -4,6 +4,24 @@
  *
  * Created by albertoperezperez on 16/07/14.
  */
+
+$(document).ready(function(){
+    //función del slider principal
+    $(function(){
+        $('#galeria div:gt(0)').hide(); //esconde todos los div menos el primero
+        setInterval(function(){
+            $('#galeria div:first-child').fadeOut(4000) //tiempo que tarda la img en desaparecer
+                .next('div').fadeIn(2000) //tiempo q tarda en aparacer la siguiente
+                .end().appendTo('#galeria');}, 6000); //tiempo que permanece la img
+    });
+
+});
+$(window).load(function() {
+    $('#galeria').find('img').each(function () {
+        var imgClass = (this.width / this.height > 1) ? 'wide' : 'tall';
+        $(this).addClass(imgClass);
+    });
+});
 /*
 loadMainContentFromLink('main.php');
 //We link the web menu to the handler.

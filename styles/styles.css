@@ -262,6 +262,46 @@ Main Header - Buscador y Visita comercio
 #visita_comercio #direccion_comercio {
 	font-size: small;
 }
+
+/* Galeria */
+
+#galeria{
+
+    width: 415px;
+    height:300px;
+    margin:auto;
+    background: #303030;
+    border: 5px solid #303030;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    overflow: hidden;
+    border-radius: 5px;
+
+}
+
+#galeria img.wide {
+
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+
+}​
+#galeria img.tall {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+}
+
+
+ .img1, .img2, .img3, .img4, .img5{
+     overflow: hidden;
+     height: 285px;
+     width: 100%;
+
+ }
+
+
+
+
 /*Contenido - Agenda Empleo*/
 
 #container #content #main #main_content {
