@@ -40,4 +40,13 @@ if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] 
 
 }
 
+echo '<div><h5 class="title">Comentarios</h5></div>';
+
+//if ($newComments != null) {
+    foreach ($newComments as $comment) {
+
+        echo '<h6 class="title">' . $comment->getValueDecoded("text") . '</h6>';
+    }
+
+//}
 echo'</div>';

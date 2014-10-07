@@ -94,40 +94,31 @@ class News extends DataObject {
         }
     }
 
-    public function insert() {
+    public static function insert($new) {
         $conn = parent::connect();
 
         $sql = "INSERT INTO " . TBL_NEWS. " (
-                idNew,
                 title,
                 subtitle,
                 description,
                 startDate,
-                endDate,
-                idImage
+                endDate
 
             ) VALUES (
-
-                :idNew,
                 :title,
                 :subtitle,
                 :description,
-                :startDate,
-                :endDate,
-                :idImage
-
+                STR_TO_DATE(:startDate, '%d/%m/%Y'),
+                STR_TO_DATE(:endDate, '%d/%m/%Y')
             )";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idNew", $this->data["idNew"], PDO::PARAM_INT);
-            $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
-            $st->bindValue( ":subtitle", $this->data["subtitle"], PDO::PARAM_STR );
-            $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-            $st->bindValue( ":startDate", $this->data["startDate"], PDO::PARAM_STR);
-            $st->bindValue( ":endDate", $this->data["endDate"], PDO::PARAM_STR);
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-
+            $st->bindValue(":title",$new["title"], PDO::PARAM_STR );
+            $st->bindValue(":subtitle",$new["subtitle"], PDO::PARAM_STR );
+            $st->bindValue(":description",$new["description"], PDO::PARAM_STR);
+            $st->bindValue(":startDate",$new["startDate"], PDO::PARAM_STR);
+            $st->bindValue(":endDate",$new["endDate"], PDO::PARAM_STR);
 
             $st->execute();
             parent::disconnect( $conn );

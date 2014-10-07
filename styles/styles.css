@@ -213,6 +213,19 @@ Estilos Contenido Central
 	border-bottom: medium solid #0066cc;
 	width: 90%;
 }
+
+h5.title {
+    color: #333333;
+    border-bottom: thin solid #0066cc;
+    width: 60%;
+}
+
+h6.title {
+    color: #333333;
+    border-bottom: thin solid #333333;
+    width: 60%;
+}
+
 /**
 Main Header - Buscador y Visita comercio 
 */

@@ -354,6 +354,13 @@ CREATE TABLE NewComment (
 );
 
 INSERT INTO NewComment values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment values(2,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment values(3,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+
+INSERT INTO NewComment values(1,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment values(2,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment values(3,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+
 
 -- TODO:on delete cascade?
 /*

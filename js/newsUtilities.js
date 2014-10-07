@@ -4,7 +4,31 @@
 
 var g_calendarObject;
 
+/**
+ * Provides a form to add a new
+ */
+function addNew () {
 
+    var container = document.getElementById("newsContainer");
+    var link = document.getElementById("addNewLink");
+    link.hidden = "true";
+
+    container.innerHTML = '<form id="myform" action="" method="POST" onsubmit="return validateForm()" accept-charset="utf-8">' +
+    '<label for="title_edition">Título</label><input class="element_above" type="text" id="title_edition" name="title" required="required"/>' +
+    '</br><label for="startDate">Fecha de Inicio (dd/mm/yyyy)</label></br><input type="text" class="datepicker" id="startDate" name="startDate" required="required"/><label id="dateMessage" class="error" style="visibility: hidden"> Compruebe la fecha, por favor.</label>' +
+    '</br></br><label for="endDate">Fecha de Fin (dd/mm/yyyy)</label></br><input type="text" class="datepicker" id="endDate" name="endDate" required="required"/><label id="endDateMessage" class="error" style="visibility: hidden"> Compruebe la fecha, por favor.</label>' +
+    '</br><label id="checkDatesMessage" class="error" style="visibility: hidden"> La fecha inicial debe ser anterior a la final.</label>' +
+    '</br></br><label for="subtitle">Subtítulo</label><textarea class="element_above" id="subtitle" name="subtitle" required="required" rows="3"></textarea>' +
+    '</br><label for="description">Descripción</label><textarea class="element_above" id="description" name="description" cols="40" rows="10"></textarea>' +
+    '<input type="hidden" id="idNew" name = "idNew" value = "-1">'+
+    '</br><input type="submit" name = "anadir" value="anadir"></form><script>$(function() {$( ".datepicker" ).datepicker();}); </script>';
+
+
+}
+
+/**
+ * Starts a new edition
+ */
 function startEdition () {
 
     var container = document.getElementById("newContainer");

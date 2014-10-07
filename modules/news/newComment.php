@@ -30,19 +30,24 @@ class NewComment extends DataObject {
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idNew", $idNew, PDO::PARAM_INT );
+            $st->bindValue( ":idNew", $idNew);
 
             if ($limit != -1) {
                 $st->bindValue( ":limit", $limit, PDO::PARAM_INT);
             }
 
             $st->execute();
-            $row = $st->fetch();
+
+            $result = array();
+
+            foreach ( $st->fetchAll() as $row ) {
+                $result[] = new NewComment($row);
+            }
 
             parent::disconnect( $conn );
 
-            if ( $row )
-                return new News( $row );
+            if ($result)
+                return $result;
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
