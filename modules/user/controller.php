@@ -51,7 +51,7 @@ if (isset($_POST["logout"])) {
         $userName = $user->getValueDecoded('nickName');
         $_SESSION ['userLoggedNick'] = $userName;
         $_SESSION ['userLoggedUserType'] = $user->getValueDecoded('idUserType');
-
+        $_SESSION ['userLoggedID'] = $user->getValueDecoded('idUser');
 
     }
     include_once 'tmpl.php';

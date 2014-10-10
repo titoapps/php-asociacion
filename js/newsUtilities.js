@@ -65,6 +65,30 @@ function startEdition () {
 
 }
 
+
+/**
+ * Provides a form to add a comment
+ */
+function addComment() {
+
+    var container = document.getElementById("commentsContainer");
+    var link = document.getElementById("addCommentLink");
+    link.hidden = "true";
+    var idNewItem = document.getElementById("idNew");
+    var idNew = idNewItem.title;
+
+    var content = container.innerHTML;
+    var contentParts = content.split('</div>');
+
+    container.innerHTML = contentParts[0] + '<form id="myform" action="" method="POST" accept-charset="utf-8">' +
+    '<h5 class="title">Añada su comentario</h5>' +
+    '<textarea class="element_above" id="commentText" name="commentText" cols="40" rows="10" maxlength="100"></textarea>' +
+    '<input type="hidden" id="idNew" name = "idNew" value ="'+idNew+'">' +
+    '<input type="submit" name = "comment" value="Comentar"></form>';
+
+
+}
+
 // dateUS function, modified from dateITA in additional-methods.js
 // makes sure dates are valid (& US-format: m/d/yyyy)
 function validateForm() {

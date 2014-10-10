@@ -13,9 +13,7 @@ echo '<div id="newContainer">
 
 echo '<p class="fecha" id="startDate_static" title="'.$dateFormatted.'">'.$dateFormatted.'</p>';
 
-
-
-if ($subtitle != null) {
+if (isset($subtitle) && $subtitle!= null) {
 
     echo '<p id="subtitle_static" title="'.$subtitle.'" >'.$subtitle.'</p>';
 
@@ -31,22 +29,31 @@ $uri = $_SERVER['REQUEST_URI'];
 
 if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 2) {
 
-    echo'<p><a href="'.$uri.'&comment=comment" class="ampliar_info">Añadir Comentario</a></p>';
+    echo'<p><a id="addCommentLink" href="#" class="ampliar_info" onclick="addComment()">Añadir Comentario</a></p>';
 
 } else if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 1) {
 
-    /*echo'<p><a href="'.$uri.'&edit=edit" class="ampliar_info" onclick="startEdition()">Editar</a></p>';*/
     echo'<p><a href="#" class="ampliar_info" onclick="startEdition()">Editar</a></p>';
 
 }
 
-echo '<div><h5 class="title">Comentarios</h5></div>';
+if (isset($newComments) && $newComments!= null) {
 
-//if ($newComments != null) {
-    foreach ($newComments as $comment) {
+    $comments = $newComments [0];
+    $users = $newComments [1];
+    $totalRows = $newComments [2];
 
-        echo '<h6 class="title">' . $comment->getValueDecoded("text") . '</h6>';
+    echo '<div id="commentsContainer"><h4 class="title">'.$totalRows.' Comentarios</h4>';
+
+    for ($index = 0;$index<$totalRows ;$index++){
+
+        $comment = $comments[$index];
+        $user = $users[$index];
+        $date = Utils::formatDateString($comment->getValueDecoded("date"));
+        echo '<h5 class="title">'.$date.' '. $user->getValueDecoded("name").'</h5>';
+        echo '<p class="comment">'.$comment->getValueDecoded("text").'</p>';
+
     }
 
-//}
-echo'</div>';
+}
+echo'</div></div>';

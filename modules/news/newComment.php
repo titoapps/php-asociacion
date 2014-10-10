@@ -7,6 +7,7 @@
  */
 
 require_once "modules/home/DataObject.class.php";
+require_once "modules/user/model.php";
 
 class NewComment extends DataObject {
 
@@ -22,7 +23,7 @@ class NewComment extends DataObject {
     public static function getNewComments($idNew,$limit = -1) {
         $conn = parent::connect();
 
-        $sql = "SELECT * FROM " . TBL_NEW_COMMENTS. " WHERE idNew = :idNew order by date";
+        $sql = "SELECT * FROM " . TBL_NEW_COMMENTS. " as NC,".TBL_USERS." as U WHERE idNew = :idNew and NC.idUser = U.idUser order by date";
 
         if ($limit != -1) {
             $sql = $sql . " LIMIT :limit";
@@ -38,16 +39,27 @@ class NewComment extends DataObject {
 
             $st->execute();
 
-            $result = array();
+            $row = null;
 
-            foreach ( $st->fetchAll() as $row ) {
-                $result[] = new NewComment($row);
+            $totalRows = 0;
+            $members = null;
+            $comments = null;
+
+            foreach ( $st->fetchAll() as $currentRow ) {
+
+                $comments[] = new NewComment($currentRow);
+                $members[] = new User($currentRow);
+                $totalRows = $totalRows + 1;
+
+            }
+
+            if ($members && $comments) {
+
+                return array($comments,$members,$totalRows);
+
             }
 
             parent::disconnect( $conn );
-
-            if ($result)
-                return $result;
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
@@ -106,40 +118,30 @@ class NewComment extends DataObject {
         }
     }
 
-    public function insert() {
+    public static function insert($data) {
         $conn = parent::connect();
 
-        $sql = "INSERT INTO " . TBL_NEWS. " (
+        $sql = "INSERT INTO " . TBL_NEW_COMMENTS. " (
                 idNew,
-                title,
-                subtitle,
-                description,
-                startDate,
-                endDate,
-                idImage
+                idUser,
+                text,
+                date
 
             ) VALUES (
 
                 :idNew,
-                :title,
-                :subtitle,
-                :description,
-                :startDate,
-                :endDate,
-                :idImage
+                :idUser,
+                :text,
+                :date
 
             )";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idNew", $this->data["idNew"], PDO::PARAM_INT);
-            $st->bindValue( ":title", $this->data["title"], PDO::PARAM_STR );
-            $st->bindValue( ":subtitle", $this->data["subtitle"], PDO::PARAM_STR );
-            $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-            $st->bindValue( ":startDate", $this->data["startDate"], PDO::PARAM_STR);
-            $st->bindValue( ":endDate", $this->data["endDate"], PDO::PARAM_STR);
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-
+            $st->bindValue( ":idNew", $data["idNew"], PDO::PARAM_INT);
+            $st->bindValue( ":idUser", $data["idUser"], PDO::PARAM_INT);
+            $st->bindValue( ":text", $data["text"], PDO::PARAM_STR);
+            $st->bindValue( ":date", $data["date"]);
 
             $st->execute();
             parent::disconnect( $conn );

@@ -107,7 +107,7 @@ CREATE TABLE Agenda (
 
   idAgenda        INT UNSIGNED NOT NULL AUTO_INCREMENT,
   title           VARCHAR(100) NOT NULL,
-  subtitle        VARCHAR(100) NOT NULL,
+  subtitle        VARCHAR(200) NOT NULL,
   description     VARCHAR(300) NOT NULL,
   date            DATE NOT NULL,
   idImage         INT UNSIGNED,
@@ -117,9 +117,21 @@ CREATE TABLE Agenda (
 
 );
 
-insert into Agenda (title, subtitle, description, date, idImage) values ('Fiestas del Patrón','Ven a celebrar con nosotros las fiestas del patron de la asociación y disfruta de los conciertos, concursos..','',DATE('2013-05-21 00:00:00'),null);
-insert into Agenda (title, subtitle, description, date, idImage) values ('Talleres de manualidades','¡Nuestro divertidos e interesantes talleres! Busca las actividades que mas te gusten y participa ¡reserva ya tu plaza!','',DATE('2013-04-1 00:00:00'),null);
-insert into Agenda (title, subtitle, description, date, idImage) values ('Pasacalles','Los compañeros de la Escuela de Musica "Solfa" realizarán pequeñas actuaciones por nuestras calles ..','',DATE('2013-03-14 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Fiestas del Patrón','Ven a celebrar con nosotros las fiestas del patron de la asociación y disfruta de los conciertos, concursos..','Aliquam lacus justo, commodo ut auctor vel, ultricies nec libero. Nulla eget malesuada
+erat, at interdum ante. Suspendisse potenti. Nunc vel mauris nunc. Nullam ullamcorper odio at ligula euismod faucibus. Fusce
+id ultrices ipsum. Morbi consectetur elit magna, porta volutpat felis pulvinar eget. Vivamus euismod orci nibh, a mollis ipsum fermentum eu.
+Etiam porttitor suscipit urna eget egestas. Cras faucibus ultrices dui vel faucibus. Phasellus vestibulum dapibus ipsum,
+sodales scelerisque tellus laoreet eget. Phasellus imperdiet lacinia convallis. Proin purus felis, rutrum eu vehicula vel, luctus sit amet nulla.
+Morbi sodales justo id finibus feugiat. Pellentesque vitae urna dictum, dictum diam vitae, aliquet ipsum. Mauris gravida
+vulputate est, vitae consectetur est pretium ut.',DATE('2013-05-21 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Talleres de manualidades','¡Nuestro divertidos e interesantes talleres! Busca las actividades que mas te gusten y participa ¡reserva ya tu plaza!','Aliquam lacus justo, commodo ut auctor vel, ultricies nec libero. Nulla eget malesuada
+erat, at interdum ante. Suspendisse potenti. Nunc vel mauris nunc. Nullam ullamcorper odio at ligula euismod faucibus. Fusce
+id ultrices ipsum. Morbi consectetur elit magna, porta volutpat felis pulvinar eget. Vivamus euismod orci nibh, a mollis ipsum fermentum eu.
+Etiam porttitor suscipit urna eget egestas. Cras faucibus ultrices dui vel faucibus. Phasellus vestibulum dapibus',DATE('2013-04-1 00:00:00'),null);
+insert into Agenda (title, subtitle, description, date, idImage) values ('Pasacalles','Los compañeros de la Escuela de Musica "Solfa" realizarán pequeñas actuaciones por nuestras calles ..','Aliquam lacus justo, commodo ut auctor vel, ultricies nec libero. Nulla eget malesuada
+erat, at interdum ante. Suspendisse potenti. Nunc vel mauris nunc. Nullam ullamcorper. Proin purus felis, rutrum eu vehicula vel, luctus sit amet nulla.
+Morbi sodales justo id finibus feugiat. Pellentesque vitae urna dictum, dictum diam vitae, aliquet ipsum. Mauris gravida
+vulputate est, vitae consectetur est pretium ut.',DATE('2013-03-14 00:00:00'),null);
 
 CREATE TABLE Answer (
 
@@ -137,7 +149,7 @@ insert Answer values (3,'NS/NC.');
 CREATE TABLE Surveys (
 
   idSurvey       INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  surveyTitle    VARCHAR(150) NOT NULL,
+  surveyTitle    VARCHAR(200) NOT NULL,
 
   constraint PK_SURVEYS PRIMARY KEY (idSurvey)
 
@@ -176,7 +188,7 @@ CREATE TABLE SurveyResponses (
 CREATE TABLE Streets (
 
   idStreet  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  streetName      VARCHAR (30) NOT NULL,
+  streetName      VARCHAR (50) NOT NULL,
 
   constraint PK_STREET PRIMARY KEY (idStreet)
 );
@@ -216,7 +228,7 @@ insert into Address values (7,5,40,2,'E',39011);
 CREATE TABLE Activities (
 
   idActivity  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  activityName        VARCHAR (30),
+  activityName        VARCHAR (50),
 
   constraint PK_ACTIVITIES PRIMARY KEY (idActivity)
 
@@ -243,7 +255,7 @@ CREATE TABLE Members (
   password    VARCHAR (30) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (80),
-  description VARCHAR (100),
+  description VARCHAR (300),
   idImage     INT UNSIGNED,
   idAddress   INT UNSIGNED NOT NULL,
   idActivity  INT UNSIGNED NOT NULL,
@@ -275,8 +287,9 @@ CREATE TABLE UserType (
   constraint PK_USER_TYPE PRIMARY KEY (idUserType)
 );
 
-insert into UserType values (2,'user','regitered web user');
-insert into UserType values (1,'administrator','web administrator');
+/*insert into UserType values (3,'member','Asociation member');*/
+insert into UserType values (2,'user','Registered web user');
+insert into UserType values (1,'administrator','Web administrator');
 
 CREATE TABLE Users (
 
@@ -318,8 +331,8 @@ CREATE TABLE JobOffers (
 
   idOffer         INT UNSIGNED NOT NULL AUTO_INCREMENT,
   idMember        INT UNSIGNED NOT NULL,
-  title           VARCHAR(30) NOT NULL,
-  description     VARCHAR(50) NOT NULL,
+  title           VARCHAR(200) NOT NULL,
+  description     VARCHAR(300) NOT NULL,
   salaryMin       numeric,
   salaryMax       numeric,
   date            DATE NOT NULL,
@@ -342,24 +355,25 @@ VALUES ('8','Camarero para noches','busca camarero con experiencia en elaboraci�
 
 CREATE TABLE NewComment (
 
-  idNew        INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idNewComment INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idNew        INT UNSIGNED NOT NULL,
   idUser       INT UNSIGNED NOT NULL,
   text         VARCHAR(100) NOT NULL,
   date         DATE NOT NULL,
 
-  CONSTRAINT PK_NEW_COMMENT PRIMARY KEY (idNew,idUser),
+  CONSTRAINT PK_NEW_COMMENT PRIMARY KEY (idNewComment),
   constraint FK_NEW_COMMENT_ID_NEW FOREIGN KEY (idNew) REFERENCES News(idNew),
   constraint FK_NEW_COMMENT_ID_USER FOREIGN KEY (idUser) REFERENCES Users(idUser)
 
 );
 
-INSERT INTO NewComment values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
-INSERT INTO NewComment values(2,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
-INSERT INTO NewComment values(3,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(1,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(2,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(3,1,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 
-INSERT INTO NewComment values(1,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
-INSERT INTO NewComment values(2,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
-INSERT INTO NewComment values(3,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(1,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(2,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
+INSERT INTO NewComment (idNew,idUser,text,date) values(3,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 
 
 -- TODO:on delete cascade?

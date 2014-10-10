@@ -7,24 +7,45 @@
  */
 
 require_once 'modules/agenda/model.php';
-
+require_once "librerias/Utils.php";
 
 if(isset($_GET['option'])) {
 
     echo '<div id="main_content"><h2>Agenda</h2> ';
 
-    $agendaItems = Agenda::getAgendaItems(2);
+    if (isset($_GET['idAgenda'])) {
 
-    if ($agendaItems != null) {
+        $idAgenda = $_GET['idAgenda'];
+        $agendaItem = Agenda::getAgendaFromId($idAgenda);
 
-        foreach ($agendaItems as $key => $agendaItem) {
+        $idAgenda = $agendaItem->getValueDecoded('idAgenda');
+        $title = $agendaItem->getValueDecoded('title');
+        $subtitle = $agendaItem->getValueDecoded('subtitle');
+        $description = $agendaItem->getValueDecoded('description');
+        $startDate = $agendaItem->getValueDecoded("date");
+        $startDate = Utils::formatDateString($startDate);
 
-            $title = $agendaItem->getValueDecoded('title');
-            $subtitle = $agendaItem->getValueDecoded('subtitle');
-            $description = $agendaItem->getValueDecoded('description');
-            $startDate = $agendaItem->getValueDecoded("date");
+        include_once 'tmpl.php';
 
-            include_once 'tmpl.php';
+    } else {
+
+        $agendaItems = Agenda::getAgendaItems();
+
+        if ($agendaItems != null) {
+
+            foreach ($agendaItems as $key => $agendaItem) {
+
+                $idAgenda = $agendaItem->getValueDecoded('idAgenda');
+                $title = $agendaItem->getValueDecoded('title');
+                $subtitle = $agendaItem->getValueDecoded('subtitle');
+                $description = $agendaItem->getValueDecoded('description');
+                $startDate = $agendaItem->getValueDecoded("date");
+                $startDate = Utils::formatDateString($startDate);
+
+                include_once 'tmplPreview.php';
+
+            }
+
         }
 
     }
@@ -33,9 +54,13 @@ if(isset($_GET['option'])) {
 
 } else {
 
+    echo '<div id="agenda">
+      <h2>Agenda</h2>';
+
     $agendaItems = Agenda::getAgendaItems(3);
 
     include_once 'tmplPreview.php';
 
+    echo '</div>';
 }
 ?>

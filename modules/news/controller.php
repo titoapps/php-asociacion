@@ -10,41 +10,68 @@ if(isset($_GET['option'])) {
 
     echo '<h2>Noticias</h2> ';
 
-    if (isset($_POST['Terminar'])) {
-
-        //End editing a new, we update the database
-        $startDateString = utf8_decode($_POST['startDate']);
-        $endDateString = utf8_decode($_POST['endDate']);
-
-        $data = array(
-
-            "idNew" => utf8_decode($_POST['idNew']),
-            "title" => utf8_decode($_POST['title']),
-            "subtitle" => utf8_decode($_POST['subtitle']),
-            "description" => utf8_decode($_POST['description']),
-            "startDate" =>$startDateString,
-            "endDate" => $endDateString,
-
-        );
-
-
-        News::update($data);
-
-        $idNew =$_POST['idNew'];
-        $title = $_POST['title'];
-        $subtitle = $_POST['subtitle'];
-        $description = $_POST['description'];
-        $dateFormatted = $_POST['startDate'];
-        $endDateFormatted = $_POST['endDate'];
-
-        include 'tmplDetail.php';
-
-    } else if (isset($_GET['idNew'])) {
+    if (isset($_GET['idNew'])) {
 
         require_once "newComment.php";
 
+        $reloadDataNeeded = true;
+        $idNew = null;
+
+        if (isset($_POST['Terminar'])) {
+
+            //End editing a new, we update the database
+            $startDateString = utf8_decode($_POST['startDate']);
+            $endDateString = utf8_decode($_POST['endDate']);
+
+            $data = array(
+
+                "idNew" => utf8_decode($_POST['idNew']),
+                "title" => utf8_decode($_POST['title']),
+                "subtitle" => utf8_decode($_POST['subtitle']),
+                "description" => utf8_decode($_POST['description']),
+                "startDate" =>$startDateString,
+                "endDate" => $endDateString,
+
+            );
+
+            News::update($data);
+
+            $idNew =$_POST['idNew'];
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $description = $_POST['description'];
+            $dateFormatted = $_POST['startDate'];
+            $endDateFormatted = $_POST['endDate'];
+
+            $reloadDataNeeded = false;
+
+        } else if (isset($_POST['comment'])) {
+
+            require_once "newComment.php";
+
+            $idNew = $_POST['idNew'];
+
+            $data = array(
+
+                "idNew" => utf8_decode($idNew),
+                "idUser" => utf8_decode($_SESSION ['userLoggedID']),
+                "text" => utf8_decode($_POST['commentText']),
+                "date" => utf8_decode(date('Y-m-d H:i:s')),
+
+            );
+
+            NewComment::insert($data);
+
+        }
+
         //new detail
-        $idNew = $_GET['idNew'];
+        if ($idNew == null) {
+
+            $idNew = $_GET['idNew'];
+
+        }
+
+
         $new = News::getNew($idNew);
 
         if ($new != null) {
@@ -85,7 +112,7 @@ if(isset($_GET['option'])) {
             "title" => utf8_decode($_POST['title']),
             "subtitle" => utf8_decode($_POST['subtitle']),
             "description" => utf8_decode($_POST['description']),
-            "startDate" =>$startDateString,
+            "startDate" => $startDateString,
             "endDate" => $endDateString,
 
         );
@@ -93,7 +120,7 @@ if(isset($_GET['option'])) {
 
         News::insert($data);
 
-        $idNew =$_POST['idNew'];
+        $idNew = $_POST['idNew'];
         $title = $_POST['title'];
         $subtitle = $_POST['subtitle'];
         $description = $_POST['description'];

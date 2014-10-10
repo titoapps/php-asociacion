@@ -19,9 +19,9 @@ if ($subtitle != null) {
 
 if ($description != null) {
 
-    echo '<p>'.$description.'</p>';
+    echo '<p class="detalle_noticia">'.$description.'</p>';
 
 }
-echo '<p class="detalle_noticia">'.$description.'</p>';
+
 
 echo '</div>';

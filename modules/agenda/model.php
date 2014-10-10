@@ -34,7 +34,7 @@ class Agenda extends DataObject {
             parent::disconnect( $conn );
 
             if ( $row )
-                return new News( $row );
+                return new Agenda( $row );
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
