@@ -21,20 +21,30 @@ class JobOffers extends DataObject {
 
     );
 
-    public static function getJobOffersById( $id ) {
+    public static function getJobOffersById($id) {
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_JOB_OFFER . " WHERE idOffer = :idOffer";
+
+        $sql = "SELECT title,Jobs.description,salaryMin,salaryMax,date,Jobs.idImage,name,Mem.description,email,phoneNumber
+                FROM " . TBL_JOB_OFFER ." as Jobs, ".TBL_MEMBERS." as Mem
+                where Jobs.idMember = Mem.idMember and idOffer = :idOffer";
 
         try {
-            $st = $conn->prepare( $sql );
-            $st->bindValue( ":idOffer", $id, PDO::PARAM_INT );
+            $st = $conn->prepare($sql);
+            $st->bindValue(":idOffer", $id, PDO::PARAM_INT);
             $st->execute();
             $row = $st->fetch();
 
-            parent::disconnect( $conn );
+            parent::disconnect($conn);
 
-            if ( $row )
-                return new News( $row );
+            if ($row) {
+
+                $item = array();
+                $item [] = new JobOffers($row);
+                $item [] = new Member($row);
+
+                return $item;
+
+            }
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );
@@ -45,7 +55,7 @@ class JobOffers extends DataObject {
     public static function getJobOffers( $limit = -1 ) {
         $conn = parent::connect();
 
-        $sql = "SELECT title,Jobs.description,salaryMin,salaryMax,date,Jobs.idImage,name
+        $sql = "SELECT Jobs.idOffer,title,Jobs.description,salaryMin,salaryMax,date,Jobs.idImage,name
         FROM " . TBL_JOB_OFFER ." as Jobs, ".TBL_MEMBERS." as Mem
         where Jobs.idMember = Mem.idMember";
 
