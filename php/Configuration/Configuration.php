@@ -37,7 +37,8 @@ class Configuration {
                                    3 => 'ofertas',
                                    4 => 'agenda',
                                    5 => 'asociate',
-                                   6 => 'contacto');
+                                   6 => 'galeria',
+                                   7 => 'contacto');
 
         $this->menuModules = array(0 => 'home',
                                    1 => 'news',
@@ -45,8 +46,9 @@ class Configuration {
                                    3 => 'jobOffers',
                                    4 => 'agenda',
                                    5 => 'asociate',
-                                   6 => 'contact',
-                                   7 => 'search');
+                                   6 => 'galery',
+                                   7 => 'contact',
+                                   8 => 'search');
 
         //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
 

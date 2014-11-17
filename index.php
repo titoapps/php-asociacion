@@ -1,5 +1,7 @@
 <?php
 
+    set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/');
+
     include 'framework.php';
 
     include_once('php/visuals/headHTML.php');

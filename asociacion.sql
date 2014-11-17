@@ -15,28 +15,42 @@ drop table if exists Activities cascade;
 drop table if exists Address;
 drop table if exists Answer;
 drop table if exists Images cascade;
+drop table if exists ImageCategory cascade;
 drop table if exists Streets cascade;
 
+create table ImageCategory (
+
+  idImageCatergory  INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  categoryName      VARCHAR(100),
+
+  constraint PK_IMAGES_CATEGORY PRIMARY KEY (idImageCatergory)
+);
+
+insert into ImageCategory (categoryName) values ('Galeria');
+insert into ImageCategory (categoryName) values ('Usuario');
+insert into ImageCategory (categoryName) values ('Negocios');
 
 create table Images (
 
-  idImage INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  imageName    VARCHAR(100),
-  path    VARCHAR(100) NOT NULL,
+  idImage           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  idImageCatergory  INT UNSIGNED NOT NULL,
+  imageName         VARCHAR(100),
+  path              VARCHAR(100) NOT NULL,
 
-  constraint PK_IMAGES PRIMARY KEY (idImage)
+  constraint PK_IMAGES PRIMARY KEY (idImage),
+  constraint FK_IMAGES_CATEGORY FOREIGN KEY (idImageCatergory) REFERENCES ImageCategory(idImageCatergory)
 
 );
 
 /*Galery images*/
-insert into Images (imageName, path) values ('callefloranes','images/galery/callefloranes.jpg');
-insert into Images (imageName, path) values ('escaparatefruteria','images/galery/escaparatefruteria.jpg');
-insert into Images (imageName, path) values ('escaparatemodels','images/galery/escaparatemodels.jpg');
+insert into Images (idImageCatergory,imageName, path) values (1,'callefloranes','images/galery/callefloranes.jpg');
+insert into Images (idImageCatergory,imageName, path) values (1,'escaparatefruteria','images/galery/escaparatefruteria.jpg');
+insert into Images (idImageCatergory,imageName, path) values (1,'escaparatemodels','images/galery/escaparatemodels.jpg');
 
 /*members*/
-insert into Images (imageName, path) values ('carnicerialogo','images/members/carnicerialogo.jpg');
-insert into Images (imageName, path) values ('fruteriafloraneslogo','images/members/fruteriafloraneslogo.jpg');
-insert into Images (imageName, path) values ('tascalogo','images/members/tascalogo.jpg');
+insert into Images (idImageCatergory,imageName, path) values (3,'carnicerialogo','images/members/carnicerialogo.jpg');
+insert into Images (idImageCatergory,imageName, path) values (3,'fruteriafloraneslogo','images/members/fruteriafloraneslogo.jpg');
+insert into Images (idImageCatergory,imageName, path) values (3,'tascalogo','images/members/tascalogo.jpg');
 
 CREATE TABLE News (
 
@@ -70,7 +84,7 @@ scelerisque dui. Vivamus quis dignissim justo, vitae pretium dui. Sed lacinia ip
 facilisis. Nunc dolor lectus, tempus id euismod sit amet, lobortis at tellus. Cras posuere neque euismod nunc finibus iaculis.
  Mauris ornare imperdiet varius. In fermentum vulputate elit, in commodo lectus porta viverra. Proin magna magna, rutrum vitae
   leo eu, imperdiet semper ligula. Ut vel vehicula orci, nec iaculis urna.',
-        DATE('2013-05-18 00:00:00'),DATE('2014-10-18 00:00:00'),null);
+        DATE('2013-05-18 00:00:00'),DATE('2015-10-18 00:00:00'),null);
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
 values ('Se ultiman los preparativos para este fin de semana','Ya tenemos los horarios de todos
@@ -80,7 +94,7 @@ los eventos programados para la celebracion del fin de semana, en que se conmemo
         bibendum, congue enim ac, accumsan nisl. Integer porttitor mollis euismod. Aliquam mattis felis magna, eu egestas ante
          placerat sed. Praesent tincidunt venenatis dolor, malesuada efficitur lacus mollis a. Nam vitae dictum eros. Donec
          placerat tempus tellus.',
-        DATE('2013-05-17 00:00:00'),DATE('2014-10-20 00:00:00'),null );
+        DATE('2013-05-17 00:00:00'),DATE('2015-10-20 00:00:00'),null );
 
 insert into news (title, subtitle, description, startDate,endDate, idImage)
 values ('Ya está en marcha la campaña de promiciones y descuentos','Como todos los años sobre estas fechas los comercios de la
@@ -100,7 +114,7 @@ sodales scelerisque tellus laoreet eget. Phasellus imperdiet lacinia convallis. 
 Morbi sodales justo id finibus feugiat. Pellentesque vitae urna dictum, dictum diam vitae, aliquet ipsum. Mauris gravida
 vulputate est, vitae consectetur est pretium ut. Etiam sit amet lorem vel tellus placerat tincidunt vel fringilla tortor.
 Integer ut orci ex. Nunc tincidunt molestie lorem. Duis pharetra lectus et nulla finibus, sed egestas neque varius. Fusce eu dui ut risus tincidunt iaculis et nec urna.',
-        DATE('2013-05-6 00:00:00'),DATE('2013-09-18 00:00:00'),null );
+        DATE('2013-05-6 00:00:00'),DATE('2015-09-18 00:00:00'),null );
 
 
 CREATE TABLE Agenda (

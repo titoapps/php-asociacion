@@ -17,7 +17,8 @@ $menuReferences = array('index.php',
                         'index.php?option='.$menuModules[3],
                         'index.php?option='.$menuModules[4],
                         'index.php?option='.$menuModules[5],
-                        'index.php?option='.$menuModules[6]);
+                        'index.php?option='.$menuModules[6],
+                        'index.php?option='.$menuModules[7]);
 
 if(isset($_GET['option'])){
 
