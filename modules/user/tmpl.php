@@ -46,7 +46,10 @@ if ($userName == null) {
     echo '<legend>Bienvenido</legend>
                 ¡Hola '.$userName.' !
                 <input type="submit" name="logout" value="Salir"/>
+                <input type="button" name="profile" value="Mi perfil" onClick="window.location = \'index.php?option=profile\';"/>
                 </fieldset>
-                </form></div>';
+            </form>
+            </div>';
 
 }
+

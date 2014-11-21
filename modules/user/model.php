@@ -66,6 +66,26 @@ class User extends DataObject {
     }
   }
 
+    public static function getMemberProfile( $id ) {
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_USERS . " as U,".TBL_IMAGES." as I WHERE U.idUser = :idUser and  U.idImage = I.idImage";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":idUser", $id, PDO::PARAM_INT );
+            $st->execute();
+            $row = $st->fetch();
+            parent::disconnect( $conn );
+
+            if ( $row )
+                return array(new User( $row ),new Image($row));
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
+
   public static function getByNickName( $nickName ) {
     $conn = parent::connect();
     $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName";

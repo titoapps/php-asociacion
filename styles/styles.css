@@ -473,3 +473,12 @@ span.listItem {
 }
 
 
+/*Profile*/
+
+#profile img {
+
+    width: 30%;
+    float: left;
+    margin: 0 1em 1em 0;
+
+}

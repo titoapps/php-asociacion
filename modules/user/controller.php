@@ -20,6 +20,8 @@ if (isset($_POST["logout"])) {
     $_SESSION ['userLoggedUserType'] = null;
     $userName = null;
 
+    session_destroy();
+
     ob_start(); // ensures anything dumped out will be caught
 
     // do stuff here

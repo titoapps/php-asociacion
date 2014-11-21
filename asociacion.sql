@@ -36,6 +36,7 @@ create table Images (
   idImageCatergory  INT UNSIGNED NOT NULL,
   imageName         VARCHAR(100),
   path              VARCHAR(100) NOT NULL,
+  /*imageBin          BLOB NOT NULL,*/
 
   constraint PK_IMAGES PRIMARY KEY (idImage),
   constraint FK_IMAGES_CATEGORY FOREIGN KEY (idImageCatergory) REFERENCES ImageCategory(idImageCatergory)
@@ -51,6 +52,17 @@ insert into Images (idImageCatergory,imageName, path) values (1,'escaparatemodel
 insert into Images (idImageCatergory,imageName, path) values (3,'carnicerialogo','images/members/carnicerialogo.jpg');
 insert into Images (idImageCatergory,imageName, path) values (3,'fruteriafloraneslogo','images/members/fruteriafloraneslogo.jpg');
 insert into Images (idImageCatergory,imageName, path) values (3,'tascalogo','images/members/tascalogo.jpg');
+
+/*
+insert into Images (idImageCatergory,imageName, imageBin) values (1,'callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
+insert into Images (idImageCatergory,imageName, imageBin) values (1,'escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
+insert into Images (idImageCatergory,imageName, imageBin) values (1,'escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
+
+
+insert into Images (idImageCatergory,imageName, imageBin) values (3,'carnicerialogo',LOAD_FILE('images/members/carnicerialogo.jpg'));
+insert into Images (idImageCatergory,imageName, imageBin) values (3,'fruteriafloraneslogo',LOAD_FILE('images/members/fruteriafloraneslogo.jpg'));
+insert into Images (idImageCatergory,imageName, imageBin) values (3,'tascalogo',LOAD_FILE('images/members/tascalogo.jpg'));
+*/
 
 CREATE TABLE News (
 
@@ -265,7 +277,6 @@ insert into Activities values (12,'Ferreteria');
 CREATE TABLE Members (
 
   idMember    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  -- TODO:password encryption?? SSL transmision
   password    VARCHAR (30) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (80),
@@ -301,7 +312,7 @@ CREATE TABLE UserType (
   constraint PK_USER_TYPE PRIMARY KEY (idUserType)
 );
 
-/*insert into UserType values (3,'member','Asociation member');*/
+insert into UserType values (3,'member','Asociation member');
 insert into UserType values (2,'user','Registered web user');
 insert into UserType values (1,'administrator','Web administrator');
 
@@ -334,12 +345,10 @@ CREATE TABLE Users (
 );
 
 insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
-values (password('root'),'123456789r','administrator','admin','',null,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020);
-
-insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
-values (password('user1'),'1r','user1','user1','',null,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',45,'Avenida de los castros',233,4,'B',39010);
-insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
-values (password('user2'),'2w','user2','user2','',null,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
+values (password('root'),'123456789r','administrator','admin','',null,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020),
+       (password('user1'),'1r','user1','user1','',1,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',45,'Avenida de los castros',233,4,'B',39010),
+       (password('user2'),'2w','user2','user2','',null,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007),
+       (password('frute'),'3e','frutero','fruteria','',null,666666666,'fruteria@hotmail.com',3,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
 
 CREATE TABLE JobOffers (
 
