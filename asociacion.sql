@@ -325,7 +325,7 @@ CREATE TABLE Users (
   nickName    VARCHAR (20),
   surname     VARCHAR (30),
   idImage     INT UNSIGNED,
-  phoneNumber SMALLINT,
+  phoneNumber INT(9) UNSIGNED,
   email       VARCHAR (30) UNIQUE,
   idUserType  INT UNSIGNED NOT NULL,
   joinDate    DATE ,

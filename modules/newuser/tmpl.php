@@ -6,7 +6,7 @@
  * Time: 19:21
  */
 
-require_once("HTML/QuickForm.php");
+require_once("../../lib/php/HTML/QuickForm.php");
 
 echo '<div id="main_content">
 
@@ -66,8 +66,8 @@ $form->addElement( "select", "age", "Edad", $age );
 $textField = $form->addElement( "text", "phone", "Teléfono de contacto" );
 $textField->setMaxLength("9");
 //$form->addRule( "phone", "Por favor, introduce tu telefono", "required");
-$form->addRule( "phone", "El teléfono no es correcto", "numeric");
-$form->addRule( "phone", "Compruebe teléfono", "minlength",9);
+$form->addRule("phone", "El teléfono no es correcto", "numeric");
+$form->addRule("phone", "Compruebe teléfono", "minlength",9);
 
 $form->addElement( "text", "email", "Correo electrónico" );
 $form->addRule( "email", "Por favor, introduce tu correo electrónico", "required");

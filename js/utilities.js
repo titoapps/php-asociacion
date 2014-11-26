@@ -78,3 +78,39 @@ function validateDateFormatted (dateString){
     return check;
 
 }
+
+/**
+ * Validates a phone number, returns TRUE if is a correct phone number, FALSE otherwise
+ * @param phoneNumber the phone number to validate
+ * @return if the phone number is valid
+ */
+function validatePhoneNumber (phoneNumber) {
+
+    var result = false;
+
+    if (phoneNumber.length == 9) {
+
+        var re = /^\[6,7,9]d{8}$/;
+
+        if(re.match(phoneNumber)){
+
+            result = true;
+
+        }
+
+    }
+
+    return result;
+
+}
+
+
+/**
+ * Determines if the string provided is a number or not
+ * @param n the string
+ * @returns {boolean}
+ */
+function isNumber(n) {
+    return !isNaN(parseInt(n)) && isFinite(n);
+}
+

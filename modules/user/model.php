@@ -227,52 +227,38 @@ class User extends DataObject {
 
   }
 
-  public function update() {
+  public static function updateUserProfile($userProfile) {
     $conn = parent::connect();
-    $passwordSql = $this->data["password"] ? "password = password(:password)," : "";
     $sql = "UPDATE " . TBL_USERS . " SET
-                NIF,
-                $passwordSql
-                name,
-                nickName,
-                surname,
-                idImage,
-                phoneNumber,
-                email,
-                idUserType,
-                joinDate,
-                gender,
-                age,
-                streetName,
-                number,
-                floor,
-                door,
-                postalCode
-
-            WHERE userId = :userId";
-
+                name = :name,
+                nickName = :nickName,
+                surname = :surname,
+                phoneNumber = :phoneNumber,
+                email = :email,
+                age = :age,
+                streetName = :streetName,
+                number = :number,
+                floor = :floor,
+                door = :door,
+                postalCode = :postalCode
+            WHERE idUser = :userId";
     try {
         $st = $conn->prepare( $sql );
-        $st->bindValue( ":NIF", $this->data["NIF"], PDO::PARAM_STR );
 
-        if ( $this->data["password"] )
-            $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
-
-            $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
-            $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
-            $st->bindValue( ":surname", $this->data["surname"], PDO::PARAM_STR );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
-            $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
-            $st->bindValue( ":idUserType", $this->data["idUserType"], PDO::PARAM_INT);
-            $st->bindValue( ":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
-            $st->bindValue( ":gender", $this->data["gender"], PDO::PARAM_STR);
-            $st->bindValue( ":age", $this->data["age"], PDO::PARAM_STR);
-            $st->bindValue( ":streetName", $this->data["streetName"], PDO::PARAM_STR);
-            $st->bindValue( ":number", $this->data["number"], PDO::PARAM_STR);
-            $st->bindValue( ":floor", $this->data["floor"], PDO::PARAM_STR);
-            $st->bindValue( ":door", $this->data["door"], PDO::PARAM_STR);
-            $st->bindValue( ":postalCode", $this->data["postalCode"], PDO::PARAM_INT);
+            $st->bindValue(":name", $userProfile["name"], PDO::PARAM_STR );
+            $st->bindValue(":nickName", $userProfile["nickName"], PDO::PARAM_STR );
+            $st->bindValue(":surname", $userProfile["surname"], PDO::PARAM_STR );
+        //TODO:FALTA SUBIR IMAGEN!!
+            //$st->bindValue(":idImage", $userProfile["idImage"], PDO::PARAM_INT);
+            $st->bindValue(":phoneNumber", $userProfile["phoneNumber"], PDO::PARAM_INT);
+            $st->bindValue(":email", $userProfile["email"], PDO::PARAM_STR );
+            $st->bindValue(":age", $userProfile["age"], PDO::PARAM_INT);
+            $st->bindValue(":streetName", $userProfile["streetName"], PDO::PARAM_STR);
+            $st->bindValue(":number", $userProfile["number"], PDO::PARAM_INT);
+            $st->bindValue(":floor", $userProfile["floor"], PDO::PARAM_INT);
+            $st->bindValue(":door", $userProfile["door"], PDO::PARAM_STR);
+            $st->bindValue(":postalCode", $userProfile["postalCode"], PDO::PARAM_INT);
+        $st->bindValue(":userId", $userProfile["idUser"], PDO::PARAM_INT );
       $st->execute();
 
       parent::disconnect( $conn );
