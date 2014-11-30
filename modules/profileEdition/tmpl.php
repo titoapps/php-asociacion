@@ -6,11 +6,11 @@
  * Time: 20:50
  */
 
+require_once("../../lib/php/HTML/QuickForm.php");
 
 //TODO:check send and complete
-$form = new HTML_QuickForm( "convertForm", "post", "index.php?option=profile", "", null, true);
+$form = new HTML_QuickForm( "convertForm", "post", "index.php?option=profileEdition", "", null, true);
 $form->removeAttribute( "name" );
-$form->setAttribute( "hidden","true");
 $form->setRequiredNote ("* Los campos marcados con asterisco son obligatorios");
 
 $textField = $form->addElement( "text", "nickName", "Nick" );
@@ -89,7 +89,6 @@ if ( $form->isSubmitted() and $form->validate() ) {
 
 } else {
 
-    echo '<h3 class="titulo_seccion" id="title" hidden="hidden">Formulario de alta de usuario</h3>';
     echo $form->toHtml();
 
 }

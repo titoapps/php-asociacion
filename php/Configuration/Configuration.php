@@ -49,7 +49,8 @@ class Configuration {
                                    6 => 'galery',
                                    7 => 'contact',
                                    8 => 'search',
-                                    9 => 'profile');
+                                   9 => 'profile',
+                                   10 => 'profileEdition');
 
         //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
 
