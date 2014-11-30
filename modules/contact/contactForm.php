@@ -30,7 +30,7 @@ if (isset($_POST['send'])) {
 
         } else {
 
-            echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos/p>");
+            echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos</p>");
 
         }
 

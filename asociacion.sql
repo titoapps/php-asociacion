@@ -323,7 +323,7 @@ CREATE TABLE Users (
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (30),
   nickName    VARCHAR (20),
-  surname     VARCHAR (30),
+  surname     VARCHAR (50),
   idImage     INT UNSIGNED,
   phoneNumber INT(9) UNSIGNED,
   email       VARCHAR (30) UNIQUE,
@@ -345,10 +345,10 @@ CREATE TABLE Users (
 );
 
 insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
-values (password('root'),'123456789r','administrator','admin','',null,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020),
+values (password('root'),'123456789r','administrator','admin','',1,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020),
        (password('user1'),'1r','user1','user1','',1,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',45,'Avenida de los castros',233,4,'B',39010),
-       (password('user2'),'2w','user2','user2','',null,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007),
-       (password('frute'),'3e','frutero','fruteria','',null,666666666,'fruteria@hotmail.com',3,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
+       (password('user2'),'2w','user2','user2','',2,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007),
+       (password('frute'),'3e','frutero','fruteria','',1,666666666,'fruteria@hotmail.com',3,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
 
 CREATE TABLE JobOffers (
 

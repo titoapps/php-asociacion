@@ -59,73 +59,14 @@ function processForm( $values ) {
 
     if ($result == null) {
 
-        $result = "Ya hemos recibido tu solicitud, en unos minutos recibirás un email de confirmación y una clave
-                   para acceder a la web. ¡Gracias por unirte!";
+        Tools::showMainContentResultMessage('Alta nuevo usuario', 'Ya hemos recibido tu solicitud, en unos minutos recibirás un email de confirmación y una clave
+                   para acceder a la web. ¡Gracias por unirte!');
+
+    } else {
+
+        Tools::showGenericErrorMessage();
 
     }
 
-    include 'tmplUserAdded.php';
-
 }
 
-/**
- * Checks if the user nick name already exists
- *
- * @param $nickName the user nickName
- * @return bool returns if the user nickName already exists
- */
-function checkNick ($nickName) {
-
-    $user = User::getByNickName($nickName);
-
-    if ($user == null)
-
-        return true;
-
-    else
-
-        return false;
-
-}
-
-/**
- * Checks if the user email already exists
- *
- * @param $email the user email
- * @return bool returns if the user email already exists
- */
-function checkEmail ($email) {
-
-    $user = User::getByEmailAddress($email);
-
-    if ($user == null)
-
-        return true;
-
-    else
-
-        return false;
-
-}
-
-/**
- * Checks if the user DNI
- *
- * @param $dni user dni
- * @return bool returns if the user $dni already exists and its correct or not
- */
-function checkDNI ($dni) {
-
-    $user = User::getByDNI($dni);
-
-    if ($user == null) {
-
-        //TODO:check DNI with algorithm
-        return true;
-
-
-    } else
-
-        return false;
-
-}

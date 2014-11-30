@@ -475,10 +475,13 @@ span.listItem {
 
 /*Profile*/
 
-#profile img {
+#profile img.roundImage {
 
     width: 30%;
     float: left;
     margin: 0 1em 1em 0;
+    background-color: #0066cc;
+    padding: 0.2em;
+    border-radius: 0.5em;
 
 }

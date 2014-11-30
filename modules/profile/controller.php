@@ -6,20 +6,79 @@
  * Time: 18:54
  */
 
-if (isset($_POST['Terminar'])) {
+require_once 'modules/tools/Tools.php';
 
-    $nickName = mysql_real_escape_string(strip_tags($_POST['nickName']));
-    $name = mysql_real_escape_string(strip_tags($_POST['name']));
-    $surname = mysql_real_escape_string(strip_tags($_POST['surname']));
-    $phoneNumber = mysql_real_escape_string(strip_tags($_POST['phoneNumber']));
-    $email = mysql_real_escape_string(strip_tags($_POST['email']));
-    $age = mysql_real_escape_string(strip_tags($_POST['age']));
-    $streetName = mysql_real_escape_string(strip_tags($_POST['streetName']));
-    $number = mysql_real_escape_string(strip_tags($_POST['number']));
-    $floor = mysql_real_escape_string(strip_tags($_POST['floor']));
-    $door = mysql_real_escape_string(strip_tags($_POST['door']));
-    $postalCode = mysql_real_escape_string(strip_tags($_POST['postalCode']));
-    $idUser = mysql_real_escape_string(strip_tags($_POST['idUser']));
+if (isset($GET['editar'])) {
+
+
+} else if (isset($_SESSION ['userLoggedID'])) {
+
+    require_once "user/model.php";
+
+    $userData = User::getMemberProfile($_SESSION ['userLoggedID']);
+
+    $userLogged = $userData[0];
+    $userImage = $userData[1];
+
+    if ($userLogged != null) {
+
+        $idUser = $userLogged->getValueDecoded('idUser');
+        $nickName = $userLogged->getValueDecoded('nickName');
+        $name = $userLogged->getValueDecoded('name');
+        $surname = $userLogged->getValueDecoded('surname');
+        $phoneNumber = $userLogged->getValueDecoded('phoneNumber');
+        $email = $userLogged->getValueDecoded('email');
+        $age = $userLogged->getValueDecoded('age');
+        $streetName = $userLogged->getValueDecoded('streetName');
+        $postalCode = $userLogged->getValueDecoded('postalCode');
+        $number = $userLogged->getValueDecoded('number');
+        $floor = $userLogged->getValueDecoded('floor');
+        $door = $userLogged->getValueDecoded('door');
+
+        //if user image is not set, we have to choose a default image
+        if ($userImage == null) {
+
+            $userImagePath = 'images/members/carnicerialogo.jpg';
+
+        } else {
+
+            $userImagePath = $userImage->getValueDecoded('path');
+
+        }
+
+        include_once 'tmpl.php';
+
+    } else {
+
+        Tools::showGenericErrorMessage();
+
+    }
+
+} else  {
+
+    Tools::showGenericErrorMessage();
+
+}
+
+/**
+ * Process the user profile update form
+ * @param $values
+ */
+function processForm( $values ) {
+
+    $nickName = mysql_real_escape_string(strip_tags($values['nickName']));
+    $name = mysql_real_escape_string(strip_tags($values['name']));
+    $surname = mysql_real_escape_string(strip_tags($values['surname']));
+    $phoneNumber = mysql_real_escape_string(strip_tags($values['phoneNumber']));
+    $email = mysql_real_escape_string(strip_tags($values['email']));
+    $age = mysql_real_escape_string(strip_tags($values['age']));
+    $age = $age + 17;//we have to correct to obtain the original value
+    $streetName = mysql_real_escape_string(strip_tags($values['streetName']));
+    $number = mysql_real_escape_string(strip_tags($values['number']));
+    $floor = mysql_real_escape_string(strip_tags($values['floor']));
+    $door = mysql_real_escape_string(strip_tags($values['door']));
+    $postalCode = mysql_real_escape_string(strip_tags($values['postalCode']));
+    $idUser = mysql_real_escape_string(strip_tags($values['idUser']));
 
 //TODO:FALTA SUBIR IMAGEN!!
 
@@ -40,34 +99,17 @@ if (isset($_POST['Terminar'])) {
 
     );
 
-    User::updateUserProfile($userProfile);
+    $error = User::updateUserProfile($userProfile);
 
-} else if (isset($_SESSION ['userLoggedID'])) {
+    if ($error == null) {
 
-    require_once "user/model.php";
-
-    $userData = User::getMemberProfile($_SESSION ['userLoggedID']);
-
-    $userLogged = $userData[0];
-    $userImage = $userData[1];
-
-    //if user image is not set, we have to choose a default image
-    if ($userImage == null){
-
-        $userImagePath = 'images/members/carnicerialogo.jpg';
+        Tools::showMainContentResultMessage(null,'Tu perfil ha sido actualizado');
 
     } else {
 
-        $userImagePath = $userImage->getValueDecoded('path');
+        Tools::showGenericErrorMessage();
 
     }
-
-
-    include_once 'tmpl.php';
-
-} else  {
-
-    //TODO:Load default error page -> not allowed
 
 
 }

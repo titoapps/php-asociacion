@@ -229,6 +229,8 @@ class User extends DataObject {
 
   public static function updateUserProfile($userProfile) {
     $conn = parent::connect();
+    $error = null;
+
     $sql = "UPDATE " . TBL_USERS . " SET
                 name = :name,
                 nickName = :nickName,
@@ -265,6 +267,7 @@ class User extends DataObject {
 
     } catch ( PDOException $e ) {
 
+      $result = $e->getMessage();
       parent::disconnect( $conn );
       die( "Query failed: " . $e->getMessage() );
 
