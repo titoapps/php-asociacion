@@ -6,7 +6,7 @@
  * Time: 19:21
  */
 
-require_once("../../lib/php/HTML/QuickForm.php");
+require_once("QuickForm.php");
 require_once 'modules/tools/Tools.php';
 
 echo '<div id="main_content">
@@ -92,13 +92,16 @@ $form->addRule( "CP", "Compruebe su Código postal", "maxlength",5);
 $cpTextField->setMaxLength("5");
 
 $numberTextField = $form->addElement( "text", "streetNumber", "Número" );
-$form->addRule( "streetNumber", "Comprueba tu número", "maxlength",5);
+$form->addRule("streetNumber", "Comprueba tu número", "maxlength",5);
+$form->addRule("streetNumber", "El número debe ser numérico", "numeric");
 $numberTextField->setMaxLength("6");
 
 $floorTextField = $form->addElement( "text", "floor", "Piso" );
 $floorTextField->setMaxLength("3");
+$form->addRule("floor", "El piso debe ser numérico", "numeric");
 
 $doorTextField = $form->addElement( "text", "door", "Puerta" );
+$form->addRule("door", "Por favor, la puerta", "regex","/^[a-zA-Z0-9 \\-]+$/");
 $doorTextField->setMaxLength("3");
 
 $form->addElement( "submit", "addUser", "Dar de alta" );

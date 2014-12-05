@@ -291,7 +291,6 @@ class User extends DataObject {
 
   public static function authenticate($nickname,$password) {
     $conn = parent::connect();
-      //TODO:Decrypt password field on database. Cannot authenticate this way
     $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName AND password = password(:password)";
 
     try {

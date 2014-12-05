@@ -26,5 +26,11 @@ echo'<script type="text/javascript" src="js/ProfileUtilities.js"></script>
             <input type="hidden" id="idUser" name = "idUser" value ='.$userLogged->getValueDecoded('idUser').'>
             <input type="submit" name ="Editar" title="Editar" value="Editar">
         </form>
+        <form id="editForm" action="index.php?option=profile" method="POST">
+            <input type="hidden" id="idUser" name = "idUser" value ='.$userLogged->getValueDecoded('idUser').'>
+            </br>
+            <input type="file" id="profileImage" name ="profileImage" title="Cambiar foto" value="profileImage">
+        </form>
+
         </div>
     </div>';

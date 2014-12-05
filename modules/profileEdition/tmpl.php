@@ -6,7 +6,7 @@
  * Time: 20:50
  */
 
-require_once("../../lib/php/HTML/QuickForm.php");
+require_once("QuickForm.php");
 
 //TODO:check send and complete
 $form = new HTML_QuickForm( "convertForm", "post", "index.php?option=profileEdition", "", null, true);
@@ -36,13 +36,13 @@ $form->addRule( "surname", "El apellido sólo puede contener letras y guiones", 
 $textField = $form->addElement( "text", "phoneNumber", "Teléfono de contacto" );
 $textField->setMaxLength("9");
 $textField->setValue($phoneNumber);
-$form->addRule("phone", "El teléfono no es correcto", "numeric");
-$form->addRule("phone", "Compruebe teléfono", "minlength",9);
+$form->addRule("phoneNumber", "El teléfono no es correcto", "numeric");
+$form->addRule("phoneNumber", "Compruebe teléfono", "minlength",9);
 
 $emailTextField = $form->addElement( "text", "email", "Correo electrónico" );
 $emailTextField->setValue($email);
 $form->addRule( "email", "Por favor, introduce tu correo electrónico", "required");
-$form->addRule( "email", "Por favor, introduce una direccion de correo electrónico valida", "email");
+$form->addRule( "email", "Por favor, introduce una dirección de correo electrónico valida", "email");
 $emailTextField->setMaxLength("30");
 
 $ageArray = array();
@@ -56,36 +56,40 @@ $combo->setSelected($age - 17);
 
 
 $streetTextField = $form->addElement( "text", "streetName", "Calle" );
-$form->addRule( "streetName", "Por favor, la calle", "regex","/^[a-zA-Zá-úÁ-Ú0-9 \\-,]+$/");
+$form->addRule("streetName", "Por favor, la calle", "regex","/^[a-zA-Zá-úÁ-Ú0-9 \\-,]+$/");
 $streetTextField->setValue($streetName);
 $streetTextField->setMaxLength("30");
 
 $cpTextField=$form->addElement( "text", "postalCode", "CP" );
-$form->addRule( "postalCode", "El código postal no es correcto", "numeric");
-$form->addRule( "postalCode", "Compruebe su Código postal", "minlength",5);
-$form->addRule( "postalCode", "Compruebe su Código postal", "maxlength",5);
+$form->addRule("postalCode", "El código postal no es correcto", "numeric");
+$form->addRule("postalCode", "Compruebe su Código postal", "minlength",5);
+$form->addRule("postalCode", "Compruebe su Código postal", "maxlength",5);
 $cpTextField->setValue($postalCode);
 $cpTextField->setMaxLength("5");
 
 $numberTextField = $form->addElement( "text", "number", "Número" );
-$form->addRule( "number", "Comprueba tu número", "maxlength",5);
+$form->addRule("number", "Comprueba tu número", "maxlength",5);
+$form->addRule("number", "Por favor, la puerta", "regex","/^[a-zA-Z0-9]+$/");
 $numberTextField->setValue($number);
 $numberTextField->setMaxLength("6");
 
 $floorTextField = $form->addElement( "text", "floor", "Piso" );
+$form->addRule("floor", "El piso debe ser numérico", "numeric");
 $floorTextField->setMaxLength("3");
+$floorTextField->setValue($floor);
 
 $doorTextField = $form->addElement( "text", "door", "Puerta" );
+$form->addRule("door", "Por favor, la puerta", "regex","/^[a-zA-Z0-9 \\-]+$/");
 $doorTextField->setMaxLength("3");
+$doorTextField->setValue($door);
 
+$form->addElement("hidden", "idUser", $userLogged->getValueDecoded('idUser'));
 
-$form->addElement( "hidden", "idUser", $userLogged->getValueDecoded('idUser'));
-
-$form->addElement( "submit", "Terminar", "Terminar" );
+$form->addElement("submit", "Terminar", "Terminar" );
 
 if ( $form->isSubmitted() and $form->validate() ) {
 
-    $form->process( "processForm" );
+    $form->process("processForm" );
 
 } else {
 
