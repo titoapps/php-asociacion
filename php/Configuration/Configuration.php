@@ -26,6 +26,45 @@ class Configuration {
     private $menuOptions;
 
     /**
+     * @var int maximum image width
+     */
+    private $maxImageWidth = 500;
+
+    /**
+     * @var int maximum image height
+     */
+    private $maxImageHeight = 200;
+
+//    //La anchura m�xima de las miniaturas generadas.
+//    private $maxwidththumb = 60;
+//
+//    //La altura m�xima de las miniaturas generadas.
+//    private $maxheightthumb = 60;
+
+    //Ubicaci�n para almacenar las im�genes.
+    /**
+     * @var string Images temporal folder
+     */
+    private $imagesfolder = "images/tmp";
+
+//        //Ubicaci�n para almacenar las miniaturas.
+//    private $thumbsfolder = "images/thumbs";
+
+    /**
+     * @var array Allowed file types
+     */
+    private $allowedFileTypes = array ("jpg","jpeg","gif","png");
+
+    /**
+     * @var array The image mime types allowed
+     */
+    private $allowedMimeTypes = array ("image/jpeg","image/jpg","image/png","image/gif");
+
+//        //N�mero de im�genes por fila de navegaci�n.
+//    private $maxperrow = 7;
+
+
+    /**
      * Class Constructor
      */
     public function __construct() {
@@ -53,6 +92,7 @@ class Configuration {
                                    10 => 'profileEdition');
 
         //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
+
 
     }
 
@@ -95,6 +135,57 @@ class Configuration {
 
     }
 
+    /**
+     * Returns the max image width
+     * @return int the max image width
+     */
+    public function getImageMaxWidth() {
+
+        return $this->$maxImageWidth;
+
+    }
+
+    /**
+     * Returns the max image height
+     * @return int the max image height
+     */
+    public function getImageMaxHeight() {
+
+        return $this->$maxImageHeight;
+
+    }
+
+    /**
+     * Returns the images folder
+     * @return string the images folder
+     */
+    public function getImagesFolder() {
+
+        return $this-> $imagesfolder;
+
+    }
+
+    /**
+     * Returns the allowed file types array
+     *
+     * @return array with the allowed file types
+     */
+    public function getAllowedFileTypes () {
+
+        return $this->$allowedFileTypes;
+
+    }
+
+    /**
+     * Returns the allowed mime types array
+     *
+     * @return array with the allowed mime types
+     */
+    public function getAllowedMimeTypes () {
+
+        return $this->$allowedMimeTypes;
+
+    }
 
 
 }
