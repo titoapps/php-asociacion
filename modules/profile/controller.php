@@ -7,14 +7,14 @@
  */
 
 require_once 'modules/tools/Tools.php';
+require_once 'modules/galery/model.php';
 
-if (isset($_POST['submitImage'])) {
+if (isset($_POST['Subir'])) {
 
     $configuration = \Configuration\Configuration::sharedInstance();
     //require_once ("config.php");
     //require_once ("functions.php");
 
-    //TODO:The image is not uploading
     //Si se trata de un archivo valido.
     if (isset ($_FILES['profileImage'])) {
 
@@ -23,14 +23,17 @@ if (isset($_POST['submitImage'])) {
             //Tenemos que confirmar que se trata de uno de los tipos autorizados.
             if (in_array ($_FILES['profileImage']['type'],$configuration->getAllowedMimeTypes())) {
 
+                $path = $configuration->getImagesFolder() . "/" . $_FILES['profileImage']['name'];
+
                 //Entonces podemos realizar la copia.
-                if (!move_uploaded_file ($_FILES['profileImage']['tmp_name'], $configuration->getImagesFolder() . "/" . $_FILES['profileImage']['name'])) {
+                if (!move_uploaded_file ($_FILES['profileImage']['tmp_name'],$path)) {
 
                     echo "There was an error uploading the file.";
 
                 } else {
                     //Store on DDBB
-                    echo "Done";
+                    updateImage($_POST['idImage'],$_FILES['profileImage'],$path);
+
                 }
 
             } else {
@@ -97,5 +100,93 @@ if (isset($_POST['submitImage'])) {
 } else  {
 
     Tools::showGenericErrorMessage();
+
+}
+
+/**
+ * Update a new user image
+ * @param $idUser
+ * @param $imagePath
+ */
+function updateImage ($idImage,$imageInfo,$imagePath) {
+
+    if ($idImage != null && $imagePath != null) {
+
+        $configuration = \Configuration\Configuration::sharedInstance();
+
+        $ficheroTipo = $imageInfo['type'];
+        $allowedMimeTypes = $configuration->getAllowedMimeTypes();
+
+//        "jpg","jpeg","gif","png");
+
+        switch($ficheroTipo){
+
+            case $allowedMimeTypes[0]:
+
+                $img = imagecreatefromjpeg($imagePath);
+                break;
+
+            case $allowedMimeTypes[1]:
+
+                $img = imagecreatefromjpeg($imagePath);
+                break;
+
+            case $allowedMimeTypes[2]:
+
+                $img = imagecreatefromgif($imagePath);
+                break;
+
+            case $allowedMimeTypes[3]:
+
+                $img = imagecreatefrompng($imagePath);
+                break;
+
+        }
+
+        $imageSize = getimagesize($imagePath);
+        $ancho = $imageSize[0];
+        $alto = $imageSize[1];
+
+        //Keep the image size relation
+        $proporcionImagen = $ancho / $alto;
+        $proporcionImagenMiniatura = $configuration->getImageMaxWidth() / $configuration->getImageMaxHeight();
+
+
+        if ($proporcionImagen > $proporcionImagenMiniatura) {
+
+            $miniaturaAncho = $configuration->getImageMaxWidth();
+            $miniaturaAlto = $configuration->getImageMaxWidth() / $proporcionImagen;
+
+        } else if ($proporcionImagen < $proporcionImagenMiniatura) {
+
+            $miniaturaAncho = $configuration->getImageMaxHeight() * $proporcionImagen;
+            $miniaturaAlto = $configuration->getImageMaxHeight();
+
+        } else if ($proporcionImagen < $proporcionImagenMiniatura) {
+
+            $miniaturaAlto = $configuration->getImageMaxHeight();
+            $miniaturaAncho = $configuration->getImageMaxWidth();
+
+        }
+
+        $temporal = imagecreatetruecolor($miniaturaAncho,$miniaturaAlto);
+        imagecopyresampled($temporal,$img,0,0,0,0,$miniaturaAncho,$miniaturaAncho,$ancho,$alto);
+        imagejpeg($temporal,$imagePath,80);
+
+        $fp=fopen($imagePath,'rb');
+        $imagenBinaria = addslashes(fread($fp,filesize($imagePath)));
+        fclose($fp);
+
+        // Borra archivos temporales si es que existen
+
+        @unlink($imagePath);
+//        @unlink(TEMPORAL);
+
+        Image::updateImage($idImage,$imagenBinaria);
+
+
+    }
+
+
 
 }

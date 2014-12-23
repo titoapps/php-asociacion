@@ -35,6 +35,21 @@ class Configuration {
      */
     private $maxImageHeight = 200;
 
+    /**
+     * @var string Images temporal folder
+     */
+    private $imagesfolder;
+
+    /**
+     * @var array Allowed file types
+     */
+    private $allowedFileTypes;
+
+    /**
+     * @var array The image mime types allowed
+     */
+    private $allowedMimeTypes;
+
 //    //La anchura m�xima de las miniaturas generadas.
 //    private $maxwidththumb = 60;
 //
@@ -42,27 +57,15 @@ class Configuration {
 //    private $maxheightthumb = 60;
 
     //Ubicaci�n para almacenar las im�genes.
-    /**
-     * @var string Images temporal folder
-     */
-    private $imagesfolder = "images/tmp";
+
 
 //        //Ubicaci�n para almacenar las miniaturas.
 //    private $thumbsfolder = "images/thumbs";
 
-    /**
-     * @var array Allowed file types
-     */
-    private $allowedFileTypes = array ("jpg","jpeg","gif","png");
 
-    /**
-     * @var array The image mime types allowed
-     */
-    private $allowedMimeTypes = array ("image/jpeg","image/jpg","image/png","image/gif");
 
 //        //N�mero de im�genes por fila de navegaci�n.
 //    private $maxperrow = 7;
-
 
     /**
      * Class Constructor
@@ -90,6 +93,10 @@ class Configuration {
                                    8 => 'search',
                                    9 => 'profile',
                                    10 => 'profileEdition');
+
+//        $this->$imagesfolder = "images/tmp";
+//        $this->$allowedMimeTypes = array ("image/jpeg","image/jpg","image/png","image/gif");
+//        $this->$allowedFileTypes = array ("jpg","jpeg","gif","png");
 
         //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
 
@@ -141,8 +148,8 @@ class Configuration {
      */
     public function getImageMaxWidth() {
 
-        return $this->$maxImageWidth;
-
+//        return $this->$maxImageWidth;
+return 500;
     }
 
     /**
@@ -151,7 +158,8 @@ class Configuration {
      */
     public function getImageMaxHeight() {
 
-        return $this->$maxImageHeight;
+//        return $this->$maxImageHeight;
+        return 200;
 
     }
 
@@ -161,8 +169,9 @@ class Configuration {
      */
     public function getImagesFolder() {
 
-        return $this-> $imagesfolder;
+//        return $this-> $imagesfolder;
 
+        return "images/tmp";
     }
 
     /**
@@ -172,8 +181,8 @@ class Configuration {
      */
     public function getAllowedFileTypes () {
 
-        return $this->$allowedFileTypes;
-
+//        return $this->$allowedFileTypes;
+return array ("jpg","jpeg","gif","png");
     }
 
     /**
@@ -183,8 +192,9 @@ class Configuration {
      */
     public function getAllowedMimeTypes () {
 
-        return $this->$allowedMimeTypes;
+//        return $this->$allowedMimeTypes;
 
+        return array ("image/jpeg","image/jpg","image/png","image/gif");
     }
 
 

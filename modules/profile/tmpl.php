@@ -27,10 +27,11 @@ echo'<script type="text/javascript" src="js/ProfileUtilities.js"></script>
             <input type="submit" name ="Editar" title="Editar" value="Editar">
         </form>
         </br>
-        <form id="sendImageForm" action="index.php?option=profile" method="POST">
-            <input type="hidden" id="idUser" name = "idUser" value ='.$userLogged->getValueDecoded('idUser').'>
-            <input type="file" id="profileImage" name="profileImage"/>
-            <input type="submit" value="submitImage" name ="submitImage" title="submitImage"/>
+        <form id="sendImageForm" action="index.php?option=profile" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="idUser" name = "idUser" value ='.$userLogged->getValueDecoded('idUser').' />
+            <input type="hidden" id="idImage" name = "idImage" value ='.$userImage->getValueDecoded('idImage').' />
+            <input type="file" id="" name="profileImage" value="profileImage"/>
+            <input type="submit" value="Subir" name ="Subir" title="Subir"/>
             <!--TODO: Check if image exists and if its valid, or just allow only png and jpg-->
         </form>
         </div>
