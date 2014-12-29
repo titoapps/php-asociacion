@@ -72,13 +72,14 @@ class User extends DataObject {
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idUser", $id, PDO::PARAM_INT );
+            $st->bindValue( ":idUser", $id, PDO::PARAM_INT);
+            $st->bindColumn("imageBin", $data, PDO::PARAM_LOB);
             $st->execute();
             $row = $st->fetch();
             parent::disconnect( $conn );
 
             if ( $row )
-                return array(new User( $row ),new Image($row));
+                return array(new User( $row ),new Image($row),$data);
 
         } catch ( PDOException $e ) {
             parent::disconnect( $conn );

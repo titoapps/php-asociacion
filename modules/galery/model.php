@@ -12,10 +12,17 @@ class Image extends DataObject {
     protected $data = array(
         "idImage" => "",
         "imageName" => "",
-        "path" => ""
+        "idImageCategory" => "",
+        "path" => "",
+        "imageBin" => ""
 
     );
 
+    /**
+     * Get image from id
+     * @param $id
+     * @return Image
+     */
     public static function getImage( $id ) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
@@ -37,53 +44,55 @@ class Image extends DataObject {
         }
     }
 
-
-
-    public function insert() {
+    /**
+     * Get image object from id
+     * @param $id
+     * @return Image
+     */
+    public static function getImageObject( $id ) {
         $conn = parent::connect();
-
-        $sql = "INSERT INTO " . TBL_IMAGES . " (
-                idImage,
-                imageName,
-                path
-
-            ) VALUES (
-                :idImage,
-                :imageName,
-                :path
-            )";
+        $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
-            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
-
+            $st->bindValue( ":idImage", $id, PDO::PARAM_INT );
+            $st->bindColumn("imageBin", $data, PDO::PARAM_LOB);
             $st->execute();
+            $row = $st->fetch();
+
+//            $row = mysql_fetch_row($result);
+
+            $data = base64_decode($row['imageBin']);
+
+            $im = imagecreatefromstring($data);
+            $image = imagejpeg($im);
+
             parent::disconnect( $conn );
+
+            if ( $row )
+                return $image;
 
         } catch ( PDOException $e ) {
-
             parent::disconnect( $conn );
             die( "Query failed: " . $e->getMessage() );
-
         }
     }
-
-    public function update() {
+    /**
+     * Update the image content related to the image id
+     * @param $idImage
+     * @param $imageBin
+     */
+    public static function updateImage($idImage,$imageBin) {
         $conn = parent::connect();
 
         $sql = "UPDATE " . TBL_IMAGES . " SET
-                idImage,
-                imageName,
-                path
-            WHERE idImage = :idImage";
+                imageBin = :imageBin
+            WHERE idImage = :idImage ";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-            $st->bindValue( ":imageName", $this->data["imageName"], PDO::PARAM_STR );
-            $st->bindValue( ":path", $this->data["path"], PDO::PARAM_STR );
+            $st->bindValue( ":idImage", $idImage, PDO::PARAM_INT);
+            $st->bindValue( ":imageBin", $imageBin, PDO::PARAM_LOB);
 
             $st->execute();
 
@@ -96,23 +105,6 @@ class Image extends DataObject {
 
         }
     }
-
-    public function delete() {
-        $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_IMAGES . " WHERE idImage = :idImage";
-
-        try {
-            $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT );
-            $st->execute();
-            parent::disconnect( $conn );
-
-        } catch ( PDOException $e ) {
-            parent::disconnect( $conn );
-            die( "Query failed: " . $e->getMessage() );
-        }
-    }
-
 }
 
 ?>
