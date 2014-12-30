@@ -6,8 +6,6 @@
  * Time: 21:19
  */
 
-require_once('php/model/Agenda.class.php');
-
 $agendaItems = Agenda::getAgendaItems(-1);
 
 echo '<h2>Agenda</h2> ';

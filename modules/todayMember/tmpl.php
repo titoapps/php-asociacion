@@ -9,7 +9,7 @@
 echo ' <div id="visita_comercio">
             <h2>Visita el comercio de..</h2>
                 <!-- Info sobre un comercio, con imagen, logo.. -->
-                <a href="#"><img src="'.$image->getValueDecoded("path").'" alt="'.$image->getValueDecoded("imageName").'" /></a>
+                <a href="#"><img src="'.$path.'" alt="'.$image->getValueDecoded("imageName").'" /></a>
 
                 <a href="#" id>'.$member->getValueDecoded("name").'</a> <br/>
 

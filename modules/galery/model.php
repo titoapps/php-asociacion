@@ -18,6 +18,87 @@ class Image extends DataObject {
 
     );
 
+
+    /**
+     * Inserts a user image on the ddbb
+     *
+     * @param $imageBin the image binary
+     * @param $imageName the image name
+     */
+    public static function insertUserImage ($imageBin,$imageName) {
+
+        Image::insertImage($imageBin,2,$imageName);
+
+    }
+
+    /**
+     * Inserts a galery image on the ddbb
+     *
+     * @param $imageBin the image binary
+     * @param $imageName the image name
+     */
+    public static function insertGaleryImage ($imageBin,$imageName) {
+
+        Image::insertImage($imageBin,1,$imageName);
+
+    }
+
+    /**
+     * Inserts a member image on the ddbb
+     *
+     * @param $imageBin the image binary
+     * @param $imageName the image name
+     */
+    public static function insertMemberImage ($imageBin,$imageName) {
+
+        Image::insertImage($imageBin,3,$imageName);
+
+    }
+
+    /**
+     * Inserts an image on the ddbb
+     *
+     * @param $imageBin the image binary
+     * @param $imageCatergoryId the image category id
+     * @param $imageName the image name
+     */
+    private static function insertImage ($imageBin,$imageCatergoryId,$imageName) {
+
+        $conn = parent::connect();
+
+        $sql = "INSERT INTO " . TBL_IMAGES. " (
+                imageName,
+                idImageCategory,
+                path,
+                imageBin
+
+            ) VALUES (
+                :imageName,
+                :idImageCategory,
+                :path,
+                :imageBin
+
+            )";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue(":imageName",$imageName, PDO::PARAM_STR );
+            $st->bindValue(":idImageCategory",$imageCatergoryId, PDO::PARAM_STR);
+            $st->bindValue(":path","", PDO::PARAM_STR);
+            $st->bindValue(":imageBin",$imageBin, PDO::PARAM_LOB);
+
+            $st->execute();
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+
+        }
+
+    }
+
     /**
      * Get image from id
      * @param $id
@@ -77,6 +158,7 @@ class Image extends DataObject {
             die( "Query failed: " . $e->getMessage() );
         }
     }
+
     /**
      * Update the image content related to the image id
      * @param $idImage
@@ -104,7 +186,9 @@ class Image extends DataObject {
             die( "Query failed: " . $e->getMessage() );
 
         }
+
     }
+
 }
 
 ?>

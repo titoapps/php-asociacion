@@ -14,7 +14,6 @@ echo'<script type="text/javascript" src="js/ProfileUtilities.js"></script>
       <h2>Mi Perfil</h2>
         <div id="profile">
         <img class="roundImage" src='.$userImagePath.'> </img>
-        <!--img class="roundImage" src="data:image/jpeg;base64,'.base64_encode($userImagePath).'"> </img-->
         <b> Nick :</b><span id="nickName" title = "'. $nickName .'"> '. $nickName .'</span><br>
         <b> Nombre :</b><span id="name" title = "'. $name .'"> '. $name .'</span><br>
         <b> Apellido :</b><span id="surname" title = "'. $surname .'"> '. $surname .'</span><br>

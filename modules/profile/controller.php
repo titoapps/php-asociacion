@@ -12,27 +12,25 @@ require_once 'modules/galery/model.php';
 if (isset($_POST['Subir'])) {
 
     $configuration = \Configuration\Configuration::sharedInstance();
-    //require_once ("config.php");
-    //require_once ("functions.php");
 
-    //Si se trata de un archivo valido.
+    //If its a valid file
     if (isset ($_FILES['profileImage'])) {
 
         if ($_FILES['profileImage']['error'] == 0) {
 
-            //Tenemos que confirmar que se trata de uno de los tipos autorizados.
+            //Confirm its a valid image type
             if (in_array ($_FILES['profileImage']['type'],$configuration->getAllowedMimeTypes())) {
 
                 $fullpath = $configuration->getImagesFolder() . "/" . $_FILES['profileImage']['name'];
 
-                //Entonces podemos realizar la copia.
+                //We can store a copy
                 if (!move_uploaded_file ($_FILES['profileImage']['tmp_name'],$fullpath)) {
 
                     echo "There was an error uploading the file.";
 
                 } else {
                     //Store on DDBB
-                    updateImage($_POST['idImage'],$_FILES['profileImage'],$configuration->getImagesFolder());
+                    Tools::updateImage($_POST['idImage'],$_FILES['profileImage'],$configuration->getImagesFolder());
 
                 }
 
@@ -80,23 +78,13 @@ if (isset($_POST['Subir'])) {
         $door = $userLogged->getValueDecoded('door');
 
         //if user image is not set, we have to choose a default image
-        if ($userImage == null) {
+        if ($userImageBin == null) {
 
             $userImagePath = 'images/members/carnicerialogo.jpg';
 
         } else {
 
-            //load image from BINARY PATH
-            $imageBinary = $userImageBin;
-            $userImagePath = $userImage->getValueDecoded('imageBin');
-
-            $configuration = \Configuration\Configuration::sharedInstance();
-
-            $path = $configuration->getImagesFolder() . "/" ."temp.jpeg";
-
-            file_put_contents($path, $imageBinary);
-
-            $userImagePath = $path;
+            $userImagePath = Tools::pathForBinImage($userImage->getValueDecoded('imageName'),$userImageBin);
 
         }
 
@@ -108,107 +96,8 @@ if (isset($_POST['Subir'])) {
 
     }
 
-} else  {
+} else {
 
     Tools::showGenericErrorMessage();
-
-}
-
-/**
- * Update a new user image
- * @param $idUser
- * @param $imagePath
- */
-function updateImage ($idImage,$imageInfo,$path) {
-
-    if ($idImage != null && $path != null) {
-
-        $configuration = \Configuration\Configuration::sharedInstance();
-
-        $ficheroTipo = $imageInfo['type'];
-        $allowedMimeTypes = $configuration->getAllowedMimeTypes();
-        $imagePath = $path . "/" . $imageInfo['name'];
-
-        switch ($ficheroTipo) {
-
-            case $allowedMimeTypes[0]:
-                $img = imagecreatefromjpeg($imagePath);
-                break;
-
-            case $allowedMimeTypes[1]:
-
-                $img = imagecreatefromjpeg($imagePath);
-                break;
-
-            case $allowedMimeTypes[2]:
-
-                $img = imagecreatefrompng($imagePath);
-                break;
-
-            case $allowedMimeTypes[3]:
-
-                $img = imagecreatefromgif($imagePath);
-                break;
-
-        }
-
-        $imageSize = getimagesize($imagePath);
-        $ancho = $imageSize[0];
-        $alto = $imageSize[1];
-
-        //Keep the image size relation
-        $proporcionImagen = $ancho / $alto;
-        $proporcionImagenMiniatura = $configuration->getImageMaxWidth() / $configuration->getImageMaxHeight();
-
-        $miniaturaAncho = $configuration->getImageMaxWidth();
-        $miniaturaAlto = $configuration->getImageMaxHeight();
-
-        if ($proporcionImagen > $proporcionImagenMiniatura) {
-
-            $miniaturaAncho = $configuration->getImageMaxWidth();
-            $miniaturaAlto = $configuration->getImageMaxWidth() / $proporcionImagen;
-
-        } else if ($proporcionImagen < $proporcionImagenMiniatura) {
-
-            $miniaturaAncho = $configuration->getImageMaxHeight() * $proporcionImagen;
-            $miniaturaAlto = $configuration->getImageMaxHeight();
-
-        } else if ($proporcionImagen < $proporcionImagenMiniatura) {
-
-            $miniaturaAlto = $configuration->getImageMaxHeight();
-            $miniaturaAncho = $configuration->getImageMaxWidth();
-
-        }
-
-        $temporal = imagecreatetruecolor($miniaturaAncho, $miniaturaAlto);
-
-        $result = imagecopyresampled($temporal, $img, 0, 0, 0, 0, $miniaturaAncho, $miniaturaAncho, $ancho, $alto);
-
-        $newImagePath = $path . "/newImage.png";
-
-        if ($result) {
-
-            $result = imagejpeg($temporal, $newImagePath, 80);
-
-            if (!$result )
-                echo $imagePath. " todo bien";
-
-        }
-
-        $fp=fopen($newImagePath,'rb');
-        $size = filesize($newImagePath);
-
-        $imagenBinaria = fread($fp,$size);
-//        $imagenBinaria = addslashes(fread($fp,$size));
-
-
-        // Borra archivos temporales si es que existen
-        @unlink($newImagePath);
-
-        Image::updateImage($idImage,$imagenBinaria);
-
-        fclose($fp);
-
-    }
 
 }

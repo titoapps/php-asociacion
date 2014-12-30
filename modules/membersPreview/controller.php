@@ -1,6 +1,7 @@
 <?php
 
 require_once 'members/model.php';
+require_once 'modules/tools/Tools.php';
 
 $membersAndImages = Member::getMembersPreview(3);
 

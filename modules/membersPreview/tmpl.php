@@ -10,13 +10,15 @@ echo '<h3>Asociados</h3>
 
     foreach ($members as $member) {
 
-    $name = $member->getValueDecoded("name");
-    $path = $images[$index]->getValueDecoded("path");
-    $image = $images[$index]->getValueDecoded("imageName");
-    echo '<a href="#" id="link_asociado1" alt="'.$name.'">
-        <img src="'.$path.'" alt="'.$image.'"/><br />
-    </a>';
-    $index++;
+        $name = $member->getValueDecoded("name");
+        $image = $images[$index]->getValueDecoded("imageName");
+        $imageBin = $images[$index]->getValue("imageBin");
+        $path = Tools::pathForBinImage($image,$imageBin);
+
+        echo '<a href="#" id="link_asociado1" alt="'.$name.'">
+            <img src="'.$path.'" alt="'.$image.'"/><br />
+        </a>';
+        $index++;
     }
 
     echo '<a href="index.php?option=members" class="ampliar_info">Ver Asociados</a></div>';

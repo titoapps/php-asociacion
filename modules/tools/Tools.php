@@ -108,4 +108,154 @@ class Tools {
 
     }
 
-} 
+
+
+    /**
+     * Insert an image with the info provided
+     *
+     * @param $idImage the id of the image to update
+     * @param $imageInfo the image full info to set
+     * @param $imagePath the temporal path of the new image
+     */
+    static function insertImage ($path) {
+
+        if ($path != null) {
+
+
+
+            $configuration = \Configuration\Configuration::sharedInstance();
+
+//            $ficheroTipo = $imageInfo['type'];
+//            $allowedMimeTypes = $configuration->getAllowedMimeTypes();
+//            $allowedFileTypes = $configuration->getAllowedFileTypes();
+
+
+
+
+        }
+
+    }
+
+    /**
+     * Update an image with the info provided
+     *
+     * @param $idImage the id of the image to update
+     * @param $imageInfo the image full info to set
+     * @param $imagePath the temporal path of the new image
+     */
+    static function updateImage ($idImage,$imageInfo,$path) {
+
+        if ($idImage != null && $path != null) {
+
+            $configuration = \Configuration\Configuration::sharedInstance();
+
+            $ficheroTipo = $imageInfo['type'];
+            $allowedMimeTypes = $configuration->getAllowedMimeTypes();
+            $allowedFileTypes = $configuration->getAllowedFileTypes();
+
+            $imagePath = $path . "/" . $imageInfo['name'];
+
+            switch ($ficheroTipo) {
+
+                case $allowedMimeTypes[0]:
+                    $img = imagecreatefromjpeg($imagePath);
+                    $fileExtension = $allowedFileTypes[0];
+
+                    break;
+
+                case $allowedMimeTypes[1]:
+
+                    $img = imagecreatefromjpeg($imagePath);
+                    break;
+
+                case $allowedMimeTypes[2]:
+
+                    $img = imagecreatefrompng($imagePath);
+                    break;
+
+                case $allowedMimeTypes[3]:
+
+                    $img = imagecreatefromgif($imagePath);
+                    break;
+
+            }
+
+            $imageSize = getimagesize($imagePath);
+            $ancho = $imageSize[0];
+            $alto = $imageSize[1];
+
+            //Keep the image size relation
+            $proporcionImagen = $ancho / $alto;
+            $proporcionImagenMiniatura = $configuration->getImageMaxWidth() / $configuration->getImageMaxHeight();
+
+            $miniaturaAncho = $configuration->getImageMaxWidth();
+            $miniaturaAlto = $configuration->getImageMaxHeight();
+
+            if ($proporcionImagen > $proporcionImagenMiniatura) {
+
+                $miniaturaAncho = $configuration->getImageMaxWidth();
+                $miniaturaAlto = $configuration->getImageMaxWidth() / $proporcionImagen;
+
+            } else if ($proporcionImagen < $proporcionImagenMiniatura) {
+
+                $miniaturaAncho = $configuration->getImageMaxHeight() * $proporcionImagen;
+                $miniaturaAlto = $configuration->getImageMaxHeight();
+
+            } else if ($proporcionImagen < $proporcionImagenMiniatura) {
+
+                $miniaturaAlto = $configuration->getImageMaxHeight();
+                $miniaturaAncho = $configuration->getImageMaxWidth();
+
+            }
+
+            $temporal = imagecreatetruecolor($miniaturaAncho, $miniaturaAlto);
+
+            $result = imagecopyresampled($temporal, $img, 0, 0, 0, 0, $miniaturaAncho, $miniaturaAncho, $ancho, $alto);
+
+            $newImagePath = $path . "/newImage.png";
+
+            if ($result) {
+
+                $result = imagejpeg($temporal, $newImagePath, 80);
+
+                if (!$result )
+                    echo $imagePath. "Error al subir la imagen, inténtelo de nuevo mas tarde";
+
+            }
+
+            $fp= fopen($newImagePath,'rb');
+            $size = filesize($newImagePath);
+
+            $imagenBinaria = fread($fp,$size);
+//        $imagenBinaria = addslashes(fread($fp,$size));
+
+
+            // Borra archivos temporales si es que existen
+            @unlink($newImagePath);
+
+            Image::updateImage($idImage,$imagenBinaria);
+
+            fclose($fp);
+
+        }
+
+    }
+
+    /**
+     * Loads an image binary,stores on a tmp folder and returns the path to show it.
+     * @param $imageBin
+     * @return the image path
+     */
+    static function pathForBinImage ($name,$imageBin) {
+
+        $configuration = \Configuration\Configuration::sharedInstance();
+
+        $path = $configuration->getImagesFolder() . "/" . $name;
+
+        file_put_contents($path, $imageBin);
+
+        return $path;
+
+    }
+
+}
