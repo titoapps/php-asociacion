@@ -159,6 +159,46 @@ class Image extends DataObject {
         }
     }
 
+
+    /**
+     * Get galery images
+     * @return Image
+     */
+    public static function getGaleryImages( ) {
+
+        $conn = parent::connect();
+
+        $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImageCategory = 1";
+
+        try {
+
+            $st = $conn->prepare( $sql );
+            $st->execute();
+
+            $images = null;
+
+            foreach ( $st->fetchAll() as $currentRow ) {
+
+                $images [] = new Image ($currentRow);
+
+            }
+
+            if ($images) {
+
+                return $images;
+
+            }
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
+
+
+
     /**
      * Update the image content related to the image id
      * @param $idImage
