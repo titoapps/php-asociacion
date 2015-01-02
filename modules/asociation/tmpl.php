@@ -7,8 +7,17 @@
  */
 
 echo '<div id="main_content">
-      <h2>La Asociación</h2>
-        <h3 class="titulo_seccion">¿Quienes somos?</h3>
+      <h2>La Asociación ';
+
+//We provide the documents if the user is allowed to see them
+if (isset($_SESSION ['userLoggedUserType']) && (($_SESSION ['userLoggedUserType'] == 1) || ($_SESSION ['userLoggedUserType'] == 3))) {
+
+    echo'<a href="documents/AsociacionAyFEstatutos.pdf" class="ampliar_info" id="addNewLink">(Haga click aqui para descargar los Estatutos de la Asociación)</a>';
+}
+
+echo '</h2>';
+
+echo '<h3 class="titulo_seccion">¿Quienes somos?</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ex odio, tempus sed condimentum in, efficitur eget risus.
          Suspendisse dignissim non metus sit amet hendrerit. Nulla blandit ipsum ante, non iaculis libero vestibulum non.
          Nunc eu nunc quam. Integer commodo, lacus sed vulputate cursus, ex dolor sagittis sem, malesuada vehicula purus nulla

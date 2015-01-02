@@ -8,69 +8,92 @@
 
 require_once 'modules/user/model.php';
 
+/**
+ * Checks if the user nick name already exists
+ *
+ * @param $nickName the user nickName
+ * @return bool returns if the user nickName already exists
+ */
+function checkNick ($nickName) {
+
+    $user = User::getByNickName($nickName);
+
+    if ($user == null)
+
+        return true;
+
+    else
+
+        return false;
+
+}
+
+/**
+ * Checks if the user email already exists
+ *
+ * @param $email the user email
+ * @return bool returns if the user email already exists
+ */
+function checkEmail ($email) {
+
+    $user = User::getByEmailAddress($email);
+
+    if ($user == null)
+
+        return true;
+
+    else
+
+        return false;
+
+}
+/**
+ * Checks if the user DNI is already registered
+ *
+ * @param $dni user dni
+ * @return bool returns if the user $dni is already registered
+ */
+function checkDNIExists ($dni) {
+
+    $user = User::getByDNI($dni);
+
+    if ($user == null) {
+
+        //TODO:check DNI with algorithm
+        return true;
+
+
+    } else
+
+        return false;
+
+}
+
+/**
+ * Checks if the user DNI format is correct or not
+ *
+ * @param $dni user dni
+ * @return bool returns if the user $dni and its correct or not
+ */
+function checkValidDNI ($dni) {
+
+    $letra = substr($dni, -1);
+    $numeros = substr($dni, 0, -1);
+    if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}
+
 class Tools {
 
-    /**
-     * Checks if the user nick name already exists
-     *
-     * @param $nickName the user nickName
-     * @return bool returns if the user nickName already exists
-     */
-    static function checkNick ($nickName) {
 
-        $user = User::getByNickName($nickName);
-
-        if ($user == null)
-
-            return true;
-
-        else
-
-            return false;
-
-    }
-
-    /**
-     * Checks if the user email already exists
-     *
-     * @param $email the user email
-     * @return bool returns if the user email already exists
-     */
-    static function checkEmail ($email) {
-
-        $user = User::getByEmailAddress($email);
-
-        if ($user == null)
-
-            return true;
-
-        else
-
-            return false;
-
-    }
-
-    /**
-     * Checks if the user DNI
-     *
-     * @param $dni user dni
-     * @return bool returns if the user $dni already exists and its correct or not
-     */
-    static function checkDNI ($dni) {
-
-        $user = User::getByDNI($dni);
-
-        if ($user == null) {
-
-            //TODO:check DNI with algorithm
-            return true;
-
-
-        } else
-
-            return false;
-
-    }
 
     /**
      * Shows a section title and message on the web main content.

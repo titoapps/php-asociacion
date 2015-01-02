@@ -67,11 +67,9 @@ if (isset($_SESSION ['userLoggedID'])
  */
 function processForm( $values ) {
 
-    $nickName = mysql_real_escape_string(strip_tags($values['nickName']));
     $name = mysql_real_escape_string(strip_tags($values['name']));
     $surname = mysql_real_escape_string(strip_tags($values['surname']));
     $phoneNumber = mysql_real_escape_string(strip_tags($values['phoneNumber']));
-    $email = mysql_real_escape_string(strip_tags($values['email']));
     $age = mysql_real_escape_string(strip_tags($values['age']));
     $age = $age + 17;//we have to correct to obtain the original value
     $streetName = mysql_real_escape_string(strip_tags($values['streetName']));
@@ -85,11 +83,9 @@ function processForm( $values ) {
 
     $userProfile = array(
 
-        "nickName" => utf8_decode($nickName),
         "name" => utf8_decode($name),
         "surname" => utf8_decode($surname),
         "phoneNumber" => utf8_decode($phoneNumber),
-        "email" => utf8_decode($email),
         "age" => utf8_decode($age),
         "streetName" => utf8_decode($streetName),
         "number" => utf8_decode($number),

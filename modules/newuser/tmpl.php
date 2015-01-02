@@ -7,7 +7,7 @@
  */
 
 require_once("QuickForm.php");
-require_once 'modules/tools/Tools.php';
+include_once 'tools/Tools.php';
 
 echo '<div id="main_content">
 
@@ -53,8 +53,8 @@ $form->addRule( "surname", "Por favor, comprueba tus apellidos", "regex","/^[a-z
 $textField = $form->addElement( "text", "dni", "DNI" );
 $textField->setMaxLength("9");
 $form->addRule( "dni", "Introduce tu DNI", "required");
-$form->addRule( "dni", "Comprueba tu DNI", "regex","/^[0-9]+8[a-zA-Z]/");
-$form->addRule( "dni", "El DNI ya está registrado", "callback",'checkDNI');
+$form->addRule( "dni", "El DNI ya está registrado", "callback",'checkDNIExists');
+$form->addRule( "dni", "El DNI no es correcto", "callback",'checkValidDNI');
 
 $age = array();
 $age [] = "-";
@@ -80,6 +80,7 @@ $radioButton = HTML_QuickForm::createElement( "radio", null, null, " Hombre", "M
 $genderOptions[] = $radioButton;
 $genderOptions[] = HTML_QuickForm::createElement( "radio", null, null, " Mujer", "F" );
 $form->addGroup( $genderOptions, "gender", "Sexo", "  " );
+$radioButton->setChecked(true);
 
 $streetTextField = $form->addElement( "text", "streetInputName", "Calle" );
 $form->addRule( "streetInputName", "Por favor, comprueba la calle", "regex","/^[a-zA-Zá-úÁ-Ú0-9 \\-,]+$/");

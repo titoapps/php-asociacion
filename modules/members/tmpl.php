@@ -6,7 +6,7 @@
  * Time: 22:22
  */
 echo '<div id="member">';
-echo '<p><img src="'.$image->getValueDecoded("path").'" alt="'.$image->getValueDecoded("imageName").'" />';
+echo '<p><img src="'.$path.'" alt="'.$image->getValueDecoded("imageName").'" />';
 echo '<span id="nombre_comercio">'.$member->getValueDecoded("name").'</span><br/>
       <span id="descripcion_comercio">'.$member->getValueDecoded("description").'</span>
       <br/> <br/>

@@ -21,6 +21,9 @@ foreach ($members as $member) {
     $image = $images [$index];
     $address = $addresses [$index];
     $street = $streets [$index];
+    $imageName = $image->getValue("imageName");
+    $imageBin = $image->getValue("imageBin");
+    $path = Tools::pathForBinImage($imageName,$imageBin);
 
     $streetString = $street->getValueDecoded("streetName").' '.$address->getValueDecoded("number");
 

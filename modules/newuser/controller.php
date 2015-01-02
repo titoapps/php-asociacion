@@ -41,7 +41,7 @@ function processForm( $values ) {
         'name' => $name,
         'nickName' => $nickName,
         'surname' => $surname,
-        'idImage' => null,
+        'idImage' => 1,
         'idAddress' => $name,
         'phoneNumber' => $phoneNumber,
         'email' => $email,

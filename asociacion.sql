@@ -21,7 +21,7 @@ drop table if exists Streets cascade;
 create table ImageCategory (
 
   idImageCategory  INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  categoryName      VARCHAR(100),
+  categoryName     VARCHAR(100),
 
   constraint PK_IMAGES_CATEGORY PRIMARY KEY (idImageCategory)
 );
@@ -54,6 +54,7 @@ insert into Images (idImageCategory,imageName, path) values (3,'fruteriafloranes
 insert into Images (idImageCategory,imageName, path) values (3,'tascalogo','images/members/tascalogo.jpg');*/
 
 
+insert into Images (idImageCategory,imageName, imageBin) values (2,'defaultProfile',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/personaDefectoG.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (1,'callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (1,'escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (1,'escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
@@ -293,14 +294,14 @@ CREATE TABLE Members (
   constraint FK_MEMBERS_IMG FOREIGN KEY (idImage) REFERENCES Images(idImage)
 );
 
-insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',5,1,2,699999999,'floranes19fruteria@gmail.com');
-insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',2,2,5,699999999,'carniceriaeno@gmail.com');
-insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',3,3,6,699999999,'fotosmarcelo@hotmail.com');
-insert into Members values (4,'electro','12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',4,4,8,699999999,'eletromaster@hotmail.com');
-insert into Members values (5,'deport','22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',5,5,7,699999999,'sapporodeportes@hotmail.com');
-insert into Members values (6,'ferro','19550494B','Ferreteria montañesa','Desde 1945',6,6,12,699999999,'ferreteriamontanesa@yahoo.com');
-insert into Members values (7,'calza','98584290B','La Defensa Calzado','Expertos en ',6,6,12,699999999,'ladefensa@yahoo.com');
-insert into Members values (8,'cafe','98584290Z','Sailors','Cafeteria ',6,6,12,699999999,'cafeteriaSailors@yahoo.com');
+insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',6,1,2,699999999,'floranes19fruteria@gmail.com');
+insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',3,2,5,699999999,'carniceriaeno@gmail.com');
+insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',4,3,6,699999999,'fotosmarcelo@hotmail.com');
+insert into Members values (4,'electro','12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',5,4,8,699999999,'eletromaster@hotmail.com');
+insert into Members values (5,'deport','22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',6,5,7,699999999,'sapporodeportes@hotmail.com');
+insert into Members values (6,'ferro','19550494B','Ferreteria montañesa','Desde 1945',7,6,12,699999999,'ferreteriamontanesa@yahoo.com');
+insert into Members values (7,'calza','98584290B','La Defensa Calzado','Expertos en ',7,6,12,699999999,'ladefensa@yahoo.com');
+insert into Members values (8,'cafe','98584290Z','Sailors','Cafeteria ',7,6,12,699999999,'cafeteriaSailors@yahoo.com');
 
 
 CREATE TABLE UserType (

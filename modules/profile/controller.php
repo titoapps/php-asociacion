@@ -80,7 +80,7 @@ if (isset($_POST['Subir'])) {
         //if user image is not set, we have to choose a default image
         if ($userImageBin == null) {
 
-            $userImagePath = 'images/members/carnicerialogo.jpg';
+            $userImagePath = 'images/personaDefectoG.jpg';
 
         } else {
 

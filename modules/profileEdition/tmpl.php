@@ -13,12 +13,6 @@ $form = new HTML_QuickForm( "convertForm", "post", "index.php?option=profileEdit
 $form->removeAttribute( "name" );
 $form->setRequiredNote ("* Los campos marcados con asterisco son obligatorios");
 
-$textField = $form->addElement( "text", "nickName", "Nick" );
-$textField->setMaxLength("20");
-$textField->setValue($nickName);
-$form->addRule( "nickName", "Introduce tu nick", "required");
-$form->addRule( "nickName", "El nick ya existe", "callback","checkNick");
-$form->addRule( "nickName", "El nick sólo puede contener números, letras y guiones", "regex", "/^[\\-_a-zA-Z0-9]+$/" );
 
 $textField = $form->addElement( "text", "name", "Nombre" );
 $textField->setMaxLength("30");
@@ -38,12 +32,6 @@ $textField->setMaxLength("9");
 $textField->setValue($phoneNumber);
 $form->addRule("phoneNumber", "El teléfono no es correcto", "numeric");
 $form->addRule("phoneNumber", "Compruebe teléfono", "minlength",9);
-
-$emailTextField = $form->addElement( "text", "email", "Correo electrónico" );
-$emailTextField->setValue($email);
-$form->addRule( "email", "Por favor, introduce tu correo electrónico", "required");
-$form->addRule( "email", "Por favor, introduce una dirección de correo electrónico valida", "email");
-$emailTextField->setMaxLength("30");
 
 $ageArray = array();
 $ageArray [] = "-";
