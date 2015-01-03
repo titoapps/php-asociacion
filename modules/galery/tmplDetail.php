@@ -32,7 +32,8 @@ if ($adminLogged) {
                     $path = Tools::pathForGaleryBinImage($imageName, $imageBin);
                     echo '<li>
                             <!--sacamos la foto y el nombre del sitio-->
-                            <img src="' . $path . '" title ="' . $imageName . '"  width="800" height="300px;"/>';
+                            <a rel="shadowbox[images];width=400;height=300" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="800" height="300px;"/></a>
+                            <!--img src="' . $path . '" title ="' . $imageName . '"  width="800" height="300px;"/-->';
 
                     if ($adminLogged) {
                         echo '<form id="deleteImageForm" action="index.php?option=galery" method="POST">
@@ -46,29 +47,76 @@ if ($adminLogged) {
       echo '</ul>
         </div>
         <!-- Controles del slider -->
-        <a href="#" class="jcarousel-control-prev" data-jcarouselcontrol="true"><</a>
-        <a href="#" class="jcarousel-control-next" data-jcarouselcontrol="true">></a>
-    </div>
-    </div>
+        <a href="#" class="jcarousel-control-prev" data-jcarouselcontrol="true">‹</a>
+        <a href="#" class="jcarousel-control-next" data-jcarouselcontrol="true">›</a>
 
-    <script>
-            $(".jcarousel")
-                    .jcarousel({
-                    })
-                    .jcarouselAutoscroll({
-                        interval: 3000,
-                        target: "+=1",
-                        autostart: true,
-                        wrap: "circular"
-                    });
-           $(".jcarousel-control-prev")
+        <!-- TODO:: botones de navegacion-->
+        <p class="jcarousel-pagination" data-jcarouselpagination="true">
+                <a href="#1"></a>
+                <a href="#2"></a>
+                <a href="#3"></a>
+        </p>
+        </div>
+<div class="clear"></div>
+<!--TODO::Esta parte es la que monta las miniaturas, si quieres quitarlo solo tiens que eliminar esta parte y el css correspondiente-->
+<div class="wrapper-list">
+		<ul>';
+foreach ($images as $foto) {
+
+    $imageBin = $foto->getValue("imageBin");
+    $imageName = $foto->getValueDecoded("imageName");
+    $path = Tools::pathForBinImage($imageName,$imageBin);
+    echo '<li>
+                        <!--sacamos la foto y el nombre del sitio-->
+                        <a rel="shadowbox[galery];width=400;height=300" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="100" height="80px;"/></a>
+                      </li>';
+}
+echo '</ul>
+</div>
+</div>
+
+<script>
+	(function($) {
+		$(function() {
+			$(".jcarousel").jcarousel({
+				animation: {
+				duration: 800,
+				easing:   "swing",
+				complete: function() {
+				}
+		}
+	});
+
+        $(".jcarousel-control-prev")
+            .on("jcarouselcontrol:active", function() {
+                $(this).removeClass("inactive");
+            })
+            .on("jcarouselcontrol:inactive", function() {
+                $(this).addClass("inactive");
+            })
             .jcarouselControl({
                 target: "-=1"
             });
 
         $(".jcarousel-control-next")
+            .on("jcarouselcontrol:active", function() {
+                $(this).removeClass("inactive");
+            })
+            .on("jcarouselcontrol:inactive", function() {
+                $(this).addClass("inactive");
+            })
             .jcarouselControl({
                 target: "+=1"
             });
 
-    </script>';
+        $(".jcarousel-pagination")
+            .on("jcarouselpagination:active", "a", function() {
+                $(this).addClass("active");
+            })
+            .on("jcarouselpagination:inactive", "a", function() {
+                $(this).removeClass("active");
+            })
+            .jcarouselPagination();
+    });
+})(jQuery);
+</script>';

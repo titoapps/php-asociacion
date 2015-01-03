@@ -1,7 +1,7 @@
 /* contenedor del slider*/
 .jcarousel-wrapper {
 
-    margin: 20px auto;
+    margin: 20px;
     position: relative;
     border: 10px solid #fff;
 
@@ -11,7 +11,7 @@
     -webkit-box-shadow: 0 0 2px #999;
     -moz-box-shadow: 0 0 2px #999;
     box-shadow: 0 0 2px #999;
-    width:75%;
+    width:84%;/*he cambiado el tamaño del contenedor del carrousel*/
 
 
 }
@@ -35,12 +35,12 @@
 }
 
 .jcarousel li {
-    width: 600px;
-    float: left;
-    border: 1px solid #fff;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+   width: 615px;/*cambiado el tamaño de los li*/
+	float: left;
+	border: 1px solid #FFF;
+	box-sizing: border-box;
+	margin-right: 10px;
+	margin-left:2px;/*bordes de separacion entre las fotos*/
 }
 
 .jcarousel img {
@@ -55,7 +55,7 @@
 .jcarousel-control-next {
     position: absolute;
     top: 50%;
-    margin-top: -15px;
+   
     width: 30px;	/*tamaño*/
     height: 30px;
     text-align: center;
@@ -109,7 +109,7 @@
     border-radius: 10px;
     text-indent: -9999px;
 
-    margin-right: 7px;
+    margin-right: 5px;
 
 
     -webkit-box-shadow: 0 0 2px #4E443C;
@@ -127,3 +127,26 @@
     box-shadow: 0 0 2px #F0EFE7;
 }
 
+/* TODO::estilo de las imagenes miniaturas
+	si quieres quitarlo solo tienes que quitar este parte del css
+*/
+.wrapper-list{
+	width: 630px;	
+	margin-top: 50px;
+}
+
+.wrapper-list ul{  
+	position: relative;
+    list-style: none;
+	}
+.wrapper-list li{ 
+	float: left;
+	margin-right: 10px;
+	border: 1px solid #E9E9E9;
+	background-color: #F5F4F6;
+	padding: 5px;
+}
+
+
+/* TODO::Es un fix para limpiar los floats,es una linea invisible debajo de los floats q los limpia*/
+.clear{clear: both;}

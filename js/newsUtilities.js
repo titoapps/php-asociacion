@@ -21,9 +21,11 @@ function addNew () {
     '</br></br><label for="subtitle">Subtítulo</label><textarea class="element_above" id="subtitle" name="subtitle" required="required" rows="3"></textarea>' +
     '</br><label for="description">Descripción</label><textarea class="element_above" id="description" name="description" cols="40" rows="10"></textarea>' +
     '<input type="hidden" id="idNew" name = "idNew" value = "-1">'+
-    '</br><input type="submit" name = "anadir" value="anadir"></form><script>$(function() {$( ".datepicker" ).datepicker();}); </script>';
+    '</br><input type="submit" name = "anadir" value="anadir"></form> <script></script>';
 
-
+    $(function() {$(".datepicker" ).datepicker({
+        dateFormat: "dd/mm/yy"
+    });});
 }
 
 /**
@@ -62,7 +64,9 @@ function startEdition () {
     '<input type="hidden" id="idNew" name = "idNew" value = "'+idNew+'" title="'+idNew+'">'+
     '</br><input type="submit" name = "Terminar" value="Terminar"></form><script>$(function() {$( ".datepicker" ).datepicker();}); </script>';
 
-
+    $(function() {$(".datepicker" ).datepicker({
+        dateFormat: "dd/mm/yy"
+    });});
 }
 
 

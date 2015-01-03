@@ -22,6 +22,11 @@ class News extends DataObject {
 
     );
 
+    /**
+     * Returns the new with the id provided
+     * @param $id
+     * @return News
+     */
     public static function getNew( $id ) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_NEWS. " WHERE idNew = :idNew";
@@ -45,21 +50,17 @@ class News extends DataObject {
 
     /**
      * Gets the current news to show on the web page
-     * @param $count
+     * @param $limit
      * @return News
      */
     public static function getCurrentNews($limit = -1) {
-        // Then call the date functions
-        //'2014-09-18 00:00:00'
 
-        //$currentDate = date('Y-m-d H:i:s');
         $dt = new DateTime();
 
         $currentDate = $dt->format ('Y-m-d');
 
-
         $conn = parent::connect();
-        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= DATE(:currentDate) && endDate >= DATE(:currentDate2)";
+        $sql = "SELECT * FROM " . TBL_NEWS. " WHERE startDate <= DATE(:currentDate) && endDate >= DATE(:currentDate2) ORDER BY startDate DESC";
 
         if ($limit != -1) {
             $sql = $sql . " LIMIT :limit";
@@ -94,6 +95,10 @@ class News extends DataObject {
         }
     }
 
+    /**
+     * Inserts a new New in the database
+     * @param $new
+     */
     public static function insert($new) {
         $conn = parent::connect();
 
@@ -131,6 +136,10 @@ class News extends DataObject {
         }
     }
 
+    /**
+     * Update the new information
+     * @param $new
+     */
     public static function update($new) {
         $conn = parent::connect();
 
@@ -150,7 +159,6 @@ class News extends DataObject {
             $st->bindValue( ":description", $new["description"], PDO::PARAM_STR);
             $st->bindValue( ":startDate", $new["startDate"], PDO::PARAM_STR);
             $st->bindValue( ":endDate", $new["endDate"], PDO::PARAM_STR);
-            //$st->bindValue( ":idImage", $new->data["idImage"], PDO::PARAM_INT);
 
             $st->execute();
 
@@ -161,22 +169,6 @@ class News extends DataObject {
             parent::disconnect( $conn );
             die( "Query failed: " . $e->getMessage() );
 
-        }
-    }
-
-    public function delete() {
-        $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_NEWS . " WHERE idNew = :idNew";
-
-        try {
-            $st = $conn->prepare( $sql );
-            $st->bindValue( ":idNew", $this->data["idNew"], PDO::PARAM_INT );
-            $st->execute();
-            parent::disconnect( $conn );
-
-        } catch ( PDOException $e ) {
-            parent::disconnect( $conn );
-            die( "Query failed: " . $e->getMessage() );
         }
     }
 
