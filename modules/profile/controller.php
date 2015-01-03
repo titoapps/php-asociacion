@@ -36,19 +36,19 @@ if (isset($_POST['Subir'])) {
 
             } else {
 
-                echo "Not allowed mime type";
+                Tools::showMainContentResultMessage("Perfil","Tipo de imagen no soportado");
 
             }
 
         } else {
 
-            echo "There is an error with the file.";
+            Tools::showMainContentResultMessage("Perfil","Error al subir la imagen, inténtelo de nuevo");
 
         }
 
     } else {
 
-        echo "File not found.";
+        Tools::showMainContentResultMessage("Perfil","Error al subir la imagen, inténtelo de nuevo");
 
     }
 

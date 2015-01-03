@@ -30,9 +30,9 @@ echo'<script type="text/javascript" src="js/ProfileUtilities.js"></script>
         <form id="sendImageForm" action="index.php?option=profile" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="idUser" name = "idUser" value ='.$userLogged->getValueDecoded('idUser').' />
             <input type="hidden" id="idImage" name = "idImage" value ='.$userImage->getValueDecoded('idImage').' />
+            <b> Cambiar imagen de perfil</b><br>
             <input type="file" id="" name="profileImage" value="profileImage"/>
             <input type="submit" value="Subir" name ="Subir" title="Subir"/>
-            <!--TODO: Check if image exists and if its valid, or just allow only png and jpg-->
         </form>
         </div>
     </div>';

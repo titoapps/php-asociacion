@@ -36,23 +36,12 @@ create table Images (
   idImageCategory   INT UNSIGNED NOT NULL,
   imageName         VARCHAR(100),
   path              VARCHAR(100) NOT NULL,
-  imageBin          LONGBLOB,-- NOT NULL,
+  imageBin          LONGBLOB,
 
   constraint PK_IMAGES PRIMARY KEY (idImage),
   constraint FK_IMAGES_CATEGORY FOREIGN KEY (idImageCategory) REFERENCES ImageCategory(idImageCategory)
 
 );
-
-/*Galery images*/
-/*insert into Images (idImageCategory,imageName, path) values (1,'callefloranes','images/galery/callefloranes.jpg');
-insert into Images (idImageCategory,imageName, path) values (1,'escaparatefruteria','images/galery/escaparatefruteria.jpg');
-insert into Images (idImageCategory,imageName, path) values (1,'escaparatemodels','images/galery/escaparatemodels.jpg');*/
-
-/*members*/
-/*insert into Images (idImageCategory,imageName, path) values (3,'carnicerialogo','images/members/carnicerialogo.jpg');
-insert into Images (idImageCategory,imageName, path) values (3,'fruteriafloraneslogo','images/members/fruteriafloraneslogo.jpg');
-insert into Images (idImageCategory,imageName, path) values (3,'tascalogo','images/members/tascalogo.jpg');*/
-
 
 insert into Images (idImageCategory,imageName, imageBin) values (2,'defaultProfile',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/personaDefectoG.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (1,'callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
@@ -399,30 +388,6 @@ INSERT INTO NewComment (idNew,idUser,text,date) values(1,2,'¡Ya hay muchas gana
 INSERT INTO NewComment (idNew,idUser,text,date) values(2,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 INSERT INTO NewComment (idNew,idUser,text,date) values(3,2,'¡Ya hay muchas ganas!',DATE('2013-09-18 00:00:00'));
 
-
--- TODO:on delete cascade?
-/*
-INSERT INTO members VALUES( 1, 'sparky', password('mypass'), 'John', 'Sparks', '2007-11-13', 'm', 'crime', 'jsparks@example.com', 'Football, fishing and gardening' );
-INSERT INTO members VALUES( 2, 'mary', password('mypass'), 'Mary', 'Newton', '2007-02-06', 'f', 'thriller', 'mary@example.com', 'Writing, hunting and travel' );
-INSERT INTO members VALUES( 3, 'jojo', password('mypass'), 'Jo', 'Scrivener', '2006-09-03', 'f', 'romance', 'jscrivener@example.com', 'Genealogy, writing, painting' );
-INSERT INTO members VALUES( 4, 'marty', password('mypass'), 'Marty', 'Pareene', '2007-01-07', 'm', 'horror', 'marty@example.com', 'Guitar playing, rock music, clubbing' );
-INSERT INTO members VALUES( 5, 'nickb', password('mypass'), 'Nick', 'Blakeley', '2007-08-19', 'm', 'sciFi', 'nick@example.com', 'Watching movies, cooking, socializing' );
-INSERT INTO members VALUES( 6, 'bigbill', password('mypass'), 'Bill', 'Swan', '2007-06-11', 'm', 'nonFiction', 'billswan@example.com', 'Tennis, judo, music' );
-INSERT INTO members VALUES( 7, 'janefield', password('mypass'), 'Jane', 'Field', '2006-03-03', 'f', 'crime', 'janefield@example.com', 'Thai cookery, gardening, traveling' );
-*/
--- TODO:use?
-/*CREATE TABLE accessLog (
-  memberId        SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  pageUrl         VARCHAR(255) NOT NULL,
-  numVisits       MEDIUMINT NOT NULL,
-  lastAccess      TIMESTAMP NOT NULL,
-  PRIMARY KEY (memberId, pageUrl)
-);
-
-INSERT INTO accessLog( memberId, pageUrl, numVisits ) VALUES( 1, 'diary.php', 2 );
-INSERT INTO accessLog( memberId, pageUrl, numVisits ) VALUES( 3, 'books.php', 2 );
-INSERT INTO accessLog( memberId, pageUrl, numVisits ) VALUES( 3, 'contact.php', 1 );
-INSERT INTO accessLog( memberId, pageUrl, numVisits ) VALUES( 6, 'books.php', 4 );*/
 
 
 
