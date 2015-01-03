@@ -229,6 +229,32 @@ class Image extends DataObject {
 
     }
 
+    /**
+     * Deletes the image with the id provided id
+     * @param $idImage
+     */
+    public static function deleteImage($idImage) {
+        $conn = parent::connect();
+
+        $sql = "DELETE FROM " . TBL_IMAGES . " WHERE idImage = :idImage ";
+
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":idImage", $idImage, PDO::PARAM_INT);
+
+            $st->execute();
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+
+        }
+
+    }
+
 }
 
 ?>

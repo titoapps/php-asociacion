@@ -175,6 +175,18 @@ return 500;
     }
 
     /**
+     * Returns the galery images folder
+     * @return string the galery images folder
+     */
+    public function getGaleryImagesFolder() {
+
+//        return $this-> $imagesfolder;
+
+        return "images/tmp/galery";
+
+    }
+
+    /**
      * Returns the allowed file types array
      *
      * @return array with the allowed file types

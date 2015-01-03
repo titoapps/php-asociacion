@@ -4,12 +4,14 @@ include_once 'galery/model.php';
 
 if (isset($_GET['option']) && $_GET['option']=='galery') {
 
+    //determines if the administrator is the person that is logged or not
+    $adminLogged = isset($_SESSION ['userLoggedUserType']) && ($_SESSION ['userLoggedUserType'] == 1);
 
     if (isset($_POST['Subir'])) {
 
         $configuration = \Configuration\Configuration::sharedInstance();
 
-        //If its a valid file
+            //If its a valid file
         if (isset ($_FILES['galeryImage'])) {
 
             if ($_FILES['galeryImage']['error'] == 0) {
@@ -17,7 +19,7 @@ if (isset($_GET['option']) && $_GET['option']=='galery') {
                 //Confirm its a valid image type
                 if (in_array ($_FILES['galeryImage']['type'],$configuration->getAllowedMimeTypes())) {
 
-                    $fullpath = $configuration->getImagesFolder() . "/" . $_FILES['galeryImage']['name'];
+                    $fullpath = $configuration->getGaleryImagesFolder() . "/" . $_FILES['galeryImage']['name'];
 
                     //We can store a copy
                     if (!move_uploaded_file ($_FILES['galeryImage']['tmp_name'],$fullpath)) {
@@ -26,7 +28,7 @@ if (isset($_GET['option']) && $_GET['option']=='galery') {
 
                     } else {
                         //Store on DDBB
-                        $result = Tools::insertGaleryImage($_FILES['galeryImage'],$configuration->getImagesFolder());
+                        $result = Tools::insertGaleryImage($_FILES['galeryImage'],$configuration->getGaleryImagesFolder());
 
                         if (!$result)
                             Tools::showGenericErrorMessage();
@@ -52,6 +54,15 @@ if (isset($_GET['option']) && $_GET['option']=='galery') {
             Tools::showMainContentResultMessage("Galería","Error al subir la imagen, inténtelo de nuevo");
 
         }
+
+    } else if (isset($_POST['EliminarImagen']) && isset($_POST['idImage'])) {
+
+        echo $_POST['idImage'];
+        Image::deleteImage($_POST['idImage']);
+
+        $images = Image::getGaleryImages();
+
+        include 'tmplDetail.php';
 
     } else {
 

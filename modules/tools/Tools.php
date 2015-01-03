@@ -138,6 +138,7 @@ class Tools {
      *
      * @param $imageInfo the image full info to set
      * @param $path the temporal path of the new image
+     * @return the insertion result
      */
     static function insertGaleryImage ($imageInfo,$path) {
 
@@ -220,8 +221,6 @@ class Tools {
             $size = filesize($newImagePath);
 
             $imagenBinaria = fread($fp,$size);
-//        $imagenBinaria = addslashes(fread($fp,$size));
-
 
             // Borra archivos temporales si es que existen
             @unlink($newImagePath);
@@ -241,7 +240,8 @@ class Tools {
      *
      * @param $idImage the id of the image to update
      * @param $imageInfo the image full info to set
-     * @param $imagePath the temporal path of the new image
+     * @param $path the temporal path of the new image
+     * @return the insertion result
      */
     static function updateImage ($idImage,$imageInfo,$path) {
 
@@ -318,17 +318,12 @@ class Tools {
 
                 $result = imagejpeg($temporal, $newImagePath, 80);
 
-                if (!$result )
-                    echo $imagePath. "Error al subir la imagen, inténtelo de nuevo mas tarde";
-
             }
 
             $fp= fopen($newImagePath,'rb');
             $size = filesize($newImagePath);
 
             $imagenBinaria = fread($fp,$size);
-//        $imagenBinaria = addslashes(fread($fp,$size));
-
 
             // Borra archivos temporales si es que existen
             @unlink($newImagePath);
@@ -336,6 +331,8 @@ class Tools {
             Image::updateImage($idImage,$imagenBinaria);
 
             fclose($fp);
+
+            return $result;
 
         }
 
@@ -352,6 +349,23 @@ class Tools {
         $configuration = \Configuration\Configuration::sharedInstance();
 
         $path = $configuration->getImagesFolder() . "/" . $name;
+
+        file_put_contents($path, $imageBin);
+
+        return $path;
+
+    }
+
+    /**
+     * Loads a galery image binary,stores on a tmp folder and returns the path to show it.
+     * @param $imageBin
+     * @return the image path
+     */
+    static function pathForGaleryBinImage ($name,$imageBin) {
+
+        $configuration = \Configuration\Configuration::sharedInstance();
+
+        $path = $configuration->getGaleryImagesFolder() . "/" . $name;
 
         file_put_contents($path, $imageBin);
 

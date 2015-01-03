@@ -11,7 +11,7 @@ echo '<div id="main_content">
       <h2>Galería</h2>';
 
 //we provide de posibility to add a new image to the galery if the user is the administator
-if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] == 1) {
+if ($adminLogged) {
 
     echo'<form id="sendImageForm" action="index.php?option=galery" method="POST" enctype="multipart/form-data">
             <label for="file">Añadir imagen</label>
@@ -26,14 +26,22 @@ if (isset($_SESSION ['userLoggedUserType']) && $_SESSION ['userLoggedUserType'] 
 
                 foreach ($images as $foto) {
 
-                      $imageBin = $foto->getValue("imageBin");
-                      $idImage = $foto->getValue("idImage");
-                      $imageName = $foto->getValueDecoded("imageName");
-                      $path = Tools::pathForBinImage($imageName,$imageBin);
+                    $imageBin = $foto->getValue("imageBin");
+                    $idImage = $foto->getValue("idImage");
+                    $imageName = $foto->getValueDecoded("imageName");
+                    $path = Tools::pathForGaleryBinImage($imageName, $imageBin);
                     echo '<li>
                             <!--sacamos la foto y el nombre del sitio-->
-                            <img id='.$idImage.' src="'.$path.'" title ="'.$imageName.'"  width="800" height="300px;"/>
-                          </li>';
+                            <img src="' . $path . '" title ="' . $imageName . '"  width="800" height="300px;"/>';
+
+                    if ($adminLogged) {
+                        echo '<form id="deleteImageForm" action="index.php?option=galery" method="POST">
+                                    <input type="hidden" id="idImage" name = "idImage" value = "' . $idImage . '"/>
+                                    <input type="submit" value="Eliminar" name ="EliminarImagen"/>
+                              </form>';
+                    }
+                    echo '</li>';
+
                 }
       echo '</ul>
         </div>
