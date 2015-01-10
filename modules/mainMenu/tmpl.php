@@ -20,7 +20,7 @@ $index = 0;
 
 foreach ($menuOptions as $option => $optiontext) {
 
-    $lineText =  '<li id="menu_'.$optiontext.'" rel="tab" ';
+    $lineText = '<a href='.$menuReferences[$index].' name="menu_'.$optiontext.'" id="menu_'.$optiontext.'" rel="tab" ';
 
     $menuModule = $menuModules[$index];
 
@@ -30,7 +30,7 @@ foreach ($menuOptions as $option => $optiontext) {
 
     }
 
-    $lineText = $lineText . '><a href='.$menuReferences[$index].' name="menu_'.$optiontext.'" id="menu_'.$optiontext.' rel="tab">'.ucfirst($optiontext).'</a></li>';
+    $lineText = $lineText . '><li id="menu_'.$optiontext.'" name="menu_'.$optiontext.'" rel="tab">'.ucfirst($optiontext).'</li></a>';
 
     $index ++;
 

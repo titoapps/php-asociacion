@@ -45,13 +45,18 @@ create table Images (
 
 insert into Images (idImageCategory,imageName, imageBin) values (2,'defaultProfile',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/personaDefectoG.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (1,'callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
+insert into Images (idImageCategory,imageName, imageBin) values (3,'escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
+insert into Images (idImageCategory,imageName, imageBin) values (3,'escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
 
 
 insert into Images (idImageCategory,imageName, imageBin) values (3,'carnicerialogo',LOAD_FILE('images/members/carnicerialogo.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (3,'fruteriafloraneslogo',LOAD_FILE('images/members/fruteriafloraneslogo.jpg'));
 insert into Images (idImageCategory,imageName, imageBin) values (3,'tascalogo',LOAD_FILE('images/members/tascalogo.jpg'));
+
+insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes1',LOAD_FILE('images/galery/floranes1.png'));
+insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes2',LOAD_FILE('images/galery/floranes2.png'));
+insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes3',LOAD_FILE('images/galery/floranes3.png'));
+insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes4',LOAD_FILE('images/galery/floranes4.png'));
 
 
 CREATE TABLE News (
@@ -284,8 +289,8 @@ CREATE TABLE Members (
 );
 
 insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',6,1,2,699999999,'floranes19fruteria@gmail.com');
-insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',3,2,5,699999999,'carniceriaeno@gmail.com');
-insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',4,3,6,699999999,'fotosmarcelo@hotmail.com');
+insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',5,2,5,699999999,'carniceriaeno@gmail.com');
+insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',6,3,6,699999999,'fotosmarcelo@hotmail.com');
 insert into Members values (4,'electro','12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',5,4,8,699999999,'eletromaster@hotmail.com');
 insert into Members values (5,'deport','22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',6,5,7,699999999,'sapporodeportes@hotmail.com');
 insert into Members values (6,'ferro','19550494B','Ferreteria montañesa','Desde 1945',7,6,12,699999999,'ferreteriamontanesa@yahoo.com');
@@ -337,7 +342,7 @@ CREATE TABLE Users (
 insert into Users (password, NIF, name, nickName, surname, idImage, phoneNumber, email, idUserType,joinDate,gender,age,streetName,number,floor,door,postalCode)
 values (password('root'),'123456789r','administrator','admin','',1,666666666,'admin@asociacionaloflo.com',1,DATE('2013-05-17 00:00:00'),'M',31,'Cisneros',1,1,'A',39020),
        (password('user1'),'1r','user1','user1','',1,666666666,'user1@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',45,'Avenida de los castros',233,4,'B',39010),
-       (password('user2'),'2w','user2','user2','',2,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007),
+       (password('user2'),'2w','user2','user2','',1,666666666,'user2@hotmail.com',2,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007),
        (password('frute'),'3e','frutero','fruteria','',1,666666666,'fruteria@hotmail.com',3,DATE('2013-05-17 00:00:00'),'F',50,'Alcázar de Toledo',12,8,'B',39007);
 
 CREATE TABLE JobOffers (

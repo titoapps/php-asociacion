@@ -5,6 +5,9 @@
 Main Styles
 */
 
+/* Es un fix para limpiar los floats*/
+.clear{clear: both;}
+
 body {
 	width: 100%;
 	background-color: #FFF;
@@ -100,6 +103,7 @@ Header Styles
 	margin-right: 0.3em;
 	background-color: #0066cc;
 	display: block;
+	color:white;
 }
 #header #menu ul li:hover {
 	background-color: #333333;
@@ -111,8 +115,8 @@ Header Styles
 }
 #header #menu ul li.selected {
 	text-decoration: none;
-	color: inherit;
-	color: #006;
+	color: black;
+	/*color: #006;*/
 	background-color: #99ccff;
 }
 /*
@@ -144,7 +148,7 @@ Estilos lateral Izquierdo
 }
 .element_above {
 	display: block;
-    width: 80%;
+	width: 80%;
 }
 
 #container #content #leftsecondary table {
@@ -268,37 +272,37 @@ Main Header - Buscador y Visita comercio
 
 #galeria{
 
-    width: 415px;
-    height:300px;
-    margin:auto;
-    background: #303030;
-    border: 5px solid #303030;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    overflow: hidden;
-    border-radius: 5px;
+	width: 415px;
+	height:300px;
+	margin:auto;
+	background: #303030;
+	border: 5px solid #303030;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+	overflow: hidden;
+	border-radius: 5px;
 
 }
 
 #galeria img.wide {
 
-    max-height: 100%;
-    max-width: 100%;
-    height: auto;
+	max-height: 100%;
+	max-width: 100%;
+	height: auto;
 
 }​
-#galeria img.tall {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-}
-
-
- .img1, .img2, .img3, .img4, .img5{
-     overflow: hidden;
-     height: 285px;
-     width: 100%;
-
+ #galeria img.tall {
+	 max-width: 100%;
+	 max-height: 100%;
+	 width: auto;
  }
+
+
+.img1, .img2, .img3, .img4, .img5{
+	overflow: hidden;
+	height: 285px;
+	width: 100%;
+
+}
 
 
 
@@ -385,90 +389,90 @@ Footer
 */
 
 input[type=text].wrongTextField {
-    /* Awesome styling */
-    border: 3px solid red;
+	/* Awesome styling */
+	border: 3px solid red;
 
 }
 
 .center_container {
 
-    width:80%;
-    margin:auto;
+	width:80%;
+	margin:auto;
 
 }
 
 input
 .element_above_centered {
-    display: block;
-    width: 80%;
-    margin: auto;
+	display: block;
+	width: 80%;
+	margin: auto;
 }
 
 .element_above_fill {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 /** Members list */
 #container #content #main #members #member{
-    width: 65%;
-    margin: auto;
+	width: 65%;
+	margin: auto;
 }
 
 #container #content #main #members #member img {
-    width: 30%;
-    float: right;
-    margin: 0 0.3em 0.3em 0;
+	width: 30%;
+	float: right;
+	margin: 0 0.3em 0.3em 0;
 }
 #container #content #main #members #member #nombre_comercio {
-    text-decoration: none;
-    color: inherit;
-    font-size: larger;
-    font-weight: bold;
+	text-decoration: none;
+	color: inherit;
+	font-size: larger;
+	font-weight: bold;
 }
 #container #content #main #members #member #descripcion_comercio {
-    font-style: italic;
+	font-style: italic;
 }
 #container #content #main #members #member #direccion_comercio {
-    font-size: small;
+	font-size: small;
 }
 
 .error {
-    font-size: small;
-    color: red;
+	font-size: small;
+	color: red;
 }
 
 /** Comments */
 
 
 h4.title {
-    color: #333333;
-    border-bottom: thin solid #0066cc;
-    width: 60%;
+	color: #333333;
+	border-bottom: thin solid #0066cc;
+	width: 60%;
 }
 
 
 h5.title {
 
-    color: #0066cc;
-    font-size: small;
-    border-bottom: thin solid #0066cc;
-    /*color: #333333;
+	color: #0066cc;
+	font-size: small;
+	border-bottom: thin solid #0066cc;
+	/*color: #333333;
     */
-    width: 60%;
+	width: 60%;
 }
 
 p.comment{
 
-    color: #333333;
-    font-size: small;
+	color: #333333;
+	font-size: small;
 
 }
 
 span.listItem {
 
-    color: #0066cc;
-    font-size:medium;
+	color: #0066cc;
+	font-size:medium;
 
 }
 
@@ -477,11 +481,11 @@ span.listItem {
 
 #profile img.roundImage {
 
-    width: 30%;
-    float: left;
-    margin: 0 1em 1em 0;
-    background-color: #0066cc;
-    padding: 0.2em;
-    border-radius: 0.5em;
+	width: 30%;
+	float: left;
+	margin: 0 1em 1em 0;
+	background-color: #0066cc;
+	padding: 0.2em;
+	border-radius: 0.5em;
 
 }

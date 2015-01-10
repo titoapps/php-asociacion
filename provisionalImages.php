@@ -57,3 +57,28 @@ $size = filesize('images/members/tascalogo.jpg');
 $imagenBinaria = fread($fp,$size);
 Image::updateImage(7,$imagenBinaria);
 fclose($fp);
+
+$fp=fopen('images/galery/floranes1.png','rb');
+$size = filesize('images/galery/floranes1.png');
+$imagenBinaria = fread($fp,$size);
+Image::updateImage(8,$imagenBinaria);
+fclose($fp);
+
+$fp=fopen('images/galery/floranes2.png','rb');
+$size = filesize('images/galery/floranes2.png');
+$imagenBinaria = fread($fp,$size);
+Image::updateImage(9,$imagenBinaria);
+fclose($fp);
+
+$fp=fopen('images/galery/floranes3.jpg','rb');
+$size = filesize('images/galery/floranes3.jpg');
+$imagenBinaria = fread($fp,$size);
+Image::updateImage(10,$imagenBinaria);
+fclose($fp);
+
+$fp=fopen('images/galery/floranes4.png','rb');
+$size = filesize('images/galery/floranes4.png');
+$imagenBinaria = fread($fp,$size);
+Image::updateImage(11,$imagenBinaria);
+fclose($fp);
+

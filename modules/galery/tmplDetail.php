@@ -32,7 +32,7 @@ if ($adminLogged) {
                     $path = Tools::pathForGaleryBinImage($imageName, $imageBin);
                     echo '<li>
                             <!--sacamos la foto y el nombre del sitio-->
-                            <a rel="shadowbox[images];width=400;height=300" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="800" height="300px;"/></a>
+                            <a rel="lightbox[images]" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="800" height="300"/></a>
                             <!--img src="' . $path . '" title ="' . $imageName . '"  width="800" height="300px;"/-->';
 
                     if ($adminLogged) {
@@ -67,10 +67,11 @@ foreach ($images as $foto) {
     $imageName = $foto->getValueDecoded("imageName");
     $path = Tools::pathForBinImage($imageName,$imageBin);
     echo '<li>
-                        <!--sacamos la foto y el nombre del sitio-->
-                        <a rel="shadowbox[galery];width=400;height=300" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="100" height="80px;"/></a>
-                      </li>';
+                <!--sacamos la foto y el nombre del sitio-->
+                <a rel="lightbox[gallery]" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="100" height="80"/></a>
+          </li>';
 }
+
 echo '</ul>
 </div>
 </div>
