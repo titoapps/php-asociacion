@@ -8,70 +8,85 @@ require_once "search/Activities.class.php";
 
 class Member extends DataObject {
 
-  protected $data = array(
+    protected $data = array(
 
-    "idMember" => "",
-    "password" => "",
-    "NIF" => "",
-    "name" => "",
-    "description" => "",
-    "image" => "",
-    "idAddress" => "",
-    "idActivity" => "",
-    "phoneNumber" => "",
-    "email" => ""
+        "idMember" => "",
+        "NIF" => "",
+        "name" => "",
+        "description" => "",
+        "image" => "",
+        "idAddress" => "",
+        "idActivity" => "",
+        "phoneNumber" => "",
+        "email" => ""
 
-  );
+    );
 
-  public static function getMembers( $startRow, $numRows, $order ) {
-    $conn = parent::connect();
-    $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " . TBL_MEMBERS . " ORDER BY $order LIMIT :startRow, :numRows";
+    /**
+     * Gets all members
+     * @param $startRow
+     * @param $numRows
+     * @param $order
+     * @return array
+     */
+    public static function getMembers( $startRow, $numRows, $order ) {
+        $conn = parent::connect();
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " . TBL_MEMBERS . " ORDER BY $order LIMIT :startRow, :numRows";
 
-    try {
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":startRow", $startRow, PDO::PARAM_INT );
-      $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
-      $st->execute();
-      $members = array();
-      foreach ( $st->fetchAll() as $row ) {
-        $members[] = new Member( $row );
-      }
-      $st = $conn->query( "SELECT found_rows() as totalRows" );
-      $row = $st->fetch();
-      parent::disconnect( $conn );
-      return array( $members, $row["totalRows"] );
-    } catch ( PDOException $e ) {
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":startRow", $startRow, PDO::PARAM_INT );
+            $st->bindValue( ":numRows", $numRows, PDO::PARAM_INT );
+            $st->execute();
+            $members = array();
+            foreach ( $st->fetchAll() as $row ) {
+                $members[] = new Member( $row );
+            }
+            $st = $conn->query( "SELECT found_rows() as totalRows" );
+            $row = $st->fetch();
+            parent::disconnect( $conn );
+            return array( $members, $row["totalRows"] );
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
     }
-  }
 
-  public static function getMember( $id ) {
+    /**
+     * Gets a member by its id
+     * @param $id
+     * @return Member
+     */
+    public static function getMember( $id ) {
 
-    $conn = parent::connect();
-    $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE idMember = :idMember";
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE idMember = :idMember";
 
-    try {
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":idMember", $id, PDO::PARAM_INT );
-      $st->execute();
-      $row = $st->fetch();
-      parent::disconnect( $conn );
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":idMember", $id, PDO::PARAM_INT );
+            $st->execute();
+            $row = $st->fetch();
+            parent::disconnect( $conn );
 
-      if ( $row )
-          return new Member( $row );
+            if ( $row )
+                return new Member( $row );
 
-    } catch ( PDOException $e ) {
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
     }
-  }
 
+    /**
+     * Returns all members info, including full address and image
+     * @return array
+     */
     public static function getFullMembersInfo () {
 
         $conn = parent::connect();
 
-        $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.imageBin,Addr.number,floor,door,Str.streetName
+        $sql = "SELECT idMember,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.imageBin,Addr.number,floor,door,Str.streetName
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str
       WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet";
 
@@ -111,208 +126,237 @@ class Member extends DataObject {
 
     }
 
-  public static function searchMembers ($name = null, $activity=null, $street=null) {
+    /**
+     * Search for members according to the parameters provided
+     * @param null $name
+     * @param null $activity
+     * @param null $street
+     * @return array
+     */
+    public static function searchMembers ($name = null, $activity=null, $street=null) {
 
-      $conn = parent::connect();
+        $conn = parent::connect();
 
-      $sql = "SELECT idMember,password,NIF,Mem.name,description,Mem.idAddress,Mem.idActivity,Act.activityName,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
+        $sql = "SELECT idMember,NIF,Mem.name,description,Mem.idAddress,Mem.idActivity,Act.activityName,phoneNumber,email,Im.imageName,Im.path,number,floor,door,Str.streetName
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str,".TBL_ACTIVITIES." as Act
       WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet and Act.idActivity = Mem.idActivity";
 
-      if ($name != null) {
+        if ($name != null) {
 
-          $sql = $sql . " and Mem.name = :name";
-      }
+            $sql = $sql . " and Mem.name = :name";
+        }
 
-      if ($activity != null) {
+        if ($activity != null) {
 
-          $sql = $sql . " and Act.activityName = :activityName";
-      }
+            $sql = $sql . " and Act.activityName = :activityName";
+        }
 
-      if ($street != null) {
-          //change query
-          $sql = $sql . " and Str.streetName = :street";
-      }
+        if ($street != null) {
+            //change query
+            $sql = $sql . " and Str.streetName = :street";
+        }
 
-      try {
-          $st = $conn->prepare( $sql );
+        try {
+            $st = $conn->prepare( $sql );
 
-          if ($name != null) {
+            if ($name != null) {
 
-             $st->bindValue(":name",$name,PDO::PARAM_STR);
+                $st->bindValue(":name",$name,PDO::PARAM_STR);
 
-          }
+            }
 
-          if ($activity != null) {
+            if ($activity != null) {
 
-              $st->bindValue(":activityName",$activity,PDO::PARAM_STR);
+                $st->bindValue(":activityName",$activity,PDO::PARAM_STR);
 
-          }
+            }
 
-          if ($street != null) {
+            if ($street != null) {
 
-              $st->bindValue(":street",$street,PDO::PARAM_STR);
+                $st->bindValue(":street",$street,PDO::PARAM_STR);
 
-          }
+            }
 
-          $st->execute();
+            $st->execute();
 
-          parent::disconnect( $conn );
+            parent::disconnect( $conn );
 
-          $row = null;
+            $row = null;
 
-          $totalRows = 0;
+            $totalRows = 0;
 
-          foreach ( $st->fetchAll() as $currentRow ) {
+            foreach ( $st->fetchAll() as $currentRow ) {
 
-              $members[] = new Member($currentRow);
-              $images [] = new Image ($currentRow);
-              $address [] = new Address($currentRow);
-              $streets [] = new Street($currentRow);
-              $activities [] = new Activities($currentRow);
+                $members[] = new Member($currentRow);
+                $images [] = new Image ($currentRow);
+                $address [] = new Address($currentRow);
+                $streets [] = new Street($currentRow);
+                $activities [] = new Activities($currentRow);
 
-              $totalRows = $totalRows + 1;
+                $totalRows = $totalRows + 1;
 
-          }
+            }
 
-          if ($totalRows > 0) {
+            if ($totalRows > 0) {
 
-              return array( $members,$images,$address,$streets,$activities,$totalRows);
+                return array( $members,$images,$address,$streets,$activities,$totalRows);
 
-          }
+            }
 
-      } catch ( PDOException $e ) {
+        } catch ( PDOException $e ) {
 
-          parent::disconnect( $conn );
-          die( "Query failed: " . $e->getMessage() );
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
 
-      }
+        }
 
-  }
+    }
 
+    /**
+     * Gets the today member (an aleatory member)
+     * @return array
+     */
+    public static function getTodayMember () {
 
+        $todayMember = Member::getFullMembersInfo();
+        $totalRows = $todayMember[4];
 
-  public static function getTodayMember () {
+        $index = rand(0,$totalRows-1);
 
-      $todayMember = Member::getFullMembersInfo();
-      $totalRows = $todayMember[4];
+        $members = $todayMember[0];
+        $images = $todayMember[1];
+        $address = $todayMember[2];
+        $streets = $todayMember [3];
 
-      $index = rand(0,$totalRows-1);
+        if ($members && $images ) {
 
-      $members = $todayMember[0];
-      $images = $todayMember[1];
-      $address = $todayMember[2];
-      $streets = $todayMember [3];
+            return array( $members[$index],$images[$index],$address[$index],$streets[$index]);
 
-      if ($members && $images ) {
+        }
 
-          return array( $members[$index],$images[$index],$address[$index],$streets[$index]);
+    }
 
-      }
+    /**
+     * Returns the members preview information
+     * @param int $limit
+     * @return array
+     */
+    public static function getMembersPreview($limit = -1) {
 
-  }
+        $conn = parent::connect();
 
-  public static function getMembersPreview($limit = -1) {
-
-      $conn = parent::connect();
-
-      $sql = "SELECT idMember,Mem.name,Im.imageName,Im.path,Im.imageBin,Im.imageType
+        $sql = "SELECT idMember,Mem.name,Im.imageName,Im.path,Im.imageBin,Im.imageType
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im
       WHERE Mem.idImage = Im.idImage";
 
-      if($limit != -1) {
+        if($limit != -1) {
 
-          $sql = $sql . " LIMIT :limit";
+            $sql = $sql . " LIMIT :limit";
 
-      }
+        }
 
-      try {
-          $st = $conn->prepare( $sql );
+        try {
+            $st = $conn->prepare( $sql );
 
-          if ($limit != -1) {
+            if ($limit != -1) {
 
-            $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
 
-          }
-          $st->execute();
+            }
+            $st->execute();
 
-          parent::disconnect( $conn );
+            parent::disconnect( $conn );
 
-          $row = null;
+            $row = null;
 
-          foreach ( $st->fetchAll() as $currentRow ) {
+            foreach ( $st->fetchAll() as $currentRow ) {
 
-              $members[] = new Member($currentRow);
-              $images [] = new Image ($currentRow);
+                $members[] = new Member($currentRow);
+                $images [] = new Image ($currentRow);
 
-          }
+            }
 
-          if ($members && $images ) {
+            if ($members && $images ) {
 
-              return array( $members,$images);
+                return array( $members,$images);
 
-          }
+            }
 
-      } catch ( PDOException $e ) {
+        } catch ( PDOException $e ) {
 
-          parent::disconnect( $conn );
-          die( "Query failed: " . $e->getMessage() );
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
 
-      }
+        }
 
-
-  }
-
-
-  public static function getByNickName( $nickName ) {
-    $conn = parent::connect();
-    $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE nickName = :nickName";
-
-    try {
-
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":nickName", $nickName, PDO::PARAM_STR );
-      $st->execute();
-      $row = $st->fetch();
-
-      parent::disconnect( $conn );
-
-      if ( $row ) return new Member( $row );
-
-    } catch ( PDOException $e ) {
-
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
 
     }
-  }
 
-  public static function getByEmailAddress( $emailAddress ) {
-    $conn = parent::connect();
-    $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE email = :email";
+    /**
+     * Returns a member by its nick name
+     * @param $nickName
+     * @return Member
+     */
+    public static function getByNickName( $nickName ) {
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE nickName = :nickName";
 
-    try {
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":email", $emailAddress, PDO::PARAM_STR );
-      $st->execute();
-      $row = $st->fetch();
-      parent::disconnect( $conn );
-      if ( $row ) return new Member( $row );
-    } catch ( PDOException $e ) {
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
+        try {
+
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":nickName", $nickName, PDO::PARAM_STR );
+            $st->execute();
+            $row = $st->fetch();
+
+            parent::disconnect( $conn );
+
+            if ( $row ) return new Member( $row );
+
+        } catch ( PDOException $e ) {
+
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+
+        }
     }
-  }
 
-  public function getGenderString() {
-    return ( $this->data["gender"] == "F" ) ? "Female" : "Male";
-  }
+    /**
+     * Returns a member by its email
+     * @param $emailAddress
+     * @return Member
+     */
+    public static function getByEmailAddress( $emailAddress ) {
+        $conn = parent::connect();
+        $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE email = :email";
 
-  public function insert() {
-    $conn = parent::connect();
+        try {
+            $st = $conn->prepare( $sql );
+            $st->bindValue( ":email", $emailAddress, PDO::PARAM_STR );
+            $st->execute();
+            $row = $st->fetch();
+            parent::disconnect( $conn );
+            if ( $row ) return new Member( $row );
+        } catch ( PDOException $e ) {
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
+    }
 
-    $sql = "INSERT INTO " . TBL_MEMBERS . " (
-                password
+    /**
+     * Returns the gender string representation
+     * @return string
+     */
+    public function getGenderString() {
+        return ( $this->data["gender"] == "F" ) ? "Female" : "Male";
+    }
+
+    /**
+     * Insert a new member
+     */
+    public function insert() {
+        $conn = parent::connect();
+
+        $sql = "INSERT INTO " . TBL_MEMBERS . " (
                 NIF
                 name
                 description
@@ -322,7 +366,6 @@ class Member extends DataObject {
                 phoneNumber
                 email
             ) VALUES (
-                :password
                 :NIF
                 :name
                 :description
@@ -333,50 +376,8 @@ class Member extends DataObject {
                 :email
             )";
 
-    try {
-        $st = $conn->prepare( $sql );
-        $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
-        $st->bindValue( ":NIF", $this->data["NIF"], PDO::PARAM_STR );
-        $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
-        $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
-        $st->bindValue( ":idImage", $this->data["idImage"], PDO::PARAM_INT);
-        $st->bindValue( ":idAddress", $this->data["idAddress"], PDO::PARAM_INT);
-        $st->bindValue( ":idActivity", $this->data["idActivity"], PDO::PARAM_INT);
-        $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
-        $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
-        $st->execute();
-
-      parent::disconnect( $conn );
-
-    } catch ( PDOException $e ) {
-
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
-    }
-  }
-
-  public function update() {
-
-    $conn = parent::connect();
-
-    $sql = "UPDATE " . TBL_MEMBERS . " SET
-                password
-                NIF
-                name
-                description
-                idImage
-                idAddress
-                idActivity
-                phoneNumber
-                email
-
-            WHERE idMember = :idMember";
-
-    try {
-        $st = $conn->prepare( $sql );
-
-        if ( $this->data["password"] )
-            $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
+        try {
+            $st = $conn->prepare( $sql );
             $st->bindValue( ":NIF", $this->data["NIF"], PDO::PARAM_STR );
             $st->bindValue( ":name", $this->data["name"], PDO::PARAM_STR );
             $st->bindValue( ":description", $this->data["description"], PDO::PARAM_STR );
@@ -385,51 +386,17 @@ class Member extends DataObject {
             $st->bindValue( ":idActivity", $this->data["idActivity"], PDO::PARAM_INT);
             $st->bindValue( ":phoneNumber", $this->data["phoneNumber"], PDO::PARAM_INT);
             $st->bindValue( ":email", $this->data["email"], PDO::PARAM_STR );
+            $st->execute();
 
-      $st->execute();
+            parent::disconnect( $conn );
 
-      parent::disconnect( $conn );
+        } catch ( PDOException $e ) {
 
-    } catch ( PDOException $e ) {
-
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
-
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+        }
     }
-  }
-  
-  public function delete() {
-    $conn = parent::connect();
-    $sql = "DELETE FROM " . TBL_MEMBERS . " WHERE id = :id";
 
-    try {
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":idMember", $this->data["idMember"], PDO::PARAM_INT );
-      $st->execute();
-      parent::disconnect( $conn );
-    } catch ( PDOException $e ) {
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
-    }
-  }
-
-  public function authenticate() {
-    $conn = parent::connect();
-    $sql = "SELECT * FROM " . TBL_MEMBERS . " WHERE nickName = :nickName AND password = password(:password)";
-
-    try {
-      $st = $conn->prepare( $sql );
-      $st->bindValue( ":nickName", $this->data["nickName"], PDO::PARAM_STR );
-      $st->bindValue( ":password", $this->data["password"], PDO::PARAM_STR );
-      $st->execute();
-      $row = $st->fetch();
-      parent::disconnect( $conn );
-      if ( $row ) return new Member( $row );
-    } catch ( PDOException $e ) {
-      parent::disconnect( $conn );
-      die( "Query failed: " . $e->getMessage() );
-    }
-  }
 
 }
 

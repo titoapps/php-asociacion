@@ -273,7 +273,6 @@ insert into Activities values (12,'Ferreteria');
 CREATE TABLE Members (
 
   idMember    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  password    VARCHAR (30) NOT NULL,
   NIF         VARCHAR (10) NOT NULL UNIQUE,
   name        VARCHAR (80),
   description VARCHAR (300),
@@ -289,15 +288,14 @@ CREATE TABLE Members (
   constraint FK_MEMBERS_IMG FOREIGN KEY (idImage) REFERENCES Images(idImage)
 );
 
-insert into Members values (1,'frute','12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',6,1,2,699999999,'floranes19fruteria@gmail.com');
-insert into Members values (2,'carni','05166885G','Carniceria Eño','Carnes selectas de Cantabria',5,2,5,699999999,'carniceriaeno@gmail.com');
-insert into Members values (3,'foto','60675704W','Fotos Marcelo','Desde 1973',6,3,6,699999999,'fotosmarcelo@hotmail.com');
-insert into Members values (4,'electro','12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',5,4,8,699999999,'eletromaster@hotmail.com');
-insert into Members values (5,'deport','22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',6,5,7,699999999,'sapporodeportes@hotmail.com');
-insert into Members values (6,'ferro','19550494B','Ferreteria montañesa','Desde 1945',7,6,12,699999999,'ferreteriamontanesa@yahoo.com');
-insert into Members values (7,'calza','98584290B','La Defensa Calzado','Expertos en ',7,6,12,699999999,'ladefensa@yahoo.com');
-insert into Members values (8,'cafe','98584290Z','Sailors','Cafeteria ',7,6,12,699999999,'cafeteriaSailors@yahoo.com');
-
+insert into Members values (1,'12524296Z','Floranes 19 Fruteria','Frutas y Verduras de Cultivo Tradicional y Ecológico ',6,1,2,699999999,'floranes19fruteria@gmail.com');
+insert into Members values (2,'05166885G','Carniceria Eño','Carnes selectas de Cantabria',5,2,5,699999999,'carniceriaeno@gmail.com');
+insert into Members values (3,'60675704W','Fotos Marcelo','Desde 1973',6,3,6,699999999,'fotosmarcelo@hotmail.com');
+insert into Members values (4,'12947461W','Electrodomesticos Master','Las mejores marcas al mejor precio',5,4,8,699999999,'eletromaster@hotmail.com');
+insert into Members values (5,'22531651T','Deportes Sapporo','Ropa, calzado y material deportivo',6,5,7,699999999,'sapporodeportes@hotmail.com');
+insert into Members values (6,'19550494B','Ferreteria montañesa','Desde 1945',7,6,12,699999999,'ferreteriamontanesa@yahoo.com');
+insert into Members values (7,'98584290B','La Defensa Calzado','Expertos en ',7,6,12,699999999,'ladefensa@yahoo.com');
+insert into Members values (8,'98584290Z','Sailors','Cafeteria ',7,6,12,699999999,'cafeteriaSailors@yahoo.com');
 
 CREATE TABLE UserType (
 

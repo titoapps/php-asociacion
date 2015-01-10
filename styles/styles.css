@@ -116,7 +116,6 @@ Header Styles
 #header #menu ul li.selected {
 	text-decoration: none;
 	color: black;
-	/*color: #006;*/
 	background-color: #99ccff;
 }
 /*

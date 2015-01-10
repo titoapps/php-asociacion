@@ -24,13 +24,15 @@ foreach ($menuOptions as $option => $optiontext) {
 
     $menuModule = $menuModules[$index];
 
+    $lineText = $lineText . '><li id="menu_'.$optiontext.'" name="menu_'.$optiontext.'" rel="tab" ';
+
     if ($menuOption == $menuModule) {
 
-        $lineText = $lineText . ' class="selected"';
+        $lineText = $lineText . 'class="selected"';
 
     }
 
-    $lineText = $lineText . '><li id="menu_'.$optiontext.'" name="menu_'.$optiontext.'" rel="tab">'.ucfirst($optiontext).'</li></a>';
+    $lineText = $lineText .'>'.ucfirst($optiontext).'</li></a>';
 
     $index ++;
 
