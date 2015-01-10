@@ -64,7 +64,6 @@ class JobOffers extends DataObject {
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
 
             if ($limit != -1)
                 $st->bindValue( ":limit", $limit, PDO::PARAM_INT );

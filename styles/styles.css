@@ -275,11 +275,7 @@ Main Header - Buscador y Visita comercio
 	width: 415px;
 	height:300px;
 	margin:auto;
-	background: #303030;
-	border: 5px solid #303030;
-	box-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 	overflow: hidden;
-	border-radius: 5px;
 
 }
 
@@ -301,7 +297,6 @@ Main Header - Buscador y Visita comercio
 	overflow: hidden;
 	height: 285px;
 	width: 100%;
-
 }
 
 

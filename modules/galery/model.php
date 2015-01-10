@@ -164,15 +164,21 @@ class Image extends DataObject {
      * Get galery images
      * @return Image
      */
-    public static function getGaleryImages( ) {
+    public static function getGaleryImages($limit = -1 ) {
 
         $conn = parent::connect();
 
         $sql = "SELECT * FROM " . TBL_IMAGES . " WHERE idImageCategory = 1";
 
+        if ($limit != -1)
+            $sql = $sql." LIMIT :limit";
+
         try {
 
             $st = $conn->prepare( $sql );
+            if ($limit != -1)
+                $st->bindValue( ":limit", $limit, PDO::PARAM_INT );
+
             $st->execute();
 
             $images = null;

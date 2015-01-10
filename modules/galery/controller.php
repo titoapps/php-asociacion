@@ -72,7 +72,10 @@ if (isset($_GET['option']) && $_GET['option']=='galery') {
 
     }
 
-} else
+} else {
+
+    $images = Image::getGaleryImages(5);
 
     include 'tmpl.php';
 
+}
