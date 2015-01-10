@@ -4,7 +4,7 @@
 */
 
 echo '<h3>Asociados</h3>
-<div id="asociados">';
+    <div id="asociados">';
 
     $index = 0;
 
@@ -13,7 +13,8 @@ echo '<h3>Asociados</h3>
         $name = $member->getValueDecoded("name");
         $image = $images[$index]->getValueDecoded("imageName");
         $imageBin = $images[$index]->getValue("imageBin");
-        $path = Tools::pathForBinImage($image,$imageBin);
+        $imageType = $images[$index]->getValueDecoded("imageType");
+        $path = Tools::pathForBinImage($image,$imageBin,$imageType);
 
         echo '<a href="#" id="link_asociado1" alt="'.$name.'">
             <img src="'.$path.'" alt="'.$image.'"/><br />

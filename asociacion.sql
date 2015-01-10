@@ -34,6 +34,7 @@ create table Images (
 
   idImage           INT UNSIGNED NOT NULL AUTO_INCREMENT,
   idImageCategory   INT UNSIGNED NOT NULL,
+  imageType         VARCHAR(4),
   imageName         VARCHAR(100),
   path              VARCHAR(100) NOT NULL,
   imageBin          LONGBLOB,
@@ -43,20 +44,20 @@ create table Images (
 
 );
 
-insert into Images (idImageCategory,imageName, imageBin) values (2,'defaultProfile',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/personaDefectoG.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (3,'escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (3,'escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (2,'jpg','defaultProfile',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/personaDefectoG.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (1,'jpg','callefloranes',LOAD_FILE('/Aplicaciones/XAMPP/xamppfiles/htdocs/asociacion/images/galery/callefloranes.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (3,'jpg','escaparatefruteria',LOAD_FILE('images/galery/escaparatefruteria.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (3,'jpg','escaparatemodels',LOAD_FILE('images/galery/escaparatemodels.jpg'));
 
 
-insert into Images (idImageCategory,imageName, imageBin) values (3,'carnicerialogo',LOAD_FILE('images/members/carnicerialogo.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (3,'fruteriafloraneslogo',LOAD_FILE('images/members/fruteriafloraneslogo.jpg'));
-insert into Images (idImageCategory,imageName, imageBin) values (3,'tascalogo',LOAD_FILE('images/members/tascalogo.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (3,'jpg','carnicerialogo',LOAD_FILE('images/members/carnicerialogo.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (3,'jpg','fruteriafloraneslogo',LOAD_FILE('images/members/fruteriafloraneslogo.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (3,'jpg','tascalogo',LOAD_FILE('images/members/tascalogo.jpg'));
 
-insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes1',LOAD_FILE('images/galery/floranes1.png'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes2',LOAD_FILE('images/galery/floranes2.png'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes3',LOAD_FILE('images/galery/floranes3.png'));
-insert into Images (idImageCategory,imageName, imageBin) values (1,'floranes4',LOAD_FILE('images/galery/floranes4.png'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (1,'png','floranes1',LOAD_FILE('images/galery/floranes1.png'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (1,'png','floranes2',LOAD_FILE('images/galery/floranes2.png'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (1,'jpg','floranes3',LOAD_FILE('images/galery/floranes3.jpg'));
+insert into Images (idImageCategory,imageType,imageName, imageBin) values (1,'png','floranes4',LOAD_FILE('images/galery/floranes4.png'));
 
 
 CREATE TABLE News (

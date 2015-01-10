@@ -18,7 +18,8 @@ foreach ($images as $foto) {
     $imageBin = $foto->getValue("imageBin");
     $idImage = $foto->getValue("idImage");
     $imageName = $foto->getValueDecoded("imageName");
-    $path = Tools::pathForGaleryBinImage($imageName, $imageBin);
+    $imageType = $foto->getValueDecoded("imageType");
+    $path = Tools::pathForGaleryBinImage($imageName, $imageBin,$imageType);
 
     echo '<div class="img' . $cont . '"><a href="index.php?option=galery"><img src="' . $path . '" alt="' . $cont . '"></a></div>';
 }

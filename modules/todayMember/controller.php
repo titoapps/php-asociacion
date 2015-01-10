@@ -28,7 +28,8 @@ if ($memberInfo) {
         $streetString = $streetString. ' Puerta '.$address->getValueDecoded("door");
 
     $imageBin = $image->getValue("imageBin");
-    $path = Tools::pathForBinImage($image->getValueDecoded("imageName"),$imageBin);
+    $imageType = $image->getValueDecoded("imageType");
+    $path = Tools::pathForBinImage($image->getValueDecoded("imageName"),$imageBin,$imageType);
 
     include 'tmpl.php';
 

@@ -29,7 +29,8 @@ if ($adminLogged) {
                     $imageBin = $foto->getValue("imageBin");
                     $idImage = $foto->getValue("idImage");
                     $imageName = $foto->getValueDecoded("imageName");
-                    $path = Tools::pathForGaleryBinImage($imageName, $imageBin);
+                    $imageType = $foto->getValueDecoded("imageType");
+                    $path = Tools::pathForGaleryBinImage($imageName, $imageBin,$imageType);
                     echo '<li>
                             <!--sacamos la foto y el nombre del sitio-->
                             <a rel="lightbox[images]" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="800" height="300"/></a>
@@ -65,7 +66,8 @@ foreach ($images as $foto) {
 
     $imageBin = $foto->getValue("imageBin");
     $imageName = $foto->getValueDecoded("imageName");
-    $path = Tools::pathForBinImage($imageName,$imageBin);
+    $imageType = $foto->getValueDecoded("imageType");
+    $path = Tools::pathForBinImage($imageName,$imageBin,$imageType);
     echo '<li>
                 <!--sacamos la foto y el nombre del sitio-->
                 <a rel="lightbox[gallery]" href="'.$path.'" title ="'.$imageName.'"><img src="'.$path.'" title ="'.$imageName.'"  width="100" height="80"/></a>

@@ -216,7 +216,7 @@ class Member extends DataObject {
 
       $conn = parent::connect();
 
-      $sql = "SELECT idMember,Mem.name,Im.imageName,Im.path,Im.imageBin
+      $sql = "SELECT idMember,Mem.name,Im.imageName,Im.path,Im.imageBin,Im.imageType
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im
       WHERE Mem.idImage = Im.idImage";
 

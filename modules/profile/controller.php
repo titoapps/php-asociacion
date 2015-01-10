@@ -84,7 +84,8 @@ if (isset($_POST['Subir'])) {
 
         } else {
 
-            $userImagePath = Tools::pathForBinImage($userImage->getValueDecoded('imageName'),$userImageBin);
+            $imageType = $userImage->getValueDecoded("imageType");
+            $userImagePath = Tools::pathForBinImage($userImage->getValueDecoded('imageName'),$userImageBin,$imageType);
 
         }
 

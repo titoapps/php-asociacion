@@ -13,6 +13,7 @@ class Image extends DataObject {
         "idImage" => "",
         "imageName" => "",
         "idImageCategory" => "",
+        "imageType" => "",
         "path" => "",
         "imageBin" => ""
 
@@ -25,9 +26,9 @@ class Image extends DataObject {
      * @param $imageBin the image binary
      * @param $imageName the image name
      */
-    public static function insertUserImage ($imageBin,$imageName) {
+    public static function insertUserImage ($imageBin,$imageName,$imageType) {
 
-        Image::insertImage($imageBin,2,$imageName);
+        Image::insertImage($imageBin,2,$imageName,$imageType);
 
     }
 
@@ -37,9 +38,9 @@ class Image extends DataObject {
      * @param $imageBin the image binary
      * @param $imageName the image name
      */
-    public static function insertGaleryImage ($imageBin,$imageName) {
+    public static function insertGaleryImage ($imageBin,$imageName,$imageType) {
 
-        Image::insertImage($imageBin,1,$imageName);
+        Image::insertImage($imageBin,1,$imageName,$imageType);
 
     }
 
@@ -49,9 +50,9 @@ class Image extends DataObject {
      * @param $imageBin the image binary
      * @param $imageName the image name
      */
-    public static function insertMemberImage ($imageBin,$imageName) {
+    public static function insertMemberImage ($imageBin,$imageName,$imageType) {
 
-        Image::insertImage($imageBin,3,$imageName);
+        Image::insertImage($imageBin,3,$imageName,$imageType);
 
     }
 
@@ -61,20 +62,23 @@ class Image extends DataObject {
      * @param $imageBin the image binary
      * @param $imageCatergoryId the image category id
      * @param $imageName the image name
+     * @param $imageType the image type
      */
-    private static function insertImage ($imageBin,$imageCatergoryId,$imageName) {
+    private static function insertImage ($imageBin,$imageCatergoryId,$imageName,$imageType) {
 
         $conn = parent::connect();
 
         $sql = "INSERT INTO " . TBL_IMAGES. " (
                 imageName,
                 idImageCategory,
+                imageType,
                 path,
                 imageBin
 
             ) VALUES (
                 :imageName,
                 :idImageCategory,
+                :imageType,
                 :path,
                 :imageBin
 
@@ -84,6 +88,7 @@ class Image extends DataObject {
             $st = $conn->prepare( $sql );
             $st->bindValue(":imageName",$imageName, PDO::PARAM_STR );
             $st->bindValue(":idImageCategory",$imageCatergoryId, PDO::PARAM_STR);
+            $st->bindValue(":imageType",$imageType, PDO::PARAM_STR);
             $st->bindValue(":path","", PDO::PARAM_STR);
             $st->bindValue(":imageBin",$imageBin, PDO::PARAM_LOB);
 
@@ -101,7 +106,7 @@ class Image extends DataObject {
 
     /**
      * Get image from id
-     * @param $id
+     * @param $id image id
      * @return Image
      */
     public static function getImage( $id ) {
@@ -127,7 +132,7 @@ class Image extends DataObject {
 
     /**
      * Get image object from id
-     * @param $id
+     * @param $id the image id
      * @return Image
      */
     public static function getImageObject( $id ) {
@@ -146,7 +151,15 @@ class Image extends DataObject {
             $data = base64_decode($row['imageBin']);
 
             $im = imagecreatefromstring($data);
-            $image = imagejpeg($im);
+
+            if ($row['imageType'] == 'jpg')
+                $image = imagejpeg($im);
+            else if ($row['imageType'] == 'png')
+                $image = imagepng($im);
+            else if ($row['imageType'] == 'gif')
+                $image = imagegif($im);
+            else
+                $image = imagejpeg($im);
 
             parent::disconnect( $conn );
 
@@ -207,20 +220,23 @@ class Image extends DataObject {
 
     /**
      * Update the image content related to the image id
-     * @param $idImage
-     * @param $imageBin
+     * @param $idImage the image id
+     * @param $imageBin the image binary
+     * @param $imageType the image type
      */
-    public static function updateImage($idImage,$imageBin) {
+    public static function updateImage($idImage,$imageBin,$imageType) {
         $conn = parent::connect();
 
         $sql = "UPDATE " . TBL_IMAGES . " SET
-                imageBin = :imageBin
+                imageBin = :imageBin,
+                imageType = :imageType
             WHERE idImage = :idImage ";
 
         try {
             $st = $conn->prepare( $sql );
-            $st->bindValue( ":idImage", $idImage, PDO::PARAM_INT);
-            $st->bindValue( ":imageBin", $imageBin, PDO::PARAM_LOB);
+            $st->bindValue(":idImage", $idImage, PDO::PARAM_INT);
+            $st->bindValue(":imageType",$imageType, PDO::PARAM_STR);
+            $st->bindValue(":imageBin", $imageBin, PDO::PARAM_LOB);
 
             $st->execute();
 

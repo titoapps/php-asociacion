@@ -23,7 +23,8 @@ foreach ($members as $member) {
     $street = $streets [$index];
     $imageName = $image->getValue("imageName");
     $imageBin = $image->getValue("imageBin");
-    $path = Tools::pathForBinImage($imageName,$imageBin);
+    $imageType = $image->getValueDecoded("imageType");
+    $path = Tools::pathForBinImage($imageName,$imageBin,$imageType);
 
     $streetString = $street->getValueDecoded("streetName").' '.$address->getValueDecoded("number");
 

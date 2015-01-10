@@ -163,16 +163,20 @@ class Tools {
                 case $allowedMimeTypes[1]:
 
                     $img = imagecreatefromjpeg($imagePath);
+                    $fileExtension = $allowedFileTypes[1];
                     break;
 
                 case $allowedMimeTypes[2]:
 
                     $img = imagecreatefrompng($imagePath);
+                    $fileExtension = $allowedFileTypes[2];
+
                     break;
 
                 case $allowedMimeTypes[3]:
 
                     $img = imagecreatefromgif($imagePath);
+                    $fileExtension = $allowedFileTypes[3];
                     break;
 
             }
@@ -225,7 +229,7 @@ class Tools {
             // Borra archivos temporales si es que existen
             @unlink($newImagePath);
 
-            Image::insertGaleryImage($imagenBinaria,$imageInfo['name']);
+            Image::insertGaleryImage($imagenBinaria,$imageInfo['name'],$fileExtension);
 
             fclose($fp);
 
@@ -266,16 +270,19 @@ class Tools {
                 case $allowedMimeTypes[1]:
 
                     $img = imagecreatefromjpeg($imagePath);
+                    $fileExtension = $allowedFileTypes[1];
                     break;
 
                 case $allowedMimeTypes[2]:
 
                     $img = imagecreatefrompng($imagePath);
+                    $fileExtension = $allowedFileTypes[2];
                     break;
 
                 case $allowedMimeTypes[3]:
 
                     $img = imagecreatefromgif($imagePath);
+                    $fileExtension = $allowedFileTypes[3];
                     break;
 
             }
@@ -328,7 +335,7 @@ class Tools {
             // Borra archivos temporales si es que existen
             @unlink($newImagePath);
 
-            Image::updateImage($idImage,$imagenBinaria);
+            Image::updateImage($idImage,$imagenBinaria,$fileExtension);
 
             fclose($fp);
 
@@ -341,14 +348,15 @@ class Tools {
 
     /**
      * Loads an image binary,stores on a tmp folder and returns the path to show it.
-     * @param $imageBin
+     * @param $imageBin the image binary
+     * @param $type the image type
      * @return the image path
      */
-    static function pathForBinImage ($name,$imageBin) {
+    static function pathForBinImage ($name,$imageBin,$type) {
 
         $configuration = \Configuration\Configuration::sharedInstance();
 
-        $path = $configuration->getImagesFolder() . "/" . $name;
+        $path = $configuration->getImagesFolder() . "/" . $name .'.'.$type;
 
         file_put_contents($path, $imageBin);
 
@@ -358,14 +366,15 @@ class Tools {
 
     /**
      * Loads a galery image binary,stores on a tmp folder and returns the path to show it.
-     * @param $imageBin
+     * @param $imageBin the image binary
+     * @param $type the image type
      * @return the image path
      */
-    static function pathForGaleryBinImage ($name,$imageBin) {
+    static function pathForGaleryBinImage ($name,$imageBin,$type) {
 
         $configuration = \Configuration\Configuration::sharedInstance();
 
-        $path = $configuration->getGaleryImagesFolder() . "/" . $name;
+        $path = $configuration->getGaleryImagesFolder() . "/" . $name.'.'.$type;
 
         file_put_contents($path, $imageBin);
 

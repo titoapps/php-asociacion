@@ -12,7 +12,7 @@ require_once 'modules/galery/model.php';
 $fp=fopen('images/personaDefectoG.jpg','rb');
 $size = filesize('images/personaDefectoG.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(1,$imagenBinaria);
+Image::updateImage(1,$imagenBinaria,'jpg');
 fclose($fp);
 $size = null;
 $imagenBinaria = null;
@@ -20,7 +20,7 @@ $imagenBinaria = null;
 $fp=fopen('images/galery/callefloranes.jpg','rb');
 $size = filesize('images/galery/callefloranes.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(2,$imagenBinaria);
+Image::updateImage(2,$imagenBinaria,'jpg');
 fclose($fp);
 $size = null;
 $imagenBinaria = null;
@@ -28,7 +28,7 @@ $imagenBinaria = null;
 $fp=fopen('images/galery/escaparatefruteria.jpg','rb');
 $size = filesize('images/galery/escaparatefruteria.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(3,$imagenBinaria);
+Image::updateImage(3,$imagenBinaria,'jpg');
 fclose($fp);
 $size = null;
 $imagenBinaria = null;
@@ -37,48 +37,48 @@ $imagenBinaria = null;
 $fp=fopen('images/galery/escaparatemodels.jpg','rb');
 $size = filesize('images/galery/escaparatemodels.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(4,$imagenBinaria);
+Image::updateImage(4,$imagenBinaria,'jpg');
 fclose($fp);
 
 $fp=fopen('images/members/carnicerialogo.jpg','rb');
 $size = filesize('images/members/carnicerialogo.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(5,$imagenBinaria);
+Image::updateImage(5,$imagenBinaria,'jpg');
 fclose($fp);
 
 $fp=fopen('images/members/fruteriafloraneslogo.jpg','rb');
 $size = filesize('images/members/fruteriafloraneslogo.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(6,$imagenBinaria);
+Image::updateImage(6,$imagenBinaria,'jpg');
 fclose($fp);
 
 $fp=fopen('images/members/tascalogo.jpg','rb');
 $size = filesize('images/members/tascalogo.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(7,$imagenBinaria);
+Image::updateImage(7,$imagenBinaria,'jpg');
 fclose($fp);
 
 $fp=fopen('images/galery/floranes1.png','rb');
 $size = filesize('images/galery/floranes1.png');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(8,$imagenBinaria);
+Image::updateImage(8,$imagenBinaria,'png');
 fclose($fp);
 
 $fp=fopen('images/galery/floranes2.png','rb');
 $size = filesize('images/galery/floranes2.png');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(9,$imagenBinaria);
+Image::updateImage(9,$imagenBinaria,'png');
 fclose($fp);
 
 $fp=fopen('images/galery/floranes3.jpg','rb');
 $size = filesize('images/galery/floranes3.jpg');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(10,$imagenBinaria);
+Image::updateImage(10,$imagenBinaria,'jpg');
 fclose($fp);
 
 $fp=fopen('images/galery/floranes4.png','rb');
 $size = filesize('images/galery/floranes4.png');
 $imagenBinaria = fread($fp,$size);
-Image::updateImage(11,$imagenBinaria);
+Image::updateImage(11,$imagenBinaria,'png');
 fclose($fp);
 
