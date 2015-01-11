@@ -31,13 +31,10 @@ if ($userName == null) {
 
         echo'<a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
         <br/>
-
-        <p><label for="recordarme">Recordarme </label>
-        <input type="checkbox" value="recordarme" id="recordarme" checked="checked"/></p>
         </form>
 
         <form action="index.php?option=newuser" method="POST" ><!-- we set this here to avoid the text inputs validation-->
-        <input type="submit" name="newuser" value="Nuevo Usuario"/></fieldset>
+        <p><input type="submit" name="newuser" value="Nuevo Usuario"/></fieldset></p>
         </form>
         </div>';
 

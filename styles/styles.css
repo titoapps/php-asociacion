@@ -81,14 +81,7 @@ Header Styles
 #container #header h1#headertitle span#title_strong {
 	font-size: larger;
 }
-#container #header #buscador_header {
-	float: right;
-	padding-top: 0.5em;
-	padding-right: 0.5em;
-}
-#container #header #buscador_header input#boton_buscar {
-	vertical-align: middle;
-}
+
 #container #header #menu {
 	position: absolute;
 	bottom: 0;

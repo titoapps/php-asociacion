@@ -7,11 +7,6 @@
  */
 
 echo '<div id="header">
-    	<div id="buscador_header">
-        	Buscar
-            <input id="texto_busqueda" value=""/>
-            <input id="boton_buscar" type="image" name="buscar" src="images/lupa.png" title="Buscar"/>
-        </div>
         <h1 id="headertitle">Asociación de Comerciantes<br /><span id="title_strong">Alonso y Floranes</span></h1>
     	<div id="menu">
         	<ul id="menuItems">';

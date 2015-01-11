@@ -22,44 +22,6 @@ $(window).load(function() {
         $(this).addClass(imgClass);
     });
 });
-/*
-loadMainContentFromLink('main.php');
-//We link the web menu to the handler.
-
-    $(document).ready(function () {
-
-        var tab = $("li[rel=\'tab\']");
-
-        loadMainContentFromLink('main.php');
-
-        tab.click(function(e) {
-
-            if(this.id =='menu_inicio') {
-
-                loadMainContentFromLink('main.php');
-
-            } else if(this.id =='menu_noticias') {
-
-                loadMainContentFromLink('news.php');
-
-            } else if(this.id =='menu_asociacion') {
-
-            } else if(this.id =='menu_ofertas') {
-
-            } else if(this.id =='menu_agenda') {
-
-                loadMainContentFromLink('agenda.php');
-
-            } else if(this.id =='menu_asociate') {
-
-            } else if(this.id =='menu_contacto') {
-
-                loadMainContentFromLink('contact.php');
-            }
-        });
-
-    })
-/*
 
 
 /**

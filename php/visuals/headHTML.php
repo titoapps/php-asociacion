@@ -7,8 +7,7 @@
  */
 require_once('commonsHTML.php');
 
-echo '<!--!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"-->
+echo '
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,18 +16,17 @@ echo '<!--!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
     <!--	Libreria jQuery -->
     <script type="text/javascript" src="js/jquery-1.9.0.js"></script>
 
+    <!-- libreria lightbox -->
     <script src="js/lightbox/jquery-1.10.2.min.js"></script>
     <script src="js/lightbox/lightbox-2.6.min.js"></script>
     <link href="styles/lightbox/lightbox.css" rel="stylesheet" />
-	
 
-    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <!-- utilidades js-->
     <script type="text/javascript" src="js/mainMenuUtilities.js"></script>
     <script type="text/javascript" src="js/utilities.js"></script>
 
-    <link href="../css/estilo.css" rel="stylesheet" type="text/css" media="screen"/>
-
-	
+    <!--	Estilos principales -->
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
 
     <!--	Estilos para el carrousel  jCarousel -->
     <link rel="stylesheet" type="text/css" href="styles/jcarouselstyle.css" />

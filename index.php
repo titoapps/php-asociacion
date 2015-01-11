@@ -2,7 +2,7 @@
 
     set_include_path('.:/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/:/Applications/XAMPP/xamppfiles/lib/php/HTML/:/Applications/XAMPP/xamppfiles/lib/php/');
 
-    include 'framework.php';
+    include 'php/configuration/framework.php';
 
     include_once('php/visuals/headHTML.php');
 
