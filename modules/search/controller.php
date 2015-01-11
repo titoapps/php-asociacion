@@ -1,11 +1,5 @@
 <?php
 
-require_once 'Activities.class.php';
-require_once "members/model.php";
-
-$allActivities = Activities::getActivities();
-
-
 if(isset($_GET['search'])) {
 
     //Search already done NOT IMPLEMENTED A COMPLETE SEARCH YET
@@ -30,6 +24,9 @@ if(isset($_GET['search'])) {
 
     }
 
+    require_once "../members/model.php";
+    require_once "home/DataObject.class.php";
+
     $membersInfo = Member::searchMembers($name,$activity,$street);
 
     $totalRows = $membersInfo[5];
@@ -44,6 +41,9 @@ if(isset($_GET['search'])) {
 
 } else {
 
+    require_once 'Activities.class.php';
+    require_once "home/DataObject.class.php";
+    $allActivities = Activities::getActivities();
     $allStreets = Street::getStreets();
 
     include 'tmpl.php';

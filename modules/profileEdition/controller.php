@@ -38,8 +38,8 @@ if (isset($_SESSION ['userLoggedID'])
 
         //if user image is not set, we have to choose a default image
         if ($userImage == null) {
-            //TODO:Set a default profile image
-            $userImagePath = 'images/members/carnicerialogo.jpg';
+
+            $userImagePath = 'images/personaDefectoG.jpg';
 
         } else {
 

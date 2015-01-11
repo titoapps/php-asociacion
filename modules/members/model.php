@@ -86,7 +86,7 @@ class Member extends DataObject {
 
         $conn = parent::connect();
 
-        $sql = "SELECT idMember,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.imageBin,Addr.number,floor,door,Str.streetName
+        $sql = "SELECT idMember,NIF,Mem.name,description,Mem.idAddress,idActivity,phoneNumber,email,Im.imageName,Im.imageBin,Im.imageType,Addr.number,floor,door,Str.streetName
       FROM " . TBL_MEMBERS . " as Mem, ".TBL_IMAGES." as Im, ".TBL_ADDRESS. " as Addr, ".TBL_STREET." as Str
       WHERE Mem.idImage = Im.idImage and Addr.idAddress = Mem.idAddress and Addr.idStreet = Str.idStreet";
 

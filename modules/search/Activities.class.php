@@ -8,7 +8,7 @@
 
 require_once "home/DataObject.class.php";
 
-class Activities  extends DataObject {
+class Activities extends DataObject {
 
     protected $data = array(
 

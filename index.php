@@ -10,13 +10,11 @@
     echo '<div id="container">';
 
     //header
-    //TODO: need to insert the current displayed option
     include('modules/mainMenu/controller.php');
 
     echo ' <div id="content">';
 
     //Left menu
-    //TODO: need to implement options according to current user
     drawLeftMenu();
 
     //Cabecera central Buscador y Sugerencia de Visita

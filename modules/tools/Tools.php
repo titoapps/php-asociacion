@@ -77,17 +77,29 @@ function checkDNIExists ($dni) {
  */
 function checkValidDNI ($dni) {
 
-    $letra = substr($dni, -1);
-    $numeros = substr($dni, 0, -1);
-    if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
+//    $letra = substr($dni, -1);
+//    $numeros = substr($dni, 0, -1);
+//
+//    if ( substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
+//
+//        return true;
+//
+//    }else{
+//
+//        return false;
+//
+//    }
 
-        return true;
-
-    }else{
-
+    if (strlen($dni) != 9 ||
+        preg_match('/^[XYZ]?([0-9]{7,8})([A-Z])$/i', $dni, $matches) !== 1) {
         return false;
-
     }
+
+    $map = 'TRWAGMYFPDXBNJZSQVHLCKE';
+
+    list(, $number, $letter) = $matches;
+
+    return strtoupper($letter) === $map[((int) $number) % 23];
 
 }
 
@@ -110,7 +122,7 @@ class Tools {
 
         if($message!=null)
 
-            echo'<p>'.$message.'</p>';
+            echo'<p>'.$message.'</p><a href="javascript:history.back(1)" >Volver</a>';
 
         echo'</div>';
 
