@@ -24,8 +24,10 @@ if(isset($_GET['search'])) {
 
     }
 
+    set_include_path('.:/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/');
+
     require_once "../members/model.php";
-    require_once "home/DataObject.class.php";
+    require_once "../home/DataObject.class.php";
 
     $membersInfo = Member::searchMembers($name,$activity,$street);
 

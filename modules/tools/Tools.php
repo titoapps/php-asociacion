@@ -6,8 +6,6 @@
  * Time: 18:23
  */
 
-require_once 'modules/user/model.php';
-
 /**
  * Checks if the user nick name already exists
  *
@@ -15,6 +13,8 @@ require_once 'modules/user/model.php';
  * @return bool returns if the user nickName already exists
  */
 function checkNick ($nickName) {
+
+    require_once 'modules/user/model.php';
 
     $user = User::getByNickName($nickName);
 
@@ -36,6 +36,8 @@ function checkNick ($nickName) {
  */
 function checkEmail ($email) {
 
+    require_once 'modules/user/model.php';
+
     $user = User::getByEmailAddress($email);
 
     if ($user == null)
@@ -54,6 +56,8 @@ function checkEmail ($email) {
  * @return bool returns if the user $dni is already registered
  */
 function checkDNIExists ($dni) {
+
+    require_once 'modules/user/model.php';
 
     $user = User::getByDNI($dni);
 

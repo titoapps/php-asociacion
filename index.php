@@ -1,6 +1,6 @@
 <?php
 
-    set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/.:/Applications/XAMPP/xamppfiles/lib/php/HTML/.:/Applications/XAMPP/xamppfiles/lib/php/');
+    set_include_path('.:/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/:/Applications/XAMPP/xamppfiles/lib/php/HTML/:/Applications/XAMPP/xamppfiles/lib/php/');
 
     include 'framework.php';
 
