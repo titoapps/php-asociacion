@@ -126,7 +126,7 @@ class Tools {
 
         if($message!=null)
 
-            echo'<p>'.$message.'</p><a href="javascript:history.back(1)" >Volver</a>';
+            echo'<p>'.$message.'</p>'; //<a href="javascript:history.back(1)" >Volver</a>
 
         echo'</div>';
 

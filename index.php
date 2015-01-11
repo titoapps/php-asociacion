@@ -3,7 +3,6 @@
     set_include_path('.:/Applications/XAMPP/xamppfiles/htdocs/asociacion/modules/:/Applications/XAMPP/xamppfiles/lib/php/HTML/:/Applications/XAMPP/xamppfiles/lib/php/');
 
     include 'php/configuration/framework.php';
-
     include_once('php/visuals/headHTML.php');
 
     echo ' <body> ';
@@ -26,7 +25,8 @@
 
     //Colaboradores: Ayuntamiento, diputación
     include_once('php/visuals/partners.php');
-    //<!-- Footer -->
+
+    //Footer
     include_once('php/visuals/footer.php');
 
 	echo '</div><!--Content div-->
