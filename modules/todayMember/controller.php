@@ -29,6 +29,7 @@ if ($memberInfo) {
 
     $imageBin = $image->getValue("imageBin");
     $imageType = $image->getValueDecoded("imageType");
+
     $path = Tools::pathForBinImage($image->getValueDecoded("imageName"),$imageBin,$imageType);
 
     include 'tmpl.php';

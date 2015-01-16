@@ -28,17 +28,22 @@ class Configuration {
     /**
      * @var int maximum image width
      */
-    private $maxImageWidth = 500;
+    private $maxImageWidth;
 
     /**
      * @var int maximum image height
      */
-    private $maxImageHeight = 200;
+    private $maxImageHeight;
 
     /**
      * @var string Images temporal folder
      */
-    private $imagesfolder;
+    private $imagesFolder;
+
+    /**
+     * @var string Galery images temporal folder
+     */
+    private $galeryImagesFolder;
 
     /**
      * @var array Allowed file types
@@ -50,29 +55,12 @@ class Configuration {
      */
     private $allowedMimeTypes;
 
-//    //La anchura m�xima de las miniaturas generadas.
-//    private $maxwidththumb = 60;
-//
-//    //La altura m�xima de las miniaturas generadas.
-//    private $maxheightthumb = 60;
-
-    //Ubicaci�n para almacenar las im�genes.
-
-
-//        //Ubicaci�n para almacenar las miniaturas.
-//    private $thumbsfolder = "images/thumbs";
-
-
-
-//        //N�mero de im�genes por fila de navegaci�n.
-//    private $maxperrow = 7;
-
     /**
-     * Class Constructor
+     * Class Constructor, intializes the class properties
      */
     public function __construct() {
 
-        //TODO:Separate into enumerate or something. define doesnt work
+        //TODO:Separate into enumerate or something. define doesn't work
         $this->menuOptions = array(0 => 'inicio',
                                    1 => 'noticias',
                                    2 => 'asociacion',
@@ -94,12 +82,13 @@ class Configuration {
                                    9 => 'profile',
                                    10 => 'profileEdition');
 
-//        $this->$imagesfolder = "images/tmp";
-//        $this->$allowedMimeTypes = array ("image/jpeg","image/jpg","image/png","image/gif");
-//        $this->$allowedFileTypes = array ("jpg","jpeg","gif","png");
+        $this->maxImageWidth = 500;
+        $this->maxImageHeight = 200;
 
-        //set_include_path('/Applications/XAMPP/xamppfiles/htdocs/asociacionComerciantes/php-asociacion/modules/');
-
+        $this->imagesFolder = "images/tmp";
+        $this->galeryImagesFolder = "images/tmp/galery";
+        $this->allowedMimeTypes = array ("image/jpeg","image/jpg","image/png","image/gif");
+        $this->allowedFileTypes = array ("jpg","jpeg","gif","png");
 
     }
 
@@ -148,8 +137,7 @@ class Configuration {
      */
     public function getImageMaxWidth() {
 
-//        return $this->$maxImageWidth;
-return 500;
+        return $this->maxImageWidth;
     }
 
     /**
@@ -158,8 +146,7 @@ return 500;
      */
     public function getImageMaxHeight() {
 
-//        return $this->$maxImageHeight;
-        return 200;
+        return $this->maxImageHeight;
 
     }
 
@@ -169,9 +156,8 @@ return 500;
      */
     public function getImagesFolder() {
 
-//        return $this-> $imagesfolder;
+        return $this->imagesFolder;
 
-        return "images/tmp";
     }
 
     /**
@@ -180,9 +166,7 @@ return 500;
      */
     public function getGaleryImagesFolder() {
 
-//        return $this-> $imagesfolder;
-
-        return "images/tmp/galery";
+        return $this->galeryImagesFolder;
 
     }
 
@@ -193,8 +177,8 @@ return 500;
      */
     public function getAllowedFileTypes () {
 
-//        return $this->$allowedFileTypes;
-return array ("jpg","jpeg","png","gif");
+        return $this->$allowedFileTypes;
+
     }
 
     /**
@@ -204,9 +188,8 @@ return array ("jpg","jpeg","png","gif");
      */
     public function getAllowedMimeTypes () {
 
-//        return $this->$allowedMimeTypes;
+        return $this->$allowedMimeTypes;
 
-        return array ("image/jpeg","image/jpg","image/png","image/gif");
     }
 
 
