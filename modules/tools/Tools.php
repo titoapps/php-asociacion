@@ -109,24 +109,64 @@ function checkValidDNI ($dni) {
 
 class Tools {
 
+    /**
+     * Shows the back button linked to an url
+     * @param int $link The link
+     */
+    static function showBackButtonToLink ($link) {
 
+        if ($link == null) {
+
+            echo '<div class="backLink">
+                    <a href="javascript:history.back(1)" ><img src="images/volver.png" alt="imagen volver" name="volver"></a>
+                </div>';
+
+        } else  {
+
+            echo '<div class="backLink">
+                    <a href='.$link.' ><img src="images/volver.png" alt="imagen volver" name="volver"></a>
+                </div>';
+        }
+
+    }
+
+    /**
+     * Shows the back button
+     * @param int $back The back link counter. Default 1.
+     */
+    static function showBackButton ($back = 1) {
+
+        if ($back >= 1) {
+
+            echo '<div class="backLink">
+                    <a href="javascript:history.back(' . $back . ')" ><img src="images/volver.png" alt="imagen volver" name="volver"></a>
+                </div>';
+
+        }
+
+    }
 
     /**
      * Shows a section title and message on the web main content.
-     * @param $title The title text
-     * @param $message The message text
+     * @param string $title title text
+     * @param string $message message text
+     * @param int $back The back link counter. Default 0.
      */
-    static function showMainContentResultMessage($title,$message) {
+    static function showMainContentResultMessage($title,$message,$back = 0) {
 
         echo '<div id="main_content">';
 
-        if($title!=null)
+        if($title != null)
 
             echo '<h2>'.$title.'</h2>';
 
-        if($message!=null)
+        if($message != null)
 
-            echo'<p>'.$message.'</p>'; //<a href="javascript:history.back(1)" >Volver</a>
+            echo'<p>'.$message.'</p>';
+
+        if ($back > 0)
+
+            Tools::showBackButton($back);
 
         echo'</div>';
 

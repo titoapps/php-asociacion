@@ -9,8 +9,7 @@
 require_once "librerias/Utils.php";
 
 echo '<div id="main_content">
-            <h2>Empleo</h2>';
-
+            <h2>';Tools::showBackButton(1);echo 'Empleo</h2>';
 
 $date = $jobOfferItem[0]->getValueDecoded('date');
 $dateFormatted = Utils::formatDateString($date);

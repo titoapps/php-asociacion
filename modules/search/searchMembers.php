@@ -7,11 +7,16 @@
  */
 
 echo '<div id="main_content"><div id="members">
-                <h2>Hemos encontrado..</h2>';
+                <h2>
+                    <div class="backLink">
+                        <a href="index.php"><img src="images/volver.png" alt="imagen volver" name="volver"></a>
+                    </div>Hemos encontrado..
+                </h2>';
 
 if ($totalRows > 0 ) {
 
     set_include_path('.:/Applications/XAMPP/xamppfiles/htdocs/asociacion/php/');
+    
     require_once 'configuration/Configuration.php';
 
     $index = 0;

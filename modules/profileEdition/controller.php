@@ -10,7 +10,7 @@ require_once 'modules/tools/Tools.php';
 require_once "user/model.php";
 
 echo '<div id="main_content">
-          <h2>Mi Perfil</h2>';
+         <h2>';Tools::showBackButton(1);echo 'Mi Perfil</h2>';
 
 if (isset($_SESSION ['userLoggedID'])
     && isset($_POST['idUser'])

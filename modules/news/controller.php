@@ -8,9 +8,9 @@ if(isset($_GET['option'])) {
 
     echo '<div id="main_content">';
 
-    echo '<h2>Noticias</h2> ';
-
     if (isset($_GET['idNew'])) {
+
+        echo '<h2>';Tools::showBackButton(1);echo'Noticias</h2> ';
 
         require_once "newComment.php";
 
@@ -103,6 +103,8 @@ if(isset($_GET['option'])) {
 
     } else if (isset($_POST['anadir'])) {
 
+        echo '<h2>';Tools::showBackButton(1);echo'Noticias</h2> ';
+
         //End editing a new, we update the database
         $startDateString = utf8_decode($_POST['startDate']);
         $endDateString = utf8_decode($_POST['endDate']);
@@ -131,6 +133,8 @@ if(isset($_GET['option'])) {
 
     } else {
 
+        echo '<h2>Noticias</h2> ';
+
         //Show all news
         $newsToShow = News::getCurrentNews(-1);
         echo '<script type="text/javascript" src="js/newsUtilities.js"></script>';
@@ -141,6 +145,7 @@ if(isset($_GET['option'])) {
             echo'<p><a href="#" class="ampliar_info" id="addNewLink" onclick="addNew()">Añadir Noticia</a></p>';
 
         }
+
         echo'<div id="newsContainer">';
 
         if ($newsToShow != null) {

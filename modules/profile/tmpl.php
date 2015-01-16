@@ -11,7 +11,7 @@ require_once 'modules/tools/Tools.php';
 echo'<script type="text/javascript" src="js/ProfileUtilities.js"></script>
 
     <div id="main_content">
-      <h2>Mi Perfil</h2>
+      <h2>';Tools::showBackButton(1);echo 'Mi Perfil</h2>
         <div id="profile">
         <img class="roundImage" src='.$userImagePath.'> </img>
         <b> Nick :</b><span id="nickName" title = "'. $nickName .'"> '. $nickName .'</span><br>

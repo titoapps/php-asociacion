@@ -11,9 +11,11 @@ require_once "librerias/Utils.php";
 
 if(isset($_GET['option'])) {
 
-    echo '<div id="main_content"><h2>Agenda</h2> ';
+    echo '<div id="main_content">';
 
     if (isset($_GET['idAgenda'])) {
+
+        echo '<h2>';Tools::showBackButton(1);echo 'Agenda</h2> ';
 
         $idAgenda = $_GET['idAgenda'];
         $agendaItem = Agenda::getAgendaFromId($idAgenda);
@@ -28,6 +30,8 @@ if(isset($_GET['option'])) {
         include_once 'tmpl.php';
 
     } else {
+
+        echo '<h2>Agenda</h2> ';
 
         $agendaItems = Agenda::getAgendaItems();
 

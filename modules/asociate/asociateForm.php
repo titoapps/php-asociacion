@@ -15,19 +15,19 @@ if (isset($_POST['send'])) {
     $body = $_POST['text'];
 
     echo '<div class="center_container" >
-      <h2>Adhesion a la asociación</h2>
+      <h2>';Tools::showBackButton(1);echo 'Adhesion a la asociación</h2>
 
       </div>
      ';
 
-    //if (mail($to, $subject, $body,$headers)) {
+    if (mail($to, $subject, $body,$headers)) {
 
         echo("<p>Ya hemos recibido tu mensaje! Gracias, le atenderemos lo antes posible.</p>");
 
-/*    } else {
+    } else {
 
         echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos/p>");
 
-    }*/
+    }
 
 }

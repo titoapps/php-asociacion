@@ -9,7 +9,7 @@
 if (isset($_POST['send'])) {
 
     echo '<div class="center_container" >
-        <h2>Contacto</h2>
+        <h2>';Tools::showBackButton(1);echo 'Contacto</h2>
 
         </div>';
 

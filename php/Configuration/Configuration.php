@@ -177,7 +177,7 @@ class Configuration {
      */
     public function getAllowedFileTypes () {
 
-        return $this->$allowedFileTypes;
+        return $this->allowedFileTypes;
 
     }
 
@@ -188,7 +188,7 @@ class Configuration {
      */
     public function getAllowedMimeTypes () {
 
-        return $this->$allowedMimeTypes;
+        return $this->allowedMimeTypes;
 
     }
 
