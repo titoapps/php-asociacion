@@ -9,9 +9,9 @@
 echo ' <div id="visita_comercio">
             <h2>Visita el comercio de..</h2>
                 <!-- Info sobre un comercio, con imagen, logo.. -->
-                <a href="#"><img src="'.$path.'" alt="'.$image->getValueDecoded("imageName").'" /></a>
+                <a href="index.php?option=members"><img src="'.$path.'" alt="'.$image->getValueDecoded("imageName").'" /></a>
 
-                <a href="#" id>'.$member->getValueDecoded("name").'</a> <br/>
+                <a href="index.php?option=members" id>'.$member->getValueDecoded("name").'</a> <br/>
 
                 <span id="descripcion_comercio">'.$member->getValueDecoded("description").'</span>
                 <br /> <br />

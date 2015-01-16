@@ -12,6 +12,7 @@ if (isset($_POST['send'])) {
     $to = "alberto.perez.perez@hotmail.com";
     $headers = "From: ".$_POST['email'];
     $headers = "From: alberto.perez.perez.g@gmail.com";
+    $subject = "Asociacion de Comerciantes de Alonso y Floranes";
     $body = $_POST['text'];
 
     echo '<div class="center_container" >
@@ -26,7 +27,7 @@ if (isset($_POST['send'])) {
 
     } else {
 
-        echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos/p>");
+        echo("<p>Vaya..! Algo ha fallado, inténtelo de nuevo en unos minutos</p>");
 
     }
 
