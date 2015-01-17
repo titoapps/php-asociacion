@@ -8,15 +8,13 @@
 
 if (isset($_POST['send'])) {
 
-    //TODO:que hacer aqui?
     $to = "alberto.perez.perez@hotmail.com";
     $headers = "From: ".$_POST['email'];
-    $headers = "From: alberto.perez.perez.g@gmail.com";
     $subject = "Asociacion de Comerciantes de Alonso y Floranes";
     $body = $_POST['text'];
 
     echo '<div class="center_container" >
-      <h2>';Tools::showBackButton(1);echo 'Adhesion a la asociación</h2>
+      <h2>';Tools::showBackButton(2);echo 'Adhesion a la asociación</h2>
 
       </div>
      ';
