@@ -20,6 +20,12 @@ echo '<div id="main_content">
      ¿A que esperas? ¡Date de alta ya!
     </p>';
 
+if (isset($message)) {
+
+    echo '<p>'.$message.'</p>';
+
+}
+
 $form = new HTML_QuickForm( "convertForm", "post", "index.php?option=newuser", "", null, true);
 $form->removeAttribute( "name" );
 $form->setRequiredNote ("* Los campos marcados con asterisco son obligatorios");

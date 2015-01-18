@@ -2,11 +2,7 @@
 
 require_once 'modules/user/model.php';
 
-if (!isset($_POST['addUser'])){
-
-    include 'tmpl.php';
-
-}else{
+if (isset($_POST['addUser'])) {
 
     $DNI = $_POST['dni'];
     $age = $_POST['age'];
@@ -32,7 +28,7 @@ if (!isset($_POST['addUser'])){
     $joinDate = date("Y-m-d");
     $gender = $_POST['gender'];
 
-    $data = array (
+    $data = array(
         'NIF' => $DNI,
         'age' => $age,
         'password' => $password,
@@ -64,6 +60,10 @@ if (!isset($_POST['addUser'])){
         Tools::showGenericErrorMessage();
 
     }
+
+} else {
+
+    include 'tmpl.php';
 
 }
 

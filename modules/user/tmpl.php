@@ -29,7 +29,7 @@ if ($userName == null) {
 
         }
 
-        echo'<a href="#" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
+        echo'<a href="index.php?option=forgotPassword" class="ampliar_info" title="Olvido de clave">¿Contraseña olvidada?</a>
         <br/>
         </form>
 

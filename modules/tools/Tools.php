@@ -6,6 +6,21 @@
  * Time: 18:23
  */
 
+
+/**
+ * Checks if the user nick name is already registered
+ *
+ * @param $nickName the user nickName
+ * @return bool returns if the user nick name is already registered exists
+ */
+function checkNickIsRegistered ($nickName) {
+
+    $exists = Tools::checkNick($nickName);
+
+    return !$exists;
+
+}
+
 /**
  * Checks if the user nick name already exists
  *
@@ -25,6 +40,20 @@ function checkNick ($nickName) {
     else
 
         return false;
+
+}
+
+/**
+ * Checks if the user email is already registered
+ *
+ * @param $email the user email
+ * @return bool returns if the user email is already registered
+ */
+function checkEmailIsRegistered ($email) {
+
+    $exists = Tools::checkEmail($email);
+
+    return !$exists;
 
 }
 
