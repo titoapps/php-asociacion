@@ -2,37 +2,35 @@
 
 require_once 'modules/user/model.php';
 
-include 'tmpl.php';
+if (!isset($_POST['addUser'])){
 
-/**
- * Process the user registration form
- * @param $values
- */
-function processForm( $values ) {
+    include 'tmpl.php';
 
-    $DNI = $values['dni'];
-    $age = $values['age'];
+}else{
+
+    $DNI = $_POST['dni'];
+    $age = $_POST['age'];
 
     if ($age == "-")
         $age = -1;
 
-    $password = $values['password'];
-    $name = $values['name'];
-    $nickName = $values['nickName'];
-    $surname = $values['surname'];
-    //$idImage = $values['nif'];
-    $street = $values['streetInputName'];
-    $CP = $values['CP'];
+    $password = $_POST['password'];
+    $name = $_POST['name'];
+    $nickName = $_POST['nickName'];
+    $surname = $_POST['surname'];
+    //$idImage = $_POST['nif'];
+    $street = $_POST['streetInputName'];
+    $CP = $_POST['CP'];
 
-    $streetNumber = $values['streetNumber'];
-    $floor = $values['floor'];
-    $door = $values['door'];
+    $streetNumber = $_POST['streetNumber'];
+    $floor = $_POST['floor'];
+    $door = $_POST['door'];
 
-    $phoneNumber = $values['phone'];
-    $email = $values['email'];
+    $phoneNumber = $_POST['phone'];
+    $email = $_POST['email'];
     $idUserType = 2;
     $joinDate = date("Y-m-d");
-    $gender = $values['gender'];
+    $gender = $_POST['gender'];
 
     $data = array (
         'NIF' => $DNI,
@@ -59,8 +57,7 @@ function processForm( $values ) {
 
     if ($result == null) {
 
-        Tools::showMainContentResultMessage('Alta nuevo usuario', 'Ya hemos recibido tu solicitud, en unos minutos recibirás un email de confirmación y una clave
-                   para acceder a la web. ¡Gracias por unirte!');
+        Tools::showMainContentResultMessage('Alta nuevo usuario', 'Ya hemos recibido tu solicitud, ya puedes acceder con tu usuario y contraseña. ¡Gracias por unirte!');
 
     } else {
 

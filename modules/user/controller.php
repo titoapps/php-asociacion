@@ -8,8 +8,6 @@
 
 require_once 'model.php';
 
-//TODO: store 'remember me' on cookies??
-
 $userName = null;
 
 $loginError = false;
@@ -44,12 +42,11 @@ if (isset($_POST["logout"])) {
     $user = User::authenticate($userNick,$password);
 
     if ($user == null) {
-        //TODO: redirigir a index, error usuario a $session
+
         $loginError = true;
 
     } else {
 
-        //TODO: redirigir a index, añadir usuario a $session
         $userName = $user->getValueDecoded('nickName');
         $_SESSION ['userLoggedNick'] = $userName;
         $_SESSION ['userLoggedUserType'] = $user->getValueDecoded('idUserType');

@@ -109,7 +109,7 @@ $form->addElement( "submit", "addUser", "Dar de alta" );
 
 if ( $form->isSubmitted() and $form->validate() ) {
 
-    $form->process("processForm");
+    $form->process();
 
 } else {
 
