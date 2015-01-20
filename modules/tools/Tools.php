@@ -185,17 +185,24 @@ class Tools {
 
         echo '<div id="main_content">';
 
-        if($title != null)
+        if($title != null) {
 
-            echo '<h2>'.$title.'</h2>';
+            if ($back > 0) {
+
+                echo '<h2>';
+                Tools::showBackButton($back);
+                echo $title . '</h2>';
+
+            } else
+                echo '<h2>'.$title.'</h2>';
+        }
+
 
         if($message != null)
 
             echo'<p>'.$message.'</p>';
 
-        if ($back > 0)
 
-            Tools::showBackButton($back);
 
         echo'</div>';
 
@@ -464,6 +471,21 @@ class Tools {
         file_put_contents($path, $imageBin);
 
         return $path;
+
+    }
+
+
+    static function generateRandomString($length = 10) {
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
 
     }
 

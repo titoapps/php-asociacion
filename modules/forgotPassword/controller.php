@@ -10,21 +10,24 @@ require_once 'modules/user/model.php';
 
 if (isset($_POST['forgetPass'])){
 
-    if(isset($_POST['nickName'])) {
+    if(isset($_POST['nickName']) && ($_POST['nickName'] != null)) {
 
         $nickName = $_POST['nickName'];
         $user = User::getByNickName($nickName);
 
         if ($user == null) {
-            //error nick no encontrado
+
             $message = "El nick indicado no está registrado";
+
+            Tools::showMainContentResultMessage("¿Olvidó su contraseña?",$message,1);
 
         } else {
 
+            sendPasswordEmail($user);
 
         }
 
-    } else if(isset($_POST['email'])) {
+    } else if(isset($_POST['email']) && ($_POST['email'] != null)) {
 
         $email = $_POST['email'];
         $user = User::getByEmailAddress($email);
@@ -32,24 +35,22 @@ if (isset($_POST['forgetPass'])){
         if ($user == null) {
 
             $message = "El email indicado no está registrado";
-            //error, email no registrado
-            include 'tmpl.php';
+
+            Tools::showMainContentResultMessage("¿Olvidó su contraseña?",$message,1);
 
         } else {
 
+            sendPasswordEmail($user);
 
         }
 
     } else {
-
-        //Rellenar uno u otro
+        
         $message = "Rellene el nick o la email con el que se registró para recuperar su contraseña";
 
-        include 'tmpl.php';
+        Tools::showMainContentResultMessage("¿Olvidó su contraseña?",$message,1);
 
     }
-
-
 
 } else {
 
@@ -65,14 +66,13 @@ function sendPasswordEmail ($user) {
     $to = $user->getValueDecoded('email');
     $headers = "From: alberto.perez.perez.g@gmail.com";
     $subject = "Asociacion de Comerciantes de Alonso y Floranes";
-    //TODO:GENERATE RANDOM PASSWORD
+
+    $newPassword = Tools::generateRandomString();
     $body = "Tu nueva contraseña es ".$newPassword."";
 
     echo '<div class="center_container" >
-      <h2>';Tools::showBackButton(2);echo 'Adhesion a la asociación</h2>
-
-      </div>
-     ';
+            <h2>';Tools::showBackButton(2);echo '¿Olvidó su contraseña?</h2>
+          </div>';
 
     if (mail($to, $subject, $body,$headers)) {
 
