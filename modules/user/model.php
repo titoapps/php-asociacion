@@ -56,6 +56,11 @@ class User extends DataObject {
         }
     }
 
+    /**
+     * Get the user by its id
+     * @param $id the user id
+     * @return User the User if exists, null otherwise
+     */
     public static function getMember( $id ) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_USERS . " WHERE idUser = :idUser";
@@ -171,7 +176,12 @@ class User extends DataObject {
         return ( $this->data["gender"] == "F" ) ? "Female" : "Male";
     }
 
+    /**
+     * Inserts the new user into the DB
+     * @return null|string
+     */
     public function insert() {
+
         $conn = parent::connect();
 
         $result = null;
@@ -254,6 +264,10 @@ class User extends DataObject {
 
     }
 
+    /**
+     * Updates the user profile with the information provided
+     * @param $userProfile the user profile information
+     */
     public static function updateUserProfile($userProfile) {
         $conn = parent::connect();
         $error = null;
@@ -288,6 +302,36 @@ class User extends DataObject {
 
         } catch ( PDOException $e ) {
 
+            parent::disconnect( $conn );
+            die( "Query failed: " . $e->getMessage() );
+
+        }
+    }
+
+    /**
+     * Updates the user password with the information provided
+     * @param $userId the user id
+     * @param $newpassword the user new password
+     */
+    public static function updateUserPassword($userId,$newpassword) {
+
+        $conn = parent::connect();
+        $error = null;
+
+        $sql = "UPDATE " . TBL_USERS . " SET
+                password = password(:password)
+            WHERE idUser = :idUser";
+        try {
+            $st = $conn->prepare( $sql );
+
+            $st->bindValue(":password", $newpassword, PDO::PARAM_STR );
+            $st->bindValue(":idUser", $userId, PDO::PARAM_STR );
+            $st->execute();
+
+            parent::disconnect( $conn );
+
+        } catch ( PDOException $e ) {
+
             $result = $e->getMessage();
             parent::disconnect( $conn );
             die( "Query failed: " . $e->getMessage() );
@@ -295,21 +339,12 @@ class User extends DataObject {
         }
     }
 
-    public function delete() {
-        $conn = parent::connect();
-        $sql = "DELETE FROM " . TBL_USERS . " WHERE id = :id";
-
-        try {
-            $st = $conn->prepare( $sql );
-            $st->bindValue( ":idUser", $this->data["idUser"], PDO::PARAM_INT );
-            $st->execute();
-            parent::disconnect( $conn );
-        } catch ( PDOException $e ) {
-            parent::disconnect( $conn );
-            die( "Query failed: " . $e->getMessage() );
-        }
-    }
-
+    /**
+     * Authenticates the user with the information provided
+     * @param $nickname the user nick name
+     * @param $password the user password
+     * @return User The user object if it exists, null otherwise
+     */
     public static function authenticate($nickname,$password) {
         $conn = parent::connect();
         $sql = "SELECT * FROM " . TBL_USERS . " WHERE nickName = :nickName AND password = password(:password)";
@@ -332,6 +367,12 @@ class User extends DataObject {
         }
     }
 
+    /**
+     * Determines if the information provided is related to any user
+     * @param $nickname the user nick name
+     * @param $email the user email
+     * @return User The user if exists, null otherwise
+     */
     public static function userExists($nickname,$email) {
         $conn = parent::connect();
 

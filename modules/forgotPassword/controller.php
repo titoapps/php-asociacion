@@ -45,7 +45,7 @@ if (isset($_POST['forgetPass'])){
         }
 
     } else {
-        
+
         $message = "Rellene el nick o la email con el que se registró para recuperar su contraseña";
 
         Tools::showMainContentResultMessage("¿Olvidó su contraseña?",$message,1);
@@ -76,7 +76,8 @@ function sendPasswordEmail ($user) {
 
     if (mail($to, $subject, $body,$headers)) {
 
-        echo("<p>Ya hemos recibido tu mensaje! Gracias, le atenderemos lo antes posible.</p>");
+        echo("<p>Le hemos enviado la nueva clave a su email. Puede utilizarla ya para acceder a la web.</p>");
+        User::updateUserPassword($user->getValueDecoded('idUser'),$newPassword);
 
     } else {
 
